@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% comment %} Example template {% endcomment %}
+
+{% block title %}Index{% endblock %}
+
+{% block head %}
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/index.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<h1>Example page</h1>
+<p>Example page</p>
+
+{% endblock %}
