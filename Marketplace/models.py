@@ -30,6 +30,8 @@ class Product(models.Model):
     category = models.CharField(choices=CATEGORY_CHOICES, max_length=10)
     description = models.TextField()
     image = models.URLField()
+    department = models.CharField(max_length=80)
+    producer = models.CharField(max_length=80)
     
 class OrderProduct(models.Model):
     ordered = models.BooleanField(default=False)
