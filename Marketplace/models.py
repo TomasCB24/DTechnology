@@ -1,5 +1,6 @@
 from django.db import models
 from django_countries.fields import CountryField
+from phonenumber_field.modelfields import PhoneNumberField
 
 # Create your models here.
 
@@ -14,8 +15,45 @@ CATEGORY_CHOICES = (
     ('SC','Sound Card'),
     ('CC', 'Computer Cases'),
     ('V', 'Ventilation'),
-    ('PS', 'Power Supply')
+    ('PS', 'Power Supply'),
+    ('MS', 'Mouses'),
+    ('KB', 'Keyboards'),
+    ('SP','Speakers'),
+    ('HP','Headphones'),
+    ('GC','Gaming Chairs'),
+    ('WC','Webcam'),
+    ('PT','Printers'),
+    ('GS','Games'),
+    ('CS','Consoles'),
+    ('CA','Console Accessories'),
+    ('CT','Controls')
     
+)
+
+DEPARTMENT_CHOICES = (
+    ('CM', 'Components'),
+    ('PP','Peripherals'),
+    ('VG','Consoles and Videogames')
+)
+
+PRODUCER_CHOICES = (
+    ('AS','Asus'),
+    ('LV','Lenovo'),
+    ('HP','HP'),
+    ('SY','Sony'),
+    ('XB','Xbox'),
+    ('NT','Nintendo'),
+    ('NS','New Skill'),
+    ('MSI','MSI'),
+    ('PH','Philips'),
+    ('GB','Gigabyte'),
+    ('EV','Evga'),
+    ('NV','Nvidia'),
+    ('UB','Ubisoft'),
+    ('SM','Santa Monica'),
+    ('IT','Intel'),
+    ('AMD','AMD'),
+    ('ZT','Zotac')
 )
 
 ADDRESS_CHOICES = (
@@ -27,11 +65,11 @@ class Product(models.Model):
     title = models.CharField(max_length=100)
     price = models.FloatField()
     discount_price = models.FloatField(blank=True, null=True)
-    category = models.CharField(choices=CATEGORY_CHOICES, max_length=10)
+    section = models.CharField(choices=CATEGORY_CHOICES, max_length=10)
     description = models.TextField()
     image = models.URLField()
-    department = models.CharField(max_length=80)
-    producer = models.CharField(max_length=80)
+    department = models.CharField(choices=DEPARTMENT_CHOICES, max_length=10)
+    producer = models.CharField(choices=PRODUCER_CHOICES, max_length=10)
     
 class OrderProduct(models.Model):
     ordered = models.BooleanField(default=False)
@@ -74,11 +112,18 @@ class Order(models.Model):
         total = 0
         for order_product in self.products.all():
             total += order_product.get_final_price()
-        if self.coupon:
-            total -= self.coupon.amount
         return total
-
+        
+class Payment(models.Model):
+    stripe_charge_id = models.CharField(max_length=50)
+    amount = models.FloatField()
+    timestamp = models.DateTimeField(auto_now_add=True)   
+    
 class Address(models.Model):
+    name = models.CharField(max_length=100)
+    surname = models.CharField(max_length=100)
+    email = models.EmailField(primary_key=True)
+    phone = PhoneNumberField(unique = True, null = True, blank = False)
     street_address = models.CharField(max_length=100)
     apartment_address = models.CharField(max_length=100)
     country = CountryField(multiple=False)
@@ -88,9 +133,4 @@ class Address(models.Model):
 
     class Meta:
         verbose_name_plural = 'Addresses'
-        
-class Payment(models.Model):
-    stripe_charge_id = models.CharField(max_length=50)
-    amount = models.FloatField()
-    timestamp = models.DateTimeField(auto_now_add=True)
 
