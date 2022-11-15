@@ -18,20 +18,14 @@
 
 /* GENERAL RULES */
 
-:is(h1,h2,h3,h4,h5,h6) {
-    font-family: var(--ff-primary);
-    font-weight: 400;
-    color: var(--clr-black);
-}
 
-:is(p) {
-    font-family: var(--ff-secondary);
-    font-weight: 400;
-    color: var(--clr-black);
-}
 
 body {
   background-color: var(--clr-white);
+}
+
+.text-strike{
+    text-decoration: line-through;
 }
 
 /* MODERN HTML5 RESET https://piccalil.li/blog/a-modern-css-reset/ */

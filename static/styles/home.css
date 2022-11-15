@@ -1,20 +1,31 @@
 *{
     font-family: Arial;
 }
+.titulo {
+  font-size: 2rem;
+  font-weight: bold;
+  font-family: inherit;
+  margin-left: 4rem;
+  margin-top: 4rem;
+}
 .card-title{
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     font-weight: 700;
-}
-.card-body{
-    background-color: rgb(245, 245, 245);
-
+    color:black;
 }
 
-.card {
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-    transition: 0.3s;
-    border-radius: 5px; /* 5px rounded corners */
-  }
+.price{
+  font-size:0.9rem;
+  white-space:nowrap;
+}
+
+
+
+
+
+.card a{
+  text-decoration: none;
+}
   
   /* Add rounded corners to the top left and the top right corner of the image */
   img {

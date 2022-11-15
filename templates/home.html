@@ -9,7 +9,7 @@
 
 {% block content %}
 
-<h1>Página principal</h1>
+<h1 class="titulo">Catálogo</h1>
 
 <div class="container mt-5 pt-5">
     <div class="row">
@@ -17,9 +17,29 @@
             <div class="card card-producto">
                 <img class="card-img-top" src="https://tienda.redcomputer.es/18177-thickbox_default/pc-gaming-red-vegetta777-rog-special-edition-ryzen-threadripper-3960xrtx-2080ti128gb-ram1tb-ssd-12tb-hdd.jpg">
                 <div class="card-body">
-                    <a href="#" class="card-title">Producto1</a>
-                    <div class="price card-text">Precio: 299.00€</div> <!-- price-wrap.// -->
-                    <div class="discount-price card-text">Precio con descuento: 100.00€</div>
+                    <a href="#">
+                        <h3 class="card-title">Producto1</h3>
+                    </a>
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <div class="price card-text text-muted text-strike">299.00€</div> <!-- price-wrap.// -->
+                        </div>
+                        <div class="col-md-6">
+                            <div class="discount-price price card-text text-danger">100.00€</div>
+                        </div>
+                    </div><!--row-->
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-outline">
+                                <input type="number" id="idCantidad" class="form-control" value="1" min="1" max="100"/>
+                            </div>
+                        </div>
+                        <div class="col-md-8 d-flex justify-content-end">
+                            <button type="button" class="btn btn-outline-primary align-right">Añadir al carrito</button>
+                        </div>
+
+                    </div><!--row-->
+                    
                 </div>
             </div> <!-- card -->
         </div> <!-- col -->
@@ -62,8 +82,8 @@
                 <img class="card-img-top" src="https://tienda.redcomputer.es/18177-thickbox_default/pc-gaming-red-vegetta777-rog-special-edition-ryzen-threadripper-3960xrtx-2080ti128gb-ram1tb-ssd-12tb-hdd.jpg">
                 <div class="card-body">
                     <a href="#" class="card-title">Producto1</a>
-                    <div class="price card-text">Precio: 299.00€</div> <!-- price-wrap.// -->
-                    <div class="discount-price card-text">Precio con descuento: 100.00€</div>
+                    <div class="price card-text">299.00€</div> <!-- price-wrap.// -->
+                    <div class="discount-price card-text">100.00€</div>
                 </div>
             </div> <!-- card -->
         </div> <!-- col -->
