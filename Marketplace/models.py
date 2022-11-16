@@ -1,6 +1,14 @@
 from django.db import models
 from django_countries.fields import CountryField
 from phonenumber_field.modelfields import PhoneNumberField
+from django.core.validators import (
+    DecimalValidator,
+    MaxValueValidator,
+    MinValueValidator,
+    ValidationError,
+)
+from django.core.exceptions import ValidationError
+
 
 # Create your models here.
 
@@ -62,19 +70,28 @@ ADDRESS_CHOICES = (
 )
 
 class Product(models.Model):
+            
     title = models.CharField(max_length=100)
-    price = models.FloatField()
-    discount_price = models.FloatField(blank=True, null=True)
+    price = models.FloatField(validators=[MinValueValidator(0.0)])
+    discount_price = models.FloatField(blank=True, null=True, validators=[MinValueValidator(0.0)])
     section = models.CharField(choices=CATEGORY_CHOICES, max_length=10)
-    description = models.TextField()
+    description = models.TextField(max_length= 400)
     image = models.URLField()
     department = models.CharField(choices=DEPARTMENT_CHOICES, max_length=10)
     producer = models.CharField(choices=PRODUCER_CHOICES, max_length=10)
     
+    def get_price(self):
+        return self.price
+    
+    def clean(self):
+        if self.discount_price > self.price:
+            raise ValidationError("El descuento tiene que ser mayor que el precio original")
+ 
+    
 class OrderProduct(models.Model):
     ordered = models.BooleanField(default=False)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    quantity = models.IntegerField(default=1)
+    quantity = models.PositiveIntegerField(default=1)
     
     def __str__(self):
         return f"{self.quantity} of {self.product.title}"
@@ -116,7 +133,7 @@ class Order(models.Model):
         
 class Payment(models.Model):
     stripe_charge_id = models.CharField(max_length=50)
-    amount = models.FloatField()
+    amount = models.FloatField(validators=[MinValueValidator(0.0)])
     timestamp = models.DateTimeField(auto_now_add=True)   
     
 class Address(models.Model):
