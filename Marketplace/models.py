@@ -1,3 +1,4 @@
+import uuid
 from django.db import models
 from django_countries.fields import CountryField
 from phonenumber_field.modelfields import PhoneNumberField
@@ -8,6 +9,8 @@ from django.core.validators import (
     ValidationError,
 )
 from django.core.exceptions import ValidationError
+from django.db.models.signals import pre_save
+import random
 
 
 # Create your models here.
@@ -110,8 +113,9 @@ class OrderProduct(models.Model):
             return self.get_total_discount_product_price()
         return self.get_total_product_price()
     
-class Order(models.Model):
-    ref_code = models.CharField(max_length=20, blank=True, null=True)
+class Order(models.Model):       
+    
+    ref_id = models.AutoField(primary_key=True)
     products = models.ManyToManyField(OrderProduct)
     start_date = models.DateTimeField(auto_now_add=True)
     ordered_date = models.DateTimeField()
@@ -130,11 +134,25 @@ class Order(models.Model):
         for order_product in self.products.all():
             total += order_product.get_final_price()
         return total
+    
+    @property
+    def ref_code(self):
+        number = random.randint(1000000,9999999)
+        return str(self.start_date.date())+"/"+ str(number) + str(self.ref_id)
+    
+   
+    
+    
         
 class Payment(models.Model):
-    stripe_charge_id = models.CharField(max_length=50)
+    purcharse_id = models.AutoField(primary_key=True)
     amount = models.FloatField(validators=[MinValueValidator(0.0)])
     timestamp = models.DateTimeField(auto_now_add=True)   
+    
+    @property
+    def stripe_charge_id(self):
+        number = random.randint(1000000,9999999)
+        return str(self.timestamp.time())+"/"+ str(number) + str(self.purcharse_id)
     
 class Address(models.Model):
     name = models.CharField(max_length=100)
@@ -144,7 +162,6 @@ class Address(models.Model):
     street_address = models.CharField(max_length=100)
     apartment_address = models.CharField(max_length=100)
     country = CountryField(multiple=False)
-    zip = models.CharField(max_length=100)
     address_type = models.CharField(max_length=1, choices=ADDRESS_CHOICES)
     default = models.BooleanField(default=False)
 
