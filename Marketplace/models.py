@@ -85,7 +85,7 @@ class Product(models.Model):
     
     def clean(self):
         if self.discount_price > self.price:
-            raise ValidationError("El descuento tiene que ser mayor que el precio original")
+            raise ValidationError("El descuento tiene que ser menor que el precio original")
  
     
 class OrderProduct(models.Model):
