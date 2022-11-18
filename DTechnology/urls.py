@@ -21,4 +21,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('index/', index, name='index'),
     path('', home, name='home'),
+    #path('product_list/', ProductListView.as_view(), name='product_list'),
 ]
