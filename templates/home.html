@@ -12,24 +12,33 @@
 <h1 class="titulo">Catálogo</h1>
 
 <div class="container mt-5 pt-5">
-    { % for list in listOflist %}
+    {% for list in listOfList %}
     <div class="row">
         {% for product in list %}
         <div class="col-md-3">
             <div class="card card-producto">
-                <img class="card-img-top" src="https://tienda.redcomputer.es/18177-thickbox_default/pc-gaming-red-vegetta777-rog-special-edition-ryzen-threadripper-3960xrtx-2080ti128gb-ram1tb-ssd-12tb-hdd.jpg">
+                <a href="#">
+                    <img class="card-img-top" src={{product.image}}>
+                </a>
                 <div class="card-body">
                     <a href="#">
-                        <h3 class="card-title">Producto1</h3>
+                        <h3 class="card-title">{{product.title}}</h3>
                     </a>
                     <div class="row mb-4">
-                        <div class="col-md-6">
-                            <div class="price card-text text-muted text-strike">299.00€</div> <!-- price-wrap.// -->
-                        </div>
-                        <div class="col-md-6">
-                            <div class="discount-price price card-text text-danger">100.00€</div>
-                        </div>
-                    </div><!--row-->
+                        {% if product.discount_price %}
+                            <div class="col-md-6">
+                                <div class="price card-text text-muted text-strike">{{product.price}}€</div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="discount-price price card-text text-danger">{{product.discount_price}}€</div>
+                            </div>
+                        {% else %}
+                            <div class="col-md-6">
+                                <div class="price card-text text-muted">{{product.price}}€</div>
+                            </div>
+                        {% endif %}
+
+                    </div>
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-outline">
@@ -48,82 +57,6 @@
         {% endfor %}
     </div> <!-- row -->
     {% endfor %}
-        <div class="col-md-3">
-            <div class="card card-producto">
-                <img class="card-img-top" src="data:image/jpeg;base64,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">
-                <div class="card-body">
-                    <a href="#" class="card-title">Producto2</a>
-                    <div class="price card-text">Precio: 299.00€</div> <!-- price-wrap.// -->
-                    <div class="discount-price card-text">Precio con descuento: 100.00€</div>
-                </div>
-            </div> <!-- card -->
-        </div> <!-- col -->
-        <div class="col-md-3">
-            <div class="card card-producto">
-                <img class="card-img-top" src="https://tienda.redcomputer.es/18177-thickbox_default/pc-gaming-red-vegetta777-rog-special-edition-ryzen-threadripper-3960xrtx-2080ti128gb-ram1tb-ssd-12tb-hdd.jpg">
-                <div class="card-body">
-                    <a href="#" class="card-title">Producto1</a>
-                    <div class="price card-text">Precio: 299.00€</div> <!-- price-wrap.// -->
-                    <div class="discount-price card-text">Precio con descuento: 100.00€</div>
-                </div>
-            </div> <!-- card -->
-        </div> <!-- col -->
-        <div class="col-md-3">
-            <div class="card card-producto">
-                <img class="card-img-top" src="https://tienda.redcomputer.es/18177-thickbox_default/pc-gaming-red-vegetta777-rog-special-edition-ryzen-threadripper-3960xrtx-2080ti128gb-ram1tb-ssd-12tb-hdd.jpg">
-                <div class="card-body">
-                    <a href="#" class="card-title">Producto1</a>
-                    <div class="price card-text">Precio: 299.00€</div> <!-- price-wrap.// -->
-                    <div class="discount-price card-text">Precio con descuento: 100.00€</div>
-                </div>
-            </div> <!-- card -->
-        </div> <!-- col -->
-        
-    </div> <!-- row-->
-    <br>
-    <div class="row">
-        <div class="col-md-3">
-            <div class="card card-producto">
-                <img class="card-img-top" src="https://tienda.redcomputer.es/18177-thickbox_default/pc-gaming-red-vegetta777-rog-special-edition-ryzen-threadripper-3960xrtx-2080ti128gb-ram1tb-ssd-12tb-hdd.jpg">
-                <div class="card-body">
-                    <a href="#" class="card-title">Producto1</a>
-                    <div class="price card-text">299.00€</div> <!-- price-wrap.// -->
-                    <div class="discount-price card-text">100.00€</div>
-                </div>
-            </div> <!-- card -->
-        </div> <!-- col -->
-        <div class="col-md-3">
-            <div class="card card-producto">
-                <img class="card-img-top" src="data:image/jpeg;base64,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">
-                <div class="card-body">
-                    <a href="#" class="card-title">Producto2</a>
-                    <div class="price card-text">Precio: 299.00€</div> <!-- price-wrap.// -->
-                    <div class="discount-price card-text">Precio con descuento: 100.00€</div>
-                </div>
-            </div> <!-- card -->
-        </div> <!-- col -->
-        <div class="col-md-3">
-            <div class="card card-producto">
-                <img class="card-img-top" src="https://tienda.redcomputer.es/18177-thickbox_default/pc-gaming-red-vegetta777-rog-special-edition-ryzen-threadripper-3960xrtx-2080ti128gb-ram1tb-ssd-12tb-hdd.jpg">
-                <div class="card-body">
-                    <a href="#" class="card-title">Producto1</a>
-                    <div class="price card-text">Precio: 299.00€</div> <!-- price-wrap.// -->
-                    <div class="discount-price card-text">Precio con descuento: 100.00€</div>
-                </div>
-            </div> <!-- card -->
-        </div> <!-- col -->
-        <div class="col-md-3">
-            <div class="card card-producto">
-                <img class="card-img-top" src="https://tienda.redcomputer.es/18177-thickbox_default/pc-gaming-red-vegetta777-rog-special-edition-ryzen-threadripper-3960xrtx-2080ti128gb-ram1tb-ssd-12tb-hdd.jpg">
-                <div class="card-body">
-                    <a href="#" class="card-title">Producto1</a>
-                    <div class="price card-text">Precio: 299.00€</div> <!-- price-wrap.// -->
-                    <div class="discount-price card-text">Precio con descuento: 100.00€</div>
-                </div>
-            </div> <!-- card -->
-        </div> <!-- col -->
-        
-    </div> <!-- row-->
 
 </div>
 
