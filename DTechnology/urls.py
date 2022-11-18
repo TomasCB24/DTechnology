@@ -20,4 +20,5 @@ from DTechnology.views import *
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', index, name='index'),
+    path('', ProductListView.as_view(), name='product_list'),
 ]
