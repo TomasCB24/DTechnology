@@ -1,12 +1,32 @@
 from django.shortcuts import render
 from django.views.generic import ListView
+from django.views.decorators.csrf import csrf_exempt
 
-from Marketplace.models import Product
+from Marketplace.models import Product, CATEGORY_CHOICES, DEPARTMENT_CHOICES, PRODUCER_CHOICES
 
 # view for testing components
 def index(request):
     return render(request, 'base_INDEX.html')
 
+@csrf_exempt
+def home(request):
+
+    active_category, active_department, active_producer = 'Categories', 'Departments', 'Producers'
+
+    if request.method == 'POST':
+        category = request.POST.get('Categories')
+        department = request.POST.get('Departments')
+        producer = request.POST.get('Producers')
+        active_category, active_department, active_producer = category, department, producer
+    
+    return render(request, 'home.html', 
+            {'categories': CATEGORY_CHOICES, 
+            'departments': DEPARTMENT_CHOICES, 
+            'producers': PRODUCER_CHOICES, 
+            'active_cat': active_category, 
+            'active_dep': active_department, 
+            'active_prod': active_producer}
+        )
 
 class ProductListView(ListView):
     model=Product
@@ -24,7 +44,7 @@ class ProductListView(ListView):
         i+=1
     if len(listaCuatroProductos) < 4:
         listOfList.append(listaCuatroProductos)
-    print(listOfList)
+    
 
 
     def get_context_data(self,  **kwargs):

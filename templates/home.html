@@ -5,12 +5,17 @@
 {% block head %}
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'styles/home.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/index.css' %}">
 {% endblock %}
 
 {% block content %}
 
-<h1 class="titulo">Catálogo</h1>
-
+<form method = "post" class="d-flex justify-content-around" action = "{% url 'home' %}">
+    {% csrf_token %}
+    <h1 class="titulo">Catálogo</h1>
+    {% include "components/all_sections.html" with cat=categories dep=departments prod=producers act_cat=active_cat act_dep=active_dep act_prod=active_prod %}
+    <input class="btn btn-success btn-filter" type="submit" value="Buscar">
+</form>
 <div class="container mt-5 pt-5">
     {% for list in listOfList %}
     <div class="row">
