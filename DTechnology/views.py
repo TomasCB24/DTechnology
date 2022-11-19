@@ -11,7 +11,7 @@ def index(request):
 @csrf_exempt
 def home(request):
 
-    active_category, active_department, active_producer = 'Categories', 'Departments', 'Producers'
+    active_category, active_department, active_producer = 'Any Categories', 'Any Departments', 'Any Producers'
 
     if request.method == 'POST':
         category = request.POST.get('Categories')
@@ -35,11 +35,11 @@ def get_products(category, department, producer):
     
     listOfList = []
 
-    if category == 'Categories':
+    if category == 'Any Categories':
         category = ''
-    if department == 'Departments':
+    if department == 'Any Departments':
         department = ''
-    if producer == 'Producers':
+    if producer == 'Any Producers':
         producer = ''
     
     productos = Product.objects.filter(section__icontains=category, department__icontains=department, producer__icontains=producer)
