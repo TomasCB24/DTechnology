@@ -39,9 +39,8 @@ class AddressAdmin(admin.ModelAdmin):
         'apartment_address',
         'country',
         'address_type',
-        'default'
     ]
-    list_filter = ['default', 'address_type', 'country']
+    list_filter = ['address_type', 'country']
     search_fields = ['street_address', 'apartment_address']
 
 

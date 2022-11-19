@@ -92,7 +92,7 @@ class Product(models.Model):
  
     
 class OrderProduct(models.Model):
-    ordered = models.BooleanField(default=False)
+    
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(default=1)
     
@@ -155,15 +155,15 @@ class Payment(models.Model):
         return str(self.timestamp.time())+"/"+ str(number) + str(self.purcharse_id)
     
 class Address(models.Model):
-    name = models.CharField(max_length=100)
-    surname = models.CharField(max_length=100)
+    name = models.CharField(max_length=100,null=True, blank = True)
+    surname = models.CharField(max_length=100, null=True, blank = True)
     email = models.EmailField(primary_key=True)
-    phone = PhoneNumberField(unique = True, null = True, blank = False)
+    phone = PhoneNumberField(unique = True, null = True, blank = True)
     street_address = models.CharField(max_length=100)
     apartment_address = models.CharField(max_length=100)
     country = CountryField(multiple=False)
     address_type = models.CharField(max_length=1, choices=ADDRESS_CHOICES)
-    default = models.BooleanField(default=False)
+    
 
     class Meta:
         verbose_name_plural = 'Addresses'
