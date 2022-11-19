@@ -16,55 +16,55 @@ import random
 # Create your models here.
 
 CATEGORY_CHOICES = (
-    ('MB','Motherboard'),
-    ('CPU','Processor'),
-    ('HDD', 'Hard Disk Drive'),
-    ('SSD', 'Solid State Drive'),
-    ('GPU', 'Graphic Card'),
-    ('RAM','Ram Memory'),
-    ('RC', 'DVD/CD Recorder'),
-    ('SC','Sound Card'),
-    ('CC', 'Computer Cases'),
-    ('V', 'Ventilation'),
-    ('PS', 'Power Supply'),
-    ('MS', 'Mouses'),
-    ('KB', 'Keyboards'),
-    ('SP','Speakers'),
-    ('HP','Headphones'),
-    ('GC','Gaming Chairs'),
-    ('WC','Webcam'),
-    ('PT','Printers'),
-    ('GS','Games'),
-    ('CS','Consoles'),
-    ('CA','Console Accessories'),
-    ('CT','Controls')
+    ('Motherboard','Motherboard'),
+    ('Processor','Processor'),
+    ('Hard Disk Drive','Hard Disk Drive'),
+    ('Solid State Drive','Solid State Drive'),
+    ('Graphic Card','Graphic Card'),
+    ('Ram Memory','Ram Memory'),
+    ('DVD/CD Recorder','DVD/CD Recorder'),
+    ('Sound Card','Sound Card'),
+    ('Computer Cases','Computer Cases'),
+    ('Ventilation','Ventilation'),
+    ('Power Supply','Power Supply'),
+    ('Mouses','Mouses'),
+    ('Keyboards', 'Keyboards'),
+    ('Speakers','Speakers'),
+    ('Headphones','Headphones'),
+    ('Gaming Chairs','Gaming Chairs'),
+    ('Webcam','Webcam'),
+    ('Printers','Printers'),
+    ('Games','Games'),
+    ('Consoles','Consoles'),
+    ('Console Accessories','Console Accessories'),
+    ('Controls','Controls')
     
 )
 
 DEPARTMENT_CHOICES = (
-    ('CM', 'Components'),
-    ('PP','Peripherals'),
-    ('VG','Consoles and Videogames')
+    ('Components', 'Components'),
+    ('Peripherals','Peripherals'),
+    ('Consoles and Videogames','Consoles and Videogames')
 )
 
 PRODUCER_CHOICES = (
-    ('AS','Asus'),
-    ('LV','Lenovo'),
+    ('Asus','Asus'),
+    ('Lenovo','Lenovo'),
     ('HP','HP'),
-    ('SY','Sony'),
-    ('XB','Xbox'),
-    ('NT','Nintendo'),
-    ('NS','New Skill'),
+    ('Sony','Sony'),
+    ('Xbox','Xbox'),
+    ('Nintendo','Nintendo'),
+    ('New Skill','New Skill'),
     ('MSI','MSI'),
-    ('PH','Philips'),
-    ('GB','Gigabyte'),
-    ('EV','Evga'),
-    ('NV','Nvidia'),
-    ('UB','Ubisoft'),
-    ('SM','Santa Monica'),
-    ('IT','Intel'),
+    ('Philips','Philips'),
+    ('Gigabyte','Gigabyte'),
+    ('Evga','Evga'),
+    ('Nvidia','Nvidia'),
+    ('Ubisoft','Ubisoft'),
+    ('Santa Monica','Santa Monica'),
+    ('Intel','Intel'),
     ('AMD','AMD'),
-    ('ZT','Zotac')
+    ('Zotac','Zotac')
 )
 
 ADDRESS_CHOICES = (
@@ -77,11 +77,11 @@ class Product(models.Model):
     title = models.CharField(max_length=100)
     price = models.FloatField(validators=[MinValueValidator(0.0)])
     discount_price = models.FloatField(blank=True, null=True, validators=[MinValueValidator(0.0)])
-    section = models.CharField(choices=CATEGORY_CHOICES, max_length=10)
+    section = models.CharField(choices=CATEGORY_CHOICES, max_length=30)
     description = models.TextField(max_length= 400)
     image = models.URLField()
-    department = models.CharField(choices=DEPARTMENT_CHOICES, max_length=10)
-    producer = models.CharField(choices=PRODUCER_CHOICES, max_length=10)
+    department = models.CharField(choices=DEPARTMENT_CHOICES, max_length=30)
+    producer = models.CharField(choices=PRODUCER_CHOICES, max_length=30)
     
     def get_price(self):
         return self.price
