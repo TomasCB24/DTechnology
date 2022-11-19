@@ -54,6 +54,6 @@ def get_products(category, department, producer):
         listaCuatroProductos.append(producto)
         i+=1
     if len(listaCuatroProductos) < 4:
-        listOfList.append(listaCuatroProductos)
-    
+        listOfList.append(listaCuatroProductos)    
     return listOfList
+
