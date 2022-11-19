@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block title %}Página principal{% endblock %}
+
+{% block head %}
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/home.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<h1 class="titulo">Catálogo</h1>
+
+<div class="container mt-5 pt-5">
+    {% for list in listOfList %}
+    <div class="row">
+        {% for product in list %}
+        <div class="col-md-3">
+            <div class="card card-producto">
+                <a href="#">
+                    <img class="card-img-top" src={{product.image}}>
+                </a>
+                <div class="card-body">
+                    <a href="#">
+                        <h3 class="card-title">{{product.title}}</h3>
+                    </a>
+                    <div class="row mb-4">
+                        {% if product.discount_price %}
+                            <div class="col-md-6">
+                                <div class="price card-text text-muted text-strike">{{product.price}}€</div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="discount-price price card-text text-danger">{{product.discount_price}}€</div>
+                            </div>
+                        {% else %}
+                            <div class="col-md-6">
+                                <div class="price card-text text-muted">{{product.price}}€</div>
+                            </div>
+                        {% endif %}
+
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-outline">
+                                <input type="number" id="idCantidad" class="form-control" value="1" min="1" max="100"/>
+                            </div>
+                        </div>
+                        <div class="col-md-8 d-flex justify-content-end">
+                            <button type="button" class="btn btn-outline-primary align-right">Añadir al carrito</button>
+                        </div>
+
+                    </div><!--row-->
+                    
+                </div>
+            </div> <!-- card -->
+        </div> <!-- col -->
+        {% endfor %}
+    </div> <!-- row -->
+    {% endfor %}
+
+</div>
+
+{% endblock %}
