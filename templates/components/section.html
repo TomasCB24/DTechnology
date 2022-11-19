@@ -1,0 +1,10 @@
+<select class="form-select selects-shop" aria-label="Select" name="{{name}}">   
+    <option selected>Any {{name}}</option>
+    {% for o in options %}     
+        {% if active == o.0 %}
+            <option selected value="{{o.0}}">{{o.1}}</option>
+        {% else %}
+            <option value="{{o.0}}">{{o.1}}</option>
+        {% endif %}    
+    {% endfor %}
+</select>

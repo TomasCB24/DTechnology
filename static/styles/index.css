@@ -1,0 +1,37 @@
+/*Navbar CSS*/
+
+.bg-navbar {
+    background-color: #6610F2;
+}
+
+.flex-search {
+    max-width: 400px;
+}
+
+.icon-web {
+    max-height: 40px;
+    margin-right: 5px;
+}
+
+.mobile-screen {
+    display: none;
+}
+
+
+@media screen and (max-width: 991px) {
+    .flex-search {
+        max-width: 100%;
+        margin-top: 10px;
+    }
+
+    .pc-screen {
+        display: none;
+    }
+
+    .mobile-screen {
+        display: inline;
+        margin-left: auto;
+        margin-right: 5px;
+    }
+
+}
