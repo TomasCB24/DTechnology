@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% comment %} Example template {% endcomment %}
+
+{% block title %}Cesta de compra DTechnology{% endblock %}
+
+{% block head %}
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/cart.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<h1>Carrito</h1>
+<hr class="line">
+
+<div class="products-list">
+    <table class="tftable">
+        <tr>
+            <th>#</th>
+            <th>Imagen</th>
+            <th>Artículo</th>
+            <th>Precio unitario</th>
+            <th>Cantidad</th>
+            <th>Precio</th>
+        </tr>
+        {% for p in products %} 
+            
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td><img src="{{ p.product.image }}" alt="{{ p.name }}" width="100px"></td>
+                <td class="product-title">{{ p.product.title }}</td>
+                <td class="product-single-price">{{ p.product.price }} €</td>
+                <td class="product-quantity">
+                    <a class="reduce-btn" href="{% url 'reduce_quantity' p.id %}"><span class="btn">-</span></a>
+                    
+                    {{ p.quantity }}    
+                    
+                    <a class="increase-btn" href="{% url 'increase_quantity' p.id %}"><span class="btn">+</span></a>
+                    
+                
+                </td>
+                <td class="product-price">{{ p.get_final_price}} €</td>
+                <td class="product-remove">
+                    <a href="{% url 'delete_product' p.id %}"><span class="btn">X</span></a>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+
+    <div class="total-price">
+        <h3>Total: {{ total_price }} €</h3>
+        
+
+        <a href="{% url 'index' %}" class="btn btn-success">Realizar pedido</a>
+    </div>
+</div>
+
+{% endblock %}

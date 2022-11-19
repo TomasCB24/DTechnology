@@ -75,13 +75,16 @@ ADDRESS_CHOICES = (
 class Product(models.Model):
             
     title = models.CharField(max_length=100)
-    price = models.FloatField(validators=[MinValueValidator(0.0)])
-    discount_price = models.FloatField(blank=True, null=True, validators=[MinValueValidator(0.0)])
+    price = models.DecimalField(decimal_places=2, max_digits=5, validators=[MinValueValidator(0.0)])
+    discount_price = models.DecimalField(decimal_places=2, max_digits=5,blank=True, null=True, validators=[MinValueValidator(0.0)])
     section = models.CharField(choices=CATEGORY_CHOICES, max_length=10)
     description = models.TextField(max_length= 400)
     image = models.URLField()
     department = models.CharField(choices=DEPARTMENT_CHOICES, max_length=10)
     producer = models.CharField(choices=PRODUCER_CHOICES, max_length=10)
+
+    def __str__(self):
+        return self.title
     
     def get_price(self):
         return self.price
@@ -93,8 +96,8 @@ class Product(models.Model):
     
 class OrderProduct(models.Model):
     ordered = models.BooleanField(default=False)
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    quantity = models.PositiveIntegerField(default=1)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, unique=True)
+    quantity = models.PositiveIntegerField(default=1, validators=[MinValueValidator(1)])
     
     def __str__(self):
         return f"{self.quantity} of {self.product.title}"
