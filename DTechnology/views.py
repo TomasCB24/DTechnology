@@ -19,20 +19,31 @@ def home(request):
         producer = request.POST.get('Producers')
         active_category, active_department, active_producer = category, department, producer
     
+    products = get_products(active_category, active_department, active_producer)
+
     return render(request, 'home.html', 
             {'categories': CATEGORY_CHOICES, 
             'departments': DEPARTMENT_CHOICES, 
             'producers': PRODUCER_CHOICES, 
             'active_cat': active_category, 
             'active_dep': active_department, 
-            'active_prod': active_producer}
+            'active_prod': active_producer,
+            'listOfList': products}
         )
 
-class ProductListView(ListView):
-    model=Product
-    template_name='home.html'
+def get_products(category, department, producer):
+    
     listOfList = []
-    productos = Product.objects.all()
+
+    if category == 'Categories':
+        category = ''
+    if department == 'Departments':
+        department = ''
+    if producer == 'Producers':
+        producer = ''
+    
+    productos = Product.objects.filter(section__icontains=category, department__icontains=department, producer__icontains=producer)
+
     i=0
     listaCuatroProductos = []
     for producto in productos:
@@ -45,9 +56,4 @@ class ProductListView(ListView):
     if len(listaCuatroProductos) < 4:
         listOfList.append(listaCuatroProductos)
     
-
-
-    def get_context_data(self,  **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['listOfList'] = self.listOfList
-        return context
+    return listOfList
