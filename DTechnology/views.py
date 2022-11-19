@@ -44,13 +44,9 @@ def add_to_cart(product_id, quantity):
     order_product = OrderProduct.objects.filter(product=product)
     
     if order_product.exists():
-        print('existe')
         order_product = order_product.first()
         order_product.add_products(quantity)
     else:
-        print('no existe')
-        print("product", product)
-        print("quantity", quantity)
         OrderProduct.objects.create(product=product, quantity=quantity)
 
 def get_products(category, department, producer):
