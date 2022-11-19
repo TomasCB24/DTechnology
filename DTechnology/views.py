@@ -24,7 +24,6 @@ class ProductListView(ListView):
         i+=1
     if len(listaCuatroProductos) < 4:
         listOfList.append(listaCuatroProductos)
-    print(listOfList)
 
 
     def get_context_data(self,  **kwargs):
