@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.views.generic import ListView
 from django.views.decorators.csrf import csrf_exempt
 
-from Marketplace.models import Product, CATEGORY_CHOICES, DEPARTMENT_CHOICES, PRODUCER_CHOICES
+from Marketplace.models import Product, OrderProduct, CATEGORY_CHOICES, DEPARTMENT_CHOICES, PRODUCER_CHOICES
 
 # view for testing components
 def index(request):
@@ -12,13 +12,20 @@ def index(request):
 def home(request):
 
     active_category, active_department, active_producer = 'Any Categories', 'Any Departments', 'Any Producers'
-
-    if request.method == 'POST':
-        category = request.POST.get('Categories')
-        department = request.POST.get('Departments')
-        producer = request.POST.get('Producers')
-        active_category, active_department, active_producer = category, department, producer
     
+    if request.method == 'POST':
+        if 'filter' in request.POST:
+            category = request.POST.get('Categories')
+            department = request.POST.get('Departments')
+            producer = request.POST.get('Producers')
+            active_category, active_department, active_producer = category, department, producer
+            
+        elif 'add_to_cart' in request.POST:
+            quantity = int(request.POST.get('quantity'))
+            product_id = request.POST.get('product_id')
+            
+            add_to_cart(product_id, quantity)
+            
     products = get_products(active_category, active_department, active_producer)
 
     return render(request, 'home.html', 
@@ -30,6 +37,21 @@ def home(request):
             'active_prod': active_producer,
             'listOfList': products}
         )
+    
+def add_to_cart(product_id, quantity):
+    
+    product = Product.objects.get(id=product_id)
+    order_product = OrderProduct.objects.filter(product=product)
+    
+    if order_product.exists():
+        print('existe')
+        order_product = order_product.first()
+        order_product.add_products(quantity)
+    else:
+        print('no existe')
+        print("product", product)
+        print("quantity", quantity)
+        OrderProduct.objects.create(product=product, quantity=quantity)
 
 def get_products(category, department, producer):
     
@@ -53,7 +75,8 @@ def get_products(category, department, producer):
             i=0
         listaCuatroProductos.append(producto)
         i+=1
-    if len(listaCuatroProductos) < 4:
-        listOfList.append(listaCuatroProductos)    
+    if len(listaCuatroProductos) <= 4:
+        listOfList.append(listaCuatroProductos)  
+    
     return listOfList
 

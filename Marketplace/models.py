@@ -114,6 +114,15 @@ class OrderProduct(models.Model):
             return self.get_total_discount_product_price()
         return self.get_total_product_price()
     
+    def add_products(self, quantity):
+        self.quantity += quantity
+        self.save()
+        
+    @classmethod
+    def create(cls, product, quantity):
+        order_product = cls(product=product, quantity=quantity)
+        return order_product
+    
 class Order(models.Model):       
     
     ref_id = models.AutoField(primary_key=True)
