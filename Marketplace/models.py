@@ -75,13 +75,17 @@ ADDRESS_CHOICES = (
 class Product(models.Model):
             
     title = models.CharField(max_length=100)
-    price = models.FloatField(validators=[MinValueValidator(0.0)])
-    discount_price = models.FloatField(blank=True, null=True, validators=[MinValueValidator(0.0)])
+    price = models.DecimalField(decimal_places=2, max_digits=20, validators=[MinValueValidator(0.0)])
+    discount_price = models.DecimalField(decimal_places=2, max_digits=20,blank=True, null=True, validators=[MinValueValidator(0.0)])
     section = models.CharField(choices=CATEGORY_CHOICES, max_length=30)
     description = models.TextField(max_length= 400)
     image = models.URLField()
     department = models.CharField(choices=DEPARTMENT_CHOICES, max_length=30)
     producer = models.CharField(choices=PRODUCER_CHOICES, max_length=30)
+
+    def __str__(self):
+        return self.title
+
     
     def get_price(self):
         return self.price
@@ -90,12 +94,13 @@ class Product(models.Model):
         if self.discount_price is not None:
             if self.discount_price > self.price:
                 raise ValidationError("El descuento tiene que ser menor que el precio original")
- 
-    
 class OrderProduct(models.Model):
-    
+    session_id = models.CharField(max_length=100, blank=True, null=True)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    quantity = models.PositiveIntegerField(default=1)
+    quantity = models.PositiveIntegerField(default=1, validators=[MinValueValidator(1)])
+    
+    class Meta:
+        unique_together = ('session_id', 'product',)
     
     def __str__(self):
         return f"{self.quantity} of {self.product.title}"
@@ -114,6 +119,10 @@ class OrderProduct(models.Model):
             return self.get_total_discount_product_price()
         return self.get_total_product_price()
     
+    def add_products(self, quantity):
+        self.quantity += quantity
+        self.save()
+      
 class Order(models.Model):       
     
     ref_id = models.AutoField(primary_key=True)
@@ -140,11 +149,6 @@ class Order(models.Model):
     def ref_code(self):
         number = random.randint(1000000,9999999)
         return str(self.start_date.date())+"/"+ str(number) + str(self.ref_id)
-    
-   
-    
-    
-        
 class Payment(models.Model):
     purcharse_id = models.AutoField(primary_key=True)
     amount = models.FloatField(validators=[MinValueValidator(0.0)])
@@ -154,12 +158,11 @@ class Payment(models.Model):
     def stripe_charge_id(self):
         number = random.randint(1000000,9999999)
         return str(self.timestamp.time())+"/"+ str(number) + str(self.purcharse_id)
-    
 class Address(models.Model):
-    name = models.CharField(max_length=100,null=True, blank = True)
-    surname = models.CharField(max_length=100, null=True, blank = True)
+    name = models.CharField(max_length=100, blank=True, null = True)
+    surname = models.CharField(max_length=100, blank=True, null = True)
     email = models.EmailField(primary_key=True)
-    phone = PhoneNumberField(unique = True, null = True, blank = True)
+    phone = PhoneNumberField(unique = True, null = True, blank = False)
     street_address = models.CharField(max_length=100)
     apartment_address = models.CharField(max_length=100)
     country = CountryField(multiple=False)

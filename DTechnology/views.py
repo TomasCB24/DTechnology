@@ -1,3 +1,5 @@
+from django.shortcuts import render, redirect
+from Marketplace.models import *
 from django.shortcuts import render
 from django.views.generic import ListView
 from django.views.decorators.csrf import csrf_exempt
@@ -9,19 +11,61 @@ from Marketplace.models import Product, CATEGORY_CHOICES, DEPARTMENT_CHOICES, PR
 def index(request):
     return render(request, 'base_INDEX.html')
 
+def cart(request):
+
+    product_orders = OrderProduct.objects.filter(session_id=request.session['nonuser'])
+    # get the total price of the order
+    total_price = 0
+    for product_order in product_orders:
+        total_price += product_order.get_final_price()
+
+    return render(request, 'base_CART.html', {'products': product_orders, 'total_price': total_price})
+
+def reduce_product_quantity(request, id):
+    product = OrderProduct.objects.get(id=id)
+    if(product.quantity > 1):
+        product.quantity -= 1
+        product.save()
+    else:
+        product.delete()
+
+    return redirect('cart')
+
+def increase_product_quantity(request, id):
+    product = OrderProduct.objects.get(id=id)
+    product.quantity += 1
+    product.save()
+    return redirect('cart')
+
+
+def delete_product(request, id):
+    product = OrderProduct.objects.get(id=id)
+    product.delete()
+    return redirect('cart')
+
 @csrf_exempt
 def home(request):
 
+    if 'nonuser' not in request.session or request.session['nonuser'] == '':
+        request.session['nonuser'] = str(uuid.uuid4())
+    
     active_category, active_department, active_producer = 'Any Categories', 'Any Departments', 'Any Producers'
     search = ""
 
     if request.method == 'POST':
         search = request.POST.get("search-product", '')
-        category = request.POST.get('Categories', 'Any Categories')
-        department = request.POST.get('Departments', 'Any Departments')
-        producer = request.POST.get('Producers', 'Any Producers')
-        active_category, active_department, active_producer = category, department, producer
-    
+        if 'filter' in request.POST:
+            category = request.POST.get('Categories', 'Any Categories')
+            department = request.POST.get('Departments', 'Any Departments')
+            producer = request.POST.get('Producers', 'Any Producers')
+            active_category, active_department, active_producer = category, department, producer
+            
+        elif 'add_to_cart' in request.POST:
+            quantity = int(request.POST.get('quantity'))
+            product_id = request.POST.get('product_id')
+            
+            add_to_cart(request,product_id, quantity)
+            
     products = get_products(active_category, active_department, active_producer, search)
 
     return render(request, 'base_HOME.html', 
@@ -33,6 +77,18 @@ def home(request):
             'active_prod': active_producer,
             'listOfList': products}
         )
+    
+def add_to_cart(request,product_id, quantity):
+    
+    # Try if orderProduct exist
+    try:
+        product = Product.objects.get(id=product_id)
+        order_product = OrderProduct.objects.get(product=product, session_id=request.session['nonuser'])
+
+        order_product.add_products(quantity)
+    except:
+        OrderProduct.objects.create(product=product, quantity=quantity, session_id = request.session['nonuser'])
+
 
 def get_products(category, department, producer, search):
     
@@ -55,14 +111,15 @@ def get_products(category, department, producer, search):
     i=0
     listaCuatroProductos = []
     for producto in productos:
-        print(producto.section)
         if i == 4:
             listOfList.append(listaCuatroProductos)
             listaCuatroProductos = []
             i=0
         listaCuatroProductos.append(producto)
         i+=1
-    if len(listaCuatroProductos) < 4:
-        listOfList.append(listaCuatroProductos)    
+    if len(listaCuatroProductos) <= 4:
+        listOfList.append(listaCuatroProductos)  
+    
     return listOfList
+
 

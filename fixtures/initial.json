@@ -1,0 +1,114 @@
+[
+{
+    "model": "Marketplace.product",
+    "pk": 1,
+    "fields": {
+        "title": "TUF RTX 3090 GAMING Graphic Card",
+        "price": 450.0,
+        "discount_price": 432.0,
+        "section": "Graphic Card",
+        "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s w",
+        "image": "https://dlcdnwebimgs.asus.com/gain/a391e6f3-74d9-46d8-bccf-24f0e6713232/w800",
+        "department": "Components",
+        "producer": "Asus"
+    }
+},
+{
+    "model": "Marketplace.product",
+    "pk": 2,
+    "fields": {
+        "title": "GYGABYTE X299 Wu8 Motherboard",
+        "price": 125.0,
+        "discount_price": 120.0,
+        "section": "Motherboard",
+        "description": "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discov",
+        "image": "https://ae01.alicdn.com/kf/Hc27213c517ce4825a249ee4d75ec4b9ai/X299-WU8-desktop-computer-graphics-workstation-motherboard-supports-4-way-graphics-card-SLI.jpg_Q90.jpg_.webp",
+        "department": "Components",
+        "producer": "Gigabyte"
+    }
+},
+{
+    "model": "Marketplace.product",
+    "pk": 3,
+    "fields": {
+        "title": "VIGOR GK30 GAMING KEYBOARD",
+        "price": 80.0,
+        "discount_price": 56.0,
+        "section": "Keyboards",
+        "description": "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.",
+        "image": "https://asset.msi.com/resize/image/global/product/product_9_20190709142918_5d24343eb0dfb.png62405b38c58fe0f07fcef2367d8a9ba1/600.png",
+        "department": "Peripherals",
+        "producer": "MSI"
+    }
+},
+{
+    "model": "Marketplace.product",
+    "pk": 4,
+    "fields": {
+        "title": "ROG Strix Impact II Mouse",
+        "price": 34.0,
+        "discount_price": 29.0,
+        "section": "Mouses",
+        "description": "ROG Strix Impact II: Ratón ambidiestro y ergonómico de gaming con sensor óptico de 6200 ppp, diseño ligero e iluminación Aura Sync RGB",
+        "image": "https://dlcdnwebimgs.asus.com/gain/C523973E-D88C-4089-8EB8-3DA80C4295E9/w717/h525",
+        "department": "Peripherals",
+        "producer": "Asus"
+    }
+},
+{
+    "model": "Marketplace.product",
+    "pk": 5,
+    "fields": {
+        "title": "ROG Delta GUNDAM EDITION",
+        "price": 83.0,
+        "discount_price": 65.0,
+        "section": "Headphones",
+        "description": "ROG Delta GUNDAM EDITION son unos audífonos para juegos RGB con licencia oficial de GUNDAM con ESS Quad-DAC de alta fidelidad e iluminación RGB circular que cuenta con un conector USB-C para compatibilidad con PC, consolas y teléfonos móviles.",
+        "image": "https://dlcdnwebimgs.asus.com/gain/59D592B0-3744-42FF-B152-A17A0E96E7B7/w717/h525",
+        "department": "Peripherals",
+        "producer": "Asus"
+    }
+},
+{
+    "model": "Marketplace.product",
+    "pk": 6,
+    "fields": {
+        "title": "CPU INTEL 4.4GHZ CORE I9-9900X BX80673I99900X",
+        "price": 530.0,
+        "discount_price": 499.0,
+        "section": "Processor",
+        "description": "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default mod",
+        "image": "https://www.syscom.com.lb/1589/cpu-intel-44ghz-core-i9-9900x-bx80673i99900x.jpg",
+        "department": "Components",
+        "producer": "Intel"
+    }
+},
+{
+    "model": "Marketplace.product",
+    "pk": 7,
+    "fields": {
+        "title": "AMD Ryzen serie 7000",
+        "price": 320.0,
+        "discount_price": 299.0,
+        "section": "Processor",
+        "description": "Cuando tu PC usa el procesador de escritorio más avanzado del mundo que existe para jugadores, te puedes concentrar en lo que verdaderamente importa: ganar en el campo de batalla digital. No importa si quieres jugar los últimos lanzamientos o revivir un clásico: los procesadores AMD Ryzen de la serie 7000 te dan una potencia de juego arrasadora con los núcleos Zen 4 de alto rendimiento. Con has",
+        "image": "https://www.amd.com/system/files/2022-04/1268900-ryzen-5800x-pib-3d-vcache-1260x709.png",
+        "department": "Components",
+        "producer": "AMD"
+    }
+},
+{
+    "model": "Marketplace.product",
+    "pk": 8,
+    "fields": {
+        "title": "Thanatos - Teclado mecánico RGB",
+        "price": 89.0,
+        "discount_price": 88.0,
+        "section": "Keyboards",
+        "description": "Teclado mecánico sencillo y con un elegante cuerpo de aluminio cepillado. Disponible con tres tipos de switches diferentes (Red, Brown y Blue) y 11 modos diferentes de iluminación. Configuración al vuelo de teclas macro y perfiles de personalización RGB tecla a tecla.",
+        "image": "https://www.newskillgaming.com/737-medium_default/thanatos.jpg",
+        "department": "Peripherals",
+        "producer": "New Skill"
+    }
+}
+]
