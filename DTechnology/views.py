@@ -11,6 +11,16 @@ from Marketplace.models import Product, CATEGORY_CHOICES, DEPARTMENT_CHOICES, PR
 def index(request):
     return render(request, 'base_INDEX.html')
 
+def get_cart_counter(request):
+    if 'nonuser' in request.session:
+        order_products = OrderProduct.objects.filter(session_id=request.session['nonuser'])
+        cart_counter = 0
+        for order_product in order_products:
+            cart_counter += order_product.quantity
+        return cart_counter
+    else:
+        return 0
+
 def cart(request):
 
     product_orders = OrderProduct.objects.filter(session_id=request.session['nonuser'])
@@ -19,7 +29,7 @@ def cart(request):
     for product_order in product_orders:
         total_price += product_order.get_final_price()
 
-    return render(request, 'base_CART.html', {'products': product_orders, 'total_price': total_price})
+    return render(request, 'base_CART.html', {'products': product_orders, 'total_price': total_price, 'cart_counter': get_cart_counter(request)})
 
 def reduce_product_quantity(request, id):
     product = OrderProduct.objects.get(id=id)
@@ -75,8 +85,11 @@ def home(request):
             'active_cat': active_category, 
             'active_dep': active_department, 
             'active_prod': active_producer,
-            'listOfList': products}
+            'listOfList': products,
+            'cart_counter': get_cart_counter(request)
+            }
         )
+        
     
 def add_to_cart(request,product_id, quantity):
     
