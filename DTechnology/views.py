@@ -3,8 +3,9 @@ from Marketplace.models import *
 from django.shortcuts import render
 from django.views.generic import ListView
 from django.views.decorators.csrf import csrf_exempt
+from django.db.models import Q
 
-
+from Marketplace.models import Product, CATEGORY_CHOICES, DEPARTMENT_CHOICES, PRODUCER_CHOICES
 
 # view for testing components
 def index(request):
@@ -49,12 +50,14 @@ def home(request):
         request.session['nonuser'] = str(uuid.uuid4())
     
     active_category, active_department, active_producer = 'Any Categories', 'Any Departments', 'Any Producers'
-    
+    search = ""
+
     if request.method == 'POST':
+        search = request.POST.get("search-product", '')
         if 'filter' in request.POST:
-            category = request.POST.get('Categories')
-            department = request.POST.get('Departments')
-            producer = request.POST.get('Producers')
+            category = request.POST.get('Categories', 'Any Categories')
+            department = request.POST.get('Departments', 'Any Departments')
+            producer = request.POST.get('Producers', 'Any Producers')
             active_category, active_department, active_producer = category, department, producer
             
         elif 'add_to_cart' in request.POST:
@@ -63,9 +66,9 @@ def home(request):
             
             add_to_cart(request,product_id, quantity)
             
-    products = get_products(active_category, active_department, active_producer)
+    products = get_products(active_category, active_department, active_producer, search)
 
-    return render(request, 'home.html', 
+    return render(request, 'base_HOME.html', 
             {'categories': CATEGORY_CHOICES, 
             'departments': DEPARTMENT_CHOICES, 
             'producers': PRODUCER_CHOICES, 
@@ -87,7 +90,7 @@ def add_to_cart(request,product_id, quantity):
         OrderProduct.objects.create(product=product, quantity=quantity, session_id = request.session['nonuser'])
 
 
-def get_products(category, department, producer):
+def get_products(category, department, producer, search):
     
     listOfList = []
 
@@ -98,11 +101,17 @@ def get_products(category, department, producer):
     if producer == 'Any Producers':
         producer = ''
     
-    productos = Product.objects.filter(section__icontains=category, department__icontains=department, producer__icontains=producer)
+    productos = Product.objects.filter(section__icontains=category, 
+                                        department__icontains=department, 
+                                        producer__icontains=producer).filter(Q(title__icontains=search) |
+                                                                            Q(section__icontains=search) | 
+                                                                            Q(department__icontains=search) | 
+                                                                            Q(producer__icontains=search))   
 
     i=0
     listaCuatroProductos = []
     for producto in productos:
+        print(producto.section)
         if i == 4:
             listOfList.append(listaCuatroProductos)
             listaCuatroProductos = []

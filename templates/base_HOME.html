@@ -13,6 +13,7 @@
 <form method="post" action="{% url 'home' %}" class="d-flex justify-content-around">
     {% csrf_token %}
     <h1 class="titulo">Catálogo</h1>
+    <input class="form-control selects-shop" type="text" placeholder="Buscar producto" aria-label="Buscar" name="search-product">
     {% include "components/all_sections.html" with cat=categories dep=departments prod=producers act_cat=active_cat act_dep=active_dep act_prod=active_prod %}
     <button class="btn btn-success btn-filter" type="submit" name="filter">Buscar</button>
 </form>
