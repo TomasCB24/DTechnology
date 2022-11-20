@@ -1,0 +1,69 @@
+* {
+  font-family: Arial;
+}
+
+.row{
+  margin-bottom:2rem;
+
+}
+
+.titulo {
+  font-size: 2rem;
+  font-weight: bold;
+  font-family: inherit;
+  margin-left: 4rem;
+  margin-top: 4rem;
+}
+.card-title{
+    font-size: 1.5rem;
+    font-weight: 700;
+    color:black;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    height: 2.5em;
+}
+
+.card-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: black;
+}
+
+.price {
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+
+.card a {
+  text-decoration: none;
+}
+
+/* Add rounded corners to the top left and the top right corner of the image */
+img {
+  border-radius: 5px 5px 0 0;
+}
+
+.card-img-top {
+  width: 100%;
+  height: 15vw;
+  object-fit: cover;
+}
+
+/* Selects in main screen */
+
+.selects-shop{
+  max-width: 200px;
+  max-height: 40px;
+  margin-left: 3rem;
+  margin-top: 4rem;
+}
+
+.btn-filter{
+  max-height: 40px;
+  margin-left: 4rem;
+  margin-top: 4rem;
+  margin-right: 10px;
+}

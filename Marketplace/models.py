@@ -90,14 +90,16 @@ class Product(models.Model):
         return self.price
     
     def clean(self):
-        if self.discount_price > self.price:
-            raise ValidationError("El descuento tiene que ser menor que el precio original")
- 
-    
+        if self.discount_price is not None:
+            if self.discount_price > self.price:
+                raise ValidationError("El descuento tiene que ser menor que el precio original")
 class OrderProduct(models.Model):
-    ordered = models.BooleanField(default=False)
-    product = models.ForeignKey(Product, on_delete=models.CASCADE, unique=True)
+    session_id = models.CharField(max_length=100, blank=True, null=True)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(default=1, validators=[MinValueValidator(1)])
+    
+    class Meta:
+        unique_together = ('session_id', 'product',)
     
     def __str__(self):
         return f"{self.quantity} of {self.product.title}"
@@ -116,6 +118,10 @@ class OrderProduct(models.Model):
             return self.get_total_discount_product_price()
         return self.get_total_product_price()
     
+    def add_products(self, quantity):
+        self.quantity += quantity
+        self.save()
+      
 class Order(models.Model):       
     
     ref_id = models.AutoField(primary_key=True)
@@ -142,11 +148,6 @@ class Order(models.Model):
     def ref_code(self):
         number = random.randint(1000000,9999999)
         return str(self.start_date.date())+"/"+ str(number) + str(self.ref_id)
-    
-   
-    
-    
-        
 class Payment(models.Model):
     purcharse_id = models.AutoField(primary_key=True)
     amount = models.FloatField(validators=[MinValueValidator(0.0)])
@@ -156,17 +157,16 @@ class Payment(models.Model):
     def stripe_charge_id(self):
         number = random.randint(1000000,9999999)
         return str(self.timestamp.time())+"/"+ str(number) + str(self.purcharse_id)
-    
 class Address(models.Model):
-    name = models.CharField(max_length=100)
-    surname = models.CharField(max_length=100)
+    name = models.CharField(max_length=100, blank=True, null = True)
+    surname = models.CharField(max_length=100, blank=True, null = True)
     email = models.EmailField(primary_key=True)
     phone = PhoneNumberField(unique = True, null = True, blank = False)
     street_address = models.CharField(max_length=100)
     apartment_address = models.CharField(max_length=100)
     country = CountryField(multiple=False)
     address_type = models.CharField(max_length=1, choices=ADDRESS_CHOICES)
-    default = models.BooleanField(default=False)
+    
 
     class Meta:
         verbose_name_plural = 'Addresses'
