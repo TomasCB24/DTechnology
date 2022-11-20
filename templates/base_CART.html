@@ -31,7 +31,11 @@
                 <td>{{ forloop.counter }}</td>
                 <td><img src="{{ p.product.image }}" alt="{{ p.name }}" width="100px"></td>
                 <td class="product-title">{{ p.product.title }}</td>
-                <td class="product-single-price">{{ p.product.price }} €</td>
+                {% if p.product.discount_price %}
+                    <td class="product-price">{{ p.product.discount_price }} €</td>
+                {% else %}
+                    <td class="product-price">{{ p.product.price }} €</td>
+                {% endif %}
                 <td class="product-quantity">
                     <a class="reduce-btn" href="{% url 'reduce_quantity' p.id %}"><span class="btn">-</span></a>
                     
