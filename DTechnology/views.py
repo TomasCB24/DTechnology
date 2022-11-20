@@ -12,7 +12,7 @@ def index(request):
 
 def cart(request):
 
-    products = OrderProduct.objects.all()
+    products = OrderProduct.objects.filter(session_id=request.session['nonuser'])
     # get the total price of the order
     total_price = 0
     total_discount = 0
@@ -46,6 +46,9 @@ def delete_product(request, id):
 
 @csrf_exempt
 def home(request):
+
+    if 'nonuser' not in request.session or request.session['nonuser'] == '':
+        request.session['nonuser'] = str(uuid.uuid4())
     
     active_category, active_department, active_producer = 'Any Categories', 'Any Departments', 'Any Producers'
     
@@ -79,11 +82,11 @@ def add_to_cart(request,product_id, quantity):
     # Try if orderProduct exist
     try:
         product = Product.objects.get(id=product_id)
-        order_product = OrderProduct.objects.get(product=product, session_id=request.session.session_key)
+        order_product = OrderProduct.objects.get(product=product, session_id=request.session['nonuser'])
 
         order_product.add_products(quantity)
     except:
-        OrderProduct.objects.create(product=product, quantity=quantity, session_id = request.session.session_key)
+        OrderProduct.objects.create(product=product, quantity=quantity, session_id = request.session['nonuser'])
 
 
 def get_products(category, department, producer):

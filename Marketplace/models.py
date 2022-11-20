@@ -75,8 +75,8 @@ ADDRESS_CHOICES = (
 class Product(models.Model):
             
     title = models.CharField(max_length=100)
-    price = models.DecimalField(decimal_places=2, max_digits=5, validators=[MinValueValidator(0.0)])
-    discount_price = models.DecimalField(decimal_places=2, max_digits=5,blank=True, null=True, validators=[MinValueValidator(0.0)])
+    price = models.DecimalField(decimal_places=2, max_digits=20, validators=[MinValueValidator(0.0)])
+    discount_price = models.DecimalField(decimal_places=2, max_digits=20,blank=True, null=True, validators=[MinValueValidator(0.0)])
     section = models.CharField(choices=CATEGORY_CHOICES, max_length=10)
     description = models.TextField(max_length= 400)
     image = models.URLField()
