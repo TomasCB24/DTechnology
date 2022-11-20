@@ -111,7 +111,6 @@ def get_products(category, department, producer, search):
     i=0
     listaCuatroProductos = []
     for producto in productos:
-        print(producto.section)
         if i == 4:
             listOfList.append(listaCuatroProductos)
             listaCuatroProductos = []
