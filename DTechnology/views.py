@@ -12,15 +12,13 @@ def index(request):
 
 def cart(request):
 
-    products = OrderProduct.objects.filter(session_id=request.session['nonuser'])
+    product_orders = OrderProduct.objects.filter(session_id=request.session['nonuser'])
     # get the total price of the order
     total_price = 0
-    total_discount = 0
-    for product in products:
-        total_price += product.get_final_price()
-        total_discount += product.get_amount_saved()
+    for product_order in product_orders:
+        total_price += product_order.get_final_price()
 
-    return render(request, 'base_CART.html', {'products': products, 'total_price': total_price, 'total_discount': total_discount})
+    return render(request, 'base_CART.html', {'products': product_orders, 'total_price': total_price})
 
 def reduce_product_quantity(request, id):
     product = OrderProduct.objects.get(id=id)
