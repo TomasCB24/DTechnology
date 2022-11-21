@@ -82,11 +82,14 @@ class Product(models.Model):
     image = models.URLField()
     department = models.CharField(choices=DEPARTMENT_CHOICES, max_length=30)
     producer = models.CharField(choices=PRODUCER_CHOICES, max_length=30)
+    inventory = models.IntegerField(default=5)
 
     def __str__(self):
         return self.title
 
-    
+    def is_sold_out(self):
+        return self.inventory <= 0
+
     def get_price(self):
         return self.price
     

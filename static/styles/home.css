@@ -37,6 +37,14 @@
   white-space: nowrap;
 }
 
+.badge{
+  background-color: #ff4242;
+  font-size: 0.8rem;
+  height: fit-content;
+}
+
+
+
 .card a {
   text-decoration: none;
 }

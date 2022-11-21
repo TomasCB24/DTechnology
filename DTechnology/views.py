@@ -42,9 +42,16 @@ def reduce_product_quantity(request, id):
     return redirect('cart')
 
 def increase_product_quantity(request, id):
-    product = OrderProduct.objects.get(id=id)
-    product.quantity += 1
-    product.save()
+    orderProduct = OrderProduct.objects.get(id=id)
+    product = orderProduct.product
+    if orderProduct.quantity < product.inventory:
+        orderProduct.quantity += 1
+        orderProduct.save()
+    else:
+        #TODO:
+        #display a message if product.inventory < quantity
+        orderProduct.quantity = product.inventory
+        orderProduct.save()
     return redirect('cart')
 
 
@@ -92,6 +99,9 @@ def home(request):
         
     
 def add_to_cart(request,product_id, quantity):
+
+    #TODO:
+    #display a message if product.inventory < quantity
     
     # Try if orderProduct exist
     try:
@@ -101,6 +111,7 @@ def add_to_cart(request,product_id, quantity):
         order_product.add_products(quantity)
     except:
         OrderProduct.objects.create(product=product, quantity=quantity, session_id = request.session['nonuser'])
+
 
 
 def get_products(category, department, producer, search):

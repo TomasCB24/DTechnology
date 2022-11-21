@@ -55,9 +55,16 @@
                                 <input type="hidden" name="product_id" value={{product.id}}>
                             </div>
                         </div>
+                        {% if product.is_sold_out %}
+                        <div class="col-md-8 d-flex justify-content-end">
+                            <span class="badge badge-danger">Agotado</span>
+                        </div>
+                        {% else %}
                         <div class="col-md-8 d-flex justify-content-end">
                             <button type="submit" class="btn btn-outline-primary align-right" name="add_to_cart">Añadir al carrito</button>
                         </div>
+                        {% endif %}
+
                     </form><!--form-->
                     
                 </div>
