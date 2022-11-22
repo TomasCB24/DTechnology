@@ -18,6 +18,13 @@
     <button class="btn btn-success btn-filter" type="submit" name="filter">Buscar</button>
 </form>
 <div class="container mt-5 pt-5">
+    {% if messages %}
+    <ul class="messages alert alert-warning" role="alert">
+        {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
     {% for list in listOfList %}
     <div class="row">
         {% for product in list %}

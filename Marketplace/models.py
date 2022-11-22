@@ -88,7 +88,14 @@ class Product(models.Model):
         return self.title
 
     def is_sold_out(self):
-        return self.inventory <= 0
+
+        order_products = OrderProduct.objects.filter(product=self)
+        total_ordered = 0
+        for order_product in order_products:
+            total_ordered += order_product.quantity
+        if total_ordered >= self.inventory:
+            return True
+        return False
 
     def get_price(self):
         return self.price
