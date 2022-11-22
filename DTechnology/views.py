@@ -45,13 +45,17 @@ def reduce_product_quantity(request, id):
 def increase_product_quantity(request, id):
     orderProduct = OrderProduct.objects.get(id=id)
     product = orderProduct.product
-    if orderProduct.quantity < product.inventory:
+    
+    order_products = OrderProduct.objects.filter(product=product)
+    cart_quantity = 0
+    for order_product in order_products:
+        cart_quantity += order_product.quantity
+    
+    if 0 < (product.inventory - cart_quantity):
         orderProduct.quantity += 1
         orderProduct.save()
     else:
         messages.warning(request, 'No hay suficientes ' + product.title + ' en el inventario')
-        orderProduct.quantity = product.inventory
-        orderProduct.save()
     return redirect('cart')
 
 
