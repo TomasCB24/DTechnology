@@ -97,6 +97,15 @@ class Product(models.Model):
             return True
         return False
 
+    def get_stock(self):
+
+        order_products = OrderProduct.objects.filter(product=self)
+        total_ordered = 0
+        for order_product in order_products:
+            total_ordered += order_product.quantity
+        return self.inventory - total_ordered 
+            
+
     def get_price(self):
         return self.price
     

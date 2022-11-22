@@ -54,7 +54,15 @@
                         {% endif %}
 
                     </div>
-
+                    {% if product.get_stock > 0 %}
+                    <div class="d-flex justify-content-center mb-2 btn btn-info">
+                        {{ product.get_stock }} unidades disponibles
+                    </div>
+                    {% else %}
+                    <div class="invisible d-flex justify-content-center mb-2 btn btn-danger">
+                        {{ product.get_stock }} unidades disponibles
+                    </div>
+                    {% endif %}
                     <form method="post" action="{% url 'home' %}" class="row">
                         <div class="col-md-4">
                             <div class="form-outline">
