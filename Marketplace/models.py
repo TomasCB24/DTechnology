@@ -82,11 +82,30 @@ class Product(models.Model):
     image = models.URLField()
     department = models.CharField(choices=DEPARTMENT_CHOICES, max_length=30)
     producer = models.CharField(choices=PRODUCER_CHOICES, max_length=30)
+    inventory = models.IntegerField(default=5)
 
     def __str__(self):
         return self.title
 
-    
+    def is_sold_out(self):
+
+        order_products = OrderProduct.objects.filter(product=self)
+        total_ordered = 0
+        for order_product in order_products:
+            total_ordered += order_product.quantity
+        if total_ordered >= self.inventory:
+            return True
+        return False
+
+    def get_stock(self):
+
+        order_products = OrderProduct.objects.filter(product=self)
+        total_ordered = 0
+        for order_product in order_products:
+            total_ordered += order_product.quantity
+        return self.inventory - total_ordered 
+            
+
     def get_price(self):
         return self.price
     

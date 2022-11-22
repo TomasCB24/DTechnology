@@ -4,6 +4,7 @@ from django.shortcuts import render
 from django.views.generic import ListView
 from django.views.decorators.csrf import csrf_exempt
 from django.db.models import Q
+from django.contrib import messages
 
 from Marketplace.models import Product, CATEGORY_CHOICES, DEPARTMENT_CHOICES, PRODUCER_CHOICES
 
@@ -42,9 +43,19 @@ def reduce_product_quantity(request, id):
     return redirect('cart')
 
 def increase_product_quantity(request, id):
-    product = OrderProduct.objects.get(id=id)
-    product.quantity += 1
-    product.save()
+    orderProduct = OrderProduct.objects.get(id=id)
+    product = orderProduct.product
+    
+    order_products = OrderProduct.objects.filter(product=product)
+    cart_quantity = 0
+    for order_product in order_products:
+        cart_quantity += order_product.quantity
+    
+    if 0 < (product.inventory - cart_quantity):
+        orderProduct.quantity += 1
+        orderProduct.save()
+    else:
+        messages.warning(request, 'No hay suficientes ' + product.title + ' en el inventario')
     return redirect('cart')
 
 
@@ -73,8 +84,19 @@ def home(request):
         elif 'add_to_cart' in request.POST:
             quantity = int(request.POST.get('quantity'))
             product_id = request.POST.get('product_id')
+
+            product = Product.objects.get(id=product_id)
+
+            order_products = OrderProduct.objects.filter(product=product)
+
+            cart_quantity = 0
+            for order_product in order_products:
+                cart_quantity += order_product.quantity
             
-            add_to_cart(request,product_id, quantity)
+            if((product.inventory - cart_quantity) >= quantity):
+                add_to_cart(request,product_id, quantity)
+            else:
+                messages.warning(request, 'No hay suficientes ' + product.title + ' en el inventario')
             
     products = get_products(active_category, active_department, active_producer, search)
 
@@ -92,8 +114,7 @@ def home(request):
         
     
 def add_to_cart(request,product_id, quantity):
-    
-    # Try if orderProduct exist
+
     try:
         product = Product.objects.get(id=product_id)
         order_product = OrderProduct.objects.get(product=product, session_id=request.session['nonuser'])
@@ -101,6 +122,7 @@ def add_to_cart(request,product_id, quantity):
         order_product.add_products(quantity)
     except:
         OrderProduct.objects.create(product=product, quantity=quantity, session_id = request.session['nonuser'])
+
 
 
 def get_products(category, department, producer, search):

@@ -18,6 +18,13 @@
     <button class="btn btn-success btn-filter" type="submit" name="filter">Buscar</button>
 </form>
 <div class="container mt-5 pt-5">
+    {% if messages %}
+    <ul class="messages alert alert-warning" role="alert">
+        {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
     {% for list in listOfList %}
     <div class="row">
         {% for product in list %}
@@ -47,7 +54,15 @@
                         {% endif %}
 
                     </div>
-
+                    {% if product.get_stock > 0 %}
+                    <div class="d-flex justify-content-center mb-2 btn btn-info">
+                        {{ product.get_stock }} unidades disponibles
+                    </div>
+                    {% else %}
+                    <div class="invisible d-flex justify-content-center mb-2 btn btn-danger">
+                        {{ product.get_stock }} unidades disponibles
+                    </div>
+                    {% endif %}
                     <form method="post" action="{% url 'home' %}" class="row">
                         <div class="col-md-4">
                             <div class="form-outline">
@@ -55,9 +70,16 @@
                                 <input type="hidden" name="product_id" value={{product.id}}>
                             </div>
                         </div>
+                        {% if product.is_sold_out %}
+                        <div class="col-md-8 d-flex justify-content-end">
+                            <span class="badge badge-danger">Agotado</span>
+                        </div>
+                        {% else %}
                         <div class="col-md-8 d-flex justify-content-end">
                             <button type="submit" class="btn btn-outline-primary align-right" name="add_to_cart">Añadir al carrito</button>
                         </div>
+                        {% endif %}
+
                     </form><!--form-->
                     
                 </div>
