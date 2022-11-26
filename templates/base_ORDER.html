@@ -19,19 +19,19 @@
 </ul>
 {% endif %}
 
-<h1>Pedido</h1>
+<h1>Introduce tus datos</h1>
 
-<form class="order-form" action="/order/" method="post">
+
+<form class="card order-form" action="/order/" method="post">
     {% csrf_token %}
     <div class="form-inputs">
         {{ form }}
     </div>
     
-    <div class="form-submit">
-        <h3>Total: {{ total_price }} €</h3>
-        
-        <input class="btn btn-success" type="submit" value="Pagar">
+    <div class="form-submit">       
+        <input class="btn btn-success" id="button-purcharse" type="submit" value="Pagar">
     </div>
 </form>
+
 
 {% endblock %}

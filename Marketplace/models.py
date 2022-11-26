@@ -182,7 +182,7 @@ class Payment(models.Model):
 class Address(models.Model):
     name = models.CharField(max_length=100, blank=True, null = True)
     surname = models.CharField(max_length=100, blank=True, null = True)
-    email = models.EmailField(primary_key=True)
+    email = models.EmailField()
     phone = PhoneNumberField(unique = True, null = True, blank = True)
     street_address = models.CharField(max_length=100)
     apartment_address = models.CharField(max_length=100)
@@ -192,4 +192,5 @@ class Address(models.Model):
 
     class Meta:
         verbose_name_plural = 'Addresses'
+        unique_together = (('email', 'street_address'),)  
 
