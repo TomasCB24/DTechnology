@@ -34,12 +34,22 @@ class OrderProductTestCase(TestCase):
             orderProduct= OrderProduct(session_id="36794cfc-f122-401a-bfb5-47b27d772708", product=Product.objects.get(title="titlePrueba"), quantity=-1)
             orderProduct.save()
     
+    def test_order_product_create_quantity_null(self):
+        with self.assertRaises(ValueError):
+            orderProduct= OrderProduct(session_id="36794cfc-f122-401a-bfb5-47b27d772708", product=Product.objects.get(title="titlePrueba"), quantity=None)
+            orderProduct.save()
+    
     def test_order_product_create_session_id_incorrect(self):
         with self.assertRaises(ValueError):
             orderProduct= OrderProduct(session_id="36794cfc-f122-401a-bfb5-47b27d77270836794cfc-f122-401a-bfb5-47b27d77270836794cfc-f122-401a-bfb5-47b27d77270836794cfc-f122-401a-bfb5-47b27d77270836794cfc-f122-401a-bfb5-47b27d77270836794cfc-f122-401a-bfb5-47b27d77270836794cfc-f122-401a-bfb5-47b27d77270836794cfc-f122-401a-bfb5-47b27d77270836794cfc-f122-401a-bfb5-47b27d77270836794cfc-f122-401a-bfb5-47b27d772708", product=Product.objects.get(title="titlePrueba"), quantity=1)
             orderProduct.save()
     
-    def test_order_product_create_product_incorrect(self):
+    def test_order_product_create_session_id_null(self):
+        with self.assertRaises(ValueError):
+            orderProduct= OrderProduct(session_id=None, product=Product.objects.get(title="titlePrueba"), quantity=1)
+            orderProduct.save()
+    
+    def test_order_product_create_product_null(self):
         with self.assertRaises(ValueError):
             orderProduct= OrderProduct(session_id="36794cfc-f122-401a-bfb5-47b27d772708", product=None, quantity=1)
             orderProduct.save()
@@ -51,13 +61,25 @@ class OrderProductTestCase(TestCase):
             orderProduct.quantity=-1
             orderProduct.save()
     
+    def test_order_product_update_quantity_null(self):
+        with self.assertRaises(ValueError):
+            orderProduct= OrderProduct.objects.get(session_id="36794cfc-f122-401a-bfb5-47b27d772708")
+            orderProduct.quantity=None
+            orderProduct.save()
+
     def test_order_product_update_session_id_incorrect(self):
         with self.assertRaises(ValueError):
             orderProduct= OrderProduct.objects.get(session_id="36794cfc-f122-401a-bfb5-47b27d772708")
             orderProduct.session_id="36794cfc-f122-401a-bfb5-47b27d77270836794cfc-f122-401a-bfb5-47b27d77270836794cfc-f122-401a-bfb5-47b27d77270836794cfc-f122-401a-bfb5-47b27d77270836794cfc-f122-401a-bfb5-47b27d77270836794cfc-f122-401a-bfb5-47b27d77270836794cfc-f122-401a-bfb5-47b27d77270836794cfc-f122-401a-bfb5-47b27d77270836794cfc-f122-401a-bfb5-47b27d772708"
             orderProduct.save()
+        
+    def test_order_product_update_session_id_null(self):
+        with self.assertRaises(ValueError):
+            orderProduct= OrderProduct.objects.get(session_id="36794cfc-f122-401a-bfb5-47b27d772708")
+            orderProduct.session_id=None
+            orderProduct.save()
     
-    def test_order_product_update_product_incorrect(self):
+    def test_order_product_update_product_null(self):
         with self.assertRaises(ValueError):
             orderProduct= OrderProduct.objects.get(session_id="36794cfc-f122-401a-bfb5-47b27d772708")
             orderProduct.product=None
