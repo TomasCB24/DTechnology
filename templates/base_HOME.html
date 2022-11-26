@@ -64,6 +64,7 @@
                     </div>
                     {% endif %}
                     <form method="post" action="{% url 'home' %}" class="row">
+                        {% csrf_token %}
                         <div class="col-md-4">
                             <div class="form-outline">
                                 <input type="number" name="quantity" class="form-control" value="1" min="1" max="100"/>

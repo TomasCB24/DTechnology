@@ -1,0 +1,69 @@
+from django.shortcuts import render
+
+from django.conf import settings 
+from django.http.response import JsonResponse, HttpResponse
+from django.views.decorators.csrf import csrf_exempt 
+from django.views.generic.base import TemplateView
+import stripe
+
+from Marketplace.models import OrderProduct
+
+
+class HomePageView(TemplateView):
+    template_name = 'payments/testing_STRIPE.html'
+
+@csrf_exempt
+def stripe_config(request):
+    if request.method == 'GET':
+        stripe_config = {'publicKey': settings.STRIPE_PUBLISHABLE_KEY}
+        return JsonResponse(stripe_config, safe=False)
+
+
+@csrf_exempt
+def create_checkout_session(request):
+  if request.method == 'GET':
+    domain_url = 'http://localhost:8000/payments/'
+    stripe.api_key = settings.STRIPE_SECRET_KEY
+    try:
+      product_orders = OrderProduct.objects.filter(session_id=request.session['nonuser'])
+      #we create a order with all the products in the cart
+      order = Order.objects.create(session_id=request.session['nonuser'])
+
+
+      #we add each product to the checkout session
+      line_items = []
+      for product_order in product_orders:
+        line_items.append({
+          'price_data': {
+            'currency': 'eur',
+            'product_data': {
+              'name': product_order.product.title,
+              'images': [product_order.product.image],
+            },
+            'unit_amount': int(product_order.product.price * 100),
+          },
+          'quantity': product_order.quantity,
+        })
+      
+      checkout_session = stripe.checkout.Session.create(
+        success_url=domain_url + 'success?session_id={CHECKOUT_SESSION_ID}',
+        cancel_url=domain_url + 'cancelled/',
+        payment_method_types=['card'],
+        mode='payment',
+        line_items=line_items,
+      )
+                
+      return JsonResponse({'sessionId': checkout_session['id']})
+    except Exception as e:
+      return JsonResponse({'error': str(e)})
+
+def SuccessView(request):
+    product_orders = OrderProduct.objects.filter(session_id=request.session['nonuser'])
+    
+    return render(request , template_name)
+
+
+def CancelledView(request):
+    template_name = 'payments/cancelled.html'
+    return render(request , template_name)
+

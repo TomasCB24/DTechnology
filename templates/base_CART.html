@@ -8,6 +8,8 @@
     <link rel="stylesheet" type="text/css" href="{% static 'styles/home.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'styles/index.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'styles/cart.css' %}">
+    <script src="https://js.stripe.com/v3/"></script>
+    <script src="{% static 'js/main.js' %}"></script>   
 {% endblock %}
 
 {% block content %}
@@ -64,8 +66,10 @@
     <div class="total-price">
         <h3>Total: {{ total_price }} €</h3>
         
-
-        <a href="{% url 'index' %}" class="btn btn-success">Realizar pedido</a>
+       
+        <button type="submit" class="btn btn-success" id="submitBtn">Realizar pedido</button>
+        
+      
     </div>
 </div>
 
