@@ -168,6 +168,7 @@ class Order(models.Model):
     def ref_code(self):
         number = random.randint(1000000,9999999)
         return str(self.start_date.date())+"/"+ str(number) + str(self.ref_id)
+
 class Payment(models.Model):
     purcharse_id = models.AutoField(primary_key=True)
     amount = models.FloatField(validators=[MinValueValidator(0.0)])
@@ -177,14 +178,15 @@ class Payment(models.Model):
     def stripe_charge_id(self):
         number = random.randint(1000000,9999999)
         return str(self.timestamp.time())+"/"+ str(number) + str(self.purcharse_id)
+
 class Address(models.Model):
     name = models.CharField(max_length=100, blank=True, null = True)
     surname = models.CharField(max_length=100, blank=True, null = True)
     email = models.EmailField(primary_key=True)
-    phone = PhoneNumberField(unique = True, null = True, blank = False)
+    phone = PhoneNumberField(unique = True, null = True, blank = True)
     street_address = models.CharField(max_length=100)
     apartment_address = models.CharField(max_length=100)
-    country = CountryField(multiple=False)
+    country = CountryField()
     address_type = models.CharField(max_length=1, choices=ADDRESS_CHOICES)
     
 

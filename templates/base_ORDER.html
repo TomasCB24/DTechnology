@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block title %}Pedido DTechnology{% endblock %}
+
+{% block head %}
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/home.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/index.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/order.css' %}">
+{% endblock %}
+
+{% block content %}
+
+{% if messages %}
+<ul class="messages alert alert-warning" role="alert">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+<h1>Pedido</h1>
+
+<form class="order-form" action="/order/" method="post">
+    {% csrf_token %}
+    <div class="form-inputs">
+        {{ form }}
+    </div>
+    
+    <div class="form-submit">
+        <h3>Total: {{ total_price }} €</h3>
+        
+        <input class="btn btn-success" type="submit" value="Pagar">
+    </div>
+</form>
+
+{% endblock %}
