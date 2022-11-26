@@ -99,12 +99,13 @@ select {
   top: 0.3rem;
   right: 1rem;
   background-color: #ee0f0f;
-  border: 1px solid black;
   border-radius: 50%;
   color: rgb(255, 255, 255);
   padding: 0.25rem 0.5rem;
   font-size: 0.75rem;
   font-weight: 700;
+  display: grid;
+  place-content: center;
 }
 
 /* Remove all animations, transitions and smooth scroll for people that prefer not to see them */

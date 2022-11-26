@@ -12,3 +12,13 @@
     max-height: 40px;
     margin-right: 5px;
 }
+
+.heading {
+    display: flex;
+    width: 100%;
+    font-size: 2rem;
+    font-weight: bold;
+    font-family: inherit;
+    padding-left: 4rem;
+    padding-top: 4rem;
+}

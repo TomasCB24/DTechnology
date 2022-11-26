@@ -2,18 +2,10 @@
   font-family: Arial;
 }
 
-.row{
+.catalog-row{
   margin-bottom:2rem;
-
 }
 
-.titulo {
-  font-size: 2rem;
-  font-weight: bold;
-  font-family: inherit;
-  margin-left: 4rem;
-  margin-top: 4rem;
-}
 .card-title{
     font-size: 1.5rem;
     font-weight: 700;
@@ -32,6 +24,10 @@
   color: black;
 }
 
+.card-select {
+  min-width: 5em;
+}
+
 .price {
   font-size: 0.9rem;
   white-space: nowrap;
@@ -42,8 +38,6 @@
   font-size: 0.8rem;
   height: fit-content;
 }
-
-
 
 .card a {
   text-decoration: none;
@@ -60,18 +54,21 @@ img {
   object-fit: cover;
 }
 
-/* Selects in main screen */
+/* Filters */
 
-.selects-shop{
-  max-width: 200px;
-  max-height: 40px;
-  margin-left: 3rem;
-  margin-top: 4rem;
+.filter-form {
+  margin-inline: 3em;
 }
 
-.btn-filter{
+.selects-shop, .btn-filter{
   max-height: 40px;
-  margin-left: 4rem;
-  margin-top: 4rem;
-  margin-right: 10px;
+  margin: 2em;
+}
+
+.selects-shop {
+  max-width: 200px;
+}
+
+.btn-filter {
+  max-width: 150px;
 }

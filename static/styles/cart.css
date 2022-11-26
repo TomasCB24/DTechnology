@@ -8,15 +8,6 @@
   padding: 2em 10% 0 10%;
 }
 
-h1 {
-  display: flex;
-  width: 100%;
-  font-size: 2em;
-  font-weight: 700;
-  margin: 0;
-  padding: 0;
-}
-
 .line {
   background-color: black;
   width: 100%;

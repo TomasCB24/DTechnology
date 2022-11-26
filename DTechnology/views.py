@@ -159,6 +159,12 @@ def get_products(category, department, producer, search):
 
 
 def order(request):
+    
+    product_orders = OrderProduct.objects.filter(session_id=request.session['nonuser'])
+    # get the total price of the order
+    total_price = 0
+    for product_order in product_orders:
+        total_price += product_order.get_final_price()
    
     if request.method == 'POST':
         form = AddressForm(request.POST)
@@ -175,4 +181,8 @@ def order(request):
         
         form = AddressForm()
 
-    return render(request, 'base_ORDER.html', {'form': form})
+    return render(request, 'base_ORDER.html', 
+                            {'form': form,
+                            'total_price': total_price,
+                            'cart_counter': get_cart_counter(request)
+                            })

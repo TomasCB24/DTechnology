@@ -6,7 +6,7 @@
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'styles/home.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'styles/index.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'styles/order.css' %}">
+    {% comment %} <link rel="stylesheet" type="text/css" href="{% static 'styles/order.css' %}"> {% endcomment %}
 {% endblock %}
 
 {% block content %}
@@ -19,16 +19,17 @@
 </ul>
 {% endif %}
 
-<h1>Introduce tus datos</h1>
+<h1 class="heading">Introduce tus datos</h1>
 
-
-<form class="card order-form" action="/order/" method="post">
+<form class="order-form row" action="/order/" method="post">
     {% csrf_token %}
-    <div class="form-inputs">
+    <div class="form-inputs col">
         {{ form }}
     </div>
     
-    <div class="form-submit">       
+    <div class="form-submit col">
+        <h3>Total: {{ total_price }} €</h3>
+
         <input class="btn btn-success" id="button-purcharse" type="submit" value="Pagar">
     </div>
 </form>
