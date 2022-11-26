@@ -7,6 +7,9 @@ from django.core.validators import (
     MaxValueValidator,
     MinValueValidator,
     ValidationError,
+    EmailValidator,
+    MaxLengthValidator,
+    RegexValidator,
 )
 from django.core.exceptions import ValidationError
 from django.db.models.signals import pre_save
@@ -186,7 +189,24 @@ class Address(models.Model):
     apartment_address = models.CharField(max_length=100)
     country = CountryField(multiple=False)
     address_type = models.CharField(max_length=1, choices=ADDRESS_CHOICES)
-    
+
+    def save(self, *args, **kwargs):
+        val1 = EmailValidator()
+        val1(self.email)
+        val2 = RegexValidator(regex='^(\+34|0034|34)?[ -]*(6|7)[ -]*([0-9][ -]*){8}$')
+        val2(self.phone)
+        val3 = MaxLengthValidator(100)
+        val3(self.name)
+        val3(self.surname)
+        val3(self.street_address)
+        val3(self.apartment_address)
+        val4 = MaxLengthValidator(1)
+        val4(self.address_type)
+
+        if self.address_type != 'B' and self.address_type != 'S':
+            raise ValidationError("El tipo de dirección no es válido, debe ser B o S")
+
+        super(Address, self).save(*args, **kwargs)
 
     class Meta:
         verbose_name_plural = 'Addresses'
