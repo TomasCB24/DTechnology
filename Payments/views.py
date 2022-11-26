@@ -1,3 +1,4 @@
+from datetime import datetime
 from django.shortcuts import render
 
 from django.conf import settings 
@@ -6,7 +7,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.generic.base import TemplateView
 import stripe
 
-from Marketplace.models import OrderProduct
+from Marketplace.models import Order, OrderProduct
 
 
 class HomePageView(TemplateView):
@@ -24,15 +25,17 @@ def create_checkout_session(request):
   if request.method == 'GET':
     domain_url = 'http://localhost:8000/payments/'
     stripe.api_key = settings.STRIPE_SECRET_KEY
+    
     try:
       product_orders = OrderProduct.objects.filter(session_id=request.session['nonuser'])
       #we create a order with all the products in the cart
-      order = Order.objects.create(session_id=request.session['nonuser'])
+      
 
 
       #we add each product to the checkout session
       line_items = []
       for product_order in product_orders:
+        price = product_order.get_final_price() / product_order.quantity
         line_items.append({
           'price_data': {
             'currency': 'eur',
@@ -40,7 +43,7 @@ def create_checkout_session(request):
               'name': product_order.product.title,
               'images': [product_order.product.image],
             },
-            'unit_amount': int(product_order.product.price * 100),
+            'unit_amount': int(price * 100),
           },
           'quantity': product_order.quantity,
         })
@@ -58,8 +61,22 @@ def create_checkout_session(request):
       return JsonResponse({'error': str(e)})
 
 def SuccessView(request):
+    template_name = 'payments/success.html'
+    order_id = request.session['order_id']
+    order = Order.objects.get(ref_id=int(order_id))
+    order.ordered = True
+    order.ordered_date = datetime.now()
+    order.save()
     product_orders = OrderProduct.objects.filter(session_id=request.session['nonuser'])
-    
+    for product_order in product_orders:
+      quantity = product_order.quantity
+      product = product_order.product
+      product.inventory -= quantity
+      product.save()
+      product_order.delete()
+
+    #delete the order id from the session
+    del request.session['order_id']
     return render(request , template_name)
 
 

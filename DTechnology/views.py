@@ -1,3 +1,4 @@
+from datetime import datetime
 from django.shortcuts import render, redirect
 from Marketplace.models import *
 from django.shortcuts import render
@@ -5,6 +6,9 @@ from django.views.generic import ListView
 from django.views.decorators.csrf import csrf_exempt
 from django.db.models import Q
 from django.contrib import messages
+from .forms import AddressForm
+from django.http import HttpResponseRedirect
+from django_countries import countries
 
 from Marketplace.models import Product, CATEGORY_CHOICES, DEPARTMENT_CHOICES, PRODUCER_CHOICES
 
@@ -111,8 +115,7 @@ def home(request):
             'cart_counter': get_cart_counter(request)
             }
         )
-        
-    
+
 def add_to_cart(request,product_id, quantity):
 
     try:
@@ -122,8 +125,6 @@ def add_to_cart(request,product_id, quantity):
         order_product.add_products(quantity)
     except:
         OrderProduct.objects.create(product=product, quantity=quantity, session_id = request.session['nonuser'])
-
-
 
 def get_products(category, department, producer, search):
     
@@ -158,4 +159,36 @@ def get_products(category, department, producer, search):
     return listOfList
 
 
+def order(request):
+   
+    if request.method == 'POST':
+        form = AddressForm(request.POST)
+                
+        if form.is_valid():
+            email = request.POST.get("email")
+            address = request.POST.get("street_address")
+            if Address.objects.filter(email = email,street_address = address).count() == 0:
+                Address.objects.create(**form.cleaned_data)
+            
+            product_orders = OrderProduct.objects.filter(session_id=request.session['nonuser'])
 
+            shipping = Address.objects.get(email = email,street_address = address)
+            order = Order.objects.create(shipping_address = shipping, billing_address = shipping)
+            order.products.set(product_orders)
+            order.save()
+
+            request.session['order_id'] = order.ref_id
+
+            payment = request.POST.get("payment")
+            if payment == 'Contrareembolso':
+                return redirect('success')
+            
+            return render(request, 'payments/testing_STRIPE.html', {'order': order, })
+
+        
+    else:
+        
+
+        form = AddressForm()
+
+    return render(request, 'base_ORDER.html', {'form': form})
