@@ -171,19 +171,7 @@ def order(request):
         form = AddressForm(request.POST)
        
         if form.is_valid():
-            name = form.cleaned_data['name']
-            surname = form.cleaned_data['surname']
-            email = form.cleaned_data['email']
-            phone = form.cleaned_data['phone']
-            street_address = form.cleaned_data['street_address']
-            apartment_address = form.cleaned_data['apartment_address']
-            address_type = form.cleaned_data['address_type']
-            country_code = form.cleaned_data['country']
-            country = dict(countries)[country_code]
-
-            ad = Address(name=name, surname=surname, email=email, street_address=street_address, apartment_address=apartment_address, address_type=address_type, phone=phone, country=country)
-            ad.country = country
-            ad.save()
+            Address.objects.create(**form.cleaned_data)
             return HttpResponseRedirect('/')
 
     else:
