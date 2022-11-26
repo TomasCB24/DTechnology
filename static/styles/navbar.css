@@ -1,7 +1,7 @@
 /*Navbar CSS*/
 
 .bg-navbar {
-    background-color: #6610F2;
+    background-color: var(--bs-indigo);
 }
 
 .flex-search {

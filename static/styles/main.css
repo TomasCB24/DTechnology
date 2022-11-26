@@ -6,7 +6,7 @@
     --clr-black: hsl(0, 0%, 5%);
     
     /* Primary */
-    /* TODO */
+    --bs-primary: var(--bs-indigo);
     
     /* Secondary */
     /* TODO */
@@ -23,42 +23,16 @@ body {
   font-family: var(--ff-primary);
 }
 
-.content {
-  overflow: hidden;
-  margin-bottom: 5rem;
-}
-
-.text-strike{
-    text-decoration: line-through;
-}
-
-.heading {
-  display: flex;
-  width: 100%;
-  font-size: 2rem;
-  font-weight: bold;
-  font-family: inherit;
-  padding-left: 4rem;
-  padding-top: 4rem;
-}
-
-#cart-btn {
-  margin: 0 1rem;
-}
-
-.cart-counter {
-  position: absolute;
-  width: 25px;
-  top: 0.3rem;
-  right: 1rem;
-  background-color: #ee0f0f;
-  border-radius: 50%;
-  color: var(--clr-white);
-  padding: 0.25rem 0.5rem;
-  font-size: 0.75rem;
-  font-weight: 700;
-  display: grid;
-  place-content: center;
+/* Bootstrap Primary Button */
+.btn-outline-primary{
+  --bs-btn-color: var(--bs-indigo) !important;
+  --bs-btn-border-color: var(--bs-indigo) !important;
+  --bs-btn-hover-bg: var(--bs-indigo) !important;
+  --bs-btn-hover-border-color: var(--bs-indigo) !important;
+  --bs-btn-active-bg: var(--bs-indigo) !important;
+  --bs-btn-active-border-color: var(--bs-indigo) !important;
+  --bs-btn-disabled-color: var(--bs-indigo) !important;
+  --bs-btn-disabled-border-color: var(--bs-indigo) !important;
 }
 
 /* MODERN HTML5 RESET https://piccalil.li/blog/a-modern-css-reset/ */

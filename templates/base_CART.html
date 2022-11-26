@@ -58,8 +58,8 @@
         {% endfor %}
     </table>
 
-    <div class="total-price">
-        <h3>Total: {{ total_price }} €</h3>
+    <div class="cart-footer">
+        <div class="total-price"><span>Total:</span> <span>{{ total_price }} €</span></div>
         
 
         <a href="{% url 'order' %}" class="btn btn-success">Realizar pedido</a>
