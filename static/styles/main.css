@@ -12,20 +12,53 @@
     /* TODO */
 
     /* Typography */
-    --ff-primary: 'Times New Roman', serif;
-    --ff-secondary: 'Times New Roman', serif;
+    --ff-primary: Arial, Helvetica, sans-serif;
+    --ff-secondary: Arial, Helvetica, sans-serif;
 }
 
 /* GENERAL RULES */
 
-
-
 body {
   background-color: var(--clr-white);
+  font-family: var(--ff-primary);
+}
+
+.content {
+  overflow: hidden;
+  margin-bottom: 5rem;
 }
 
 .text-strike{
     text-decoration: line-through;
+}
+
+.heading {
+  display: flex;
+  width: 100%;
+  font-size: 2rem;
+  font-weight: bold;
+  font-family: inherit;
+  padding-left: 4rem;
+  padding-top: 4rem;
+}
+
+#cart-btn {
+  margin: 0 1rem;
+}
+
+.cart-counter {
+  position: absolute;
+  width: 25px;
+  top: 0.3rem;
+  right: 1rem;
+  background-color: #ee0f0f;
+  border-radius: 50%;
+  color: var(--clr-white);
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  display: grid;
+  place-content: center;
 }
 
 /* MODERN HTML5 RESET https://piccalil.li/blog/a-modern-css-reset/ */
@@ -87,25 +120,6 @@ button,
 textarea,
 select {
   font: inherit;
-}
-
-#cart-btn {
-  margin: 0 1rem;
-}
-
-.cart-counter {
-  position: absolute;
-  width: 25px;
-  top: 0.3rem;
-  right: 1rem;
-  background-color: #ee0f0f;
-  border-radius: 50%;
-  color: rgb(255, 255, 255);
-  padding: 0.25rem 0.5rem;
-  font-size: 0.75rem;
-  font-weight: 700;
-  display: grid;
-  place-content: center;
 }
 
 /* Remove all animations, transitions and smooth scroll for people that prefer not to see them */

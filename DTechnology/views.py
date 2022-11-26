@@ -11,10 +11,6 @@ from django_countries import countries
 
 from Marketplace.models import Product, CATEGORY_CHOICES, DEPARTMENT_CHOICES, PRODUCER_CHOICES
 
-# view for testing components
-def index(request):
-    return render(request, 'base_INDEX.html')
-
 def get_cart_counter(request):
     if 'nonuser' in request.session:
         order_products = OrderProduct.objects.filter(session_id=request.session['nonuser'])
