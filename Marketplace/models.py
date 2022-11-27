@@ -11,6 +11,7 @@ from django.core.validators import (
 from django.core.exceptions import ValidationError
 from django.db.models.signals import pre_save
 import random
+from django.core.validators import URLValidator
 
 
 # Create your models here.
@@ -83,6 +84,39 @@ class Product(models.Model):
     department = models.CharField(choices=DEPARTMENT_CHOICES, max_length=30)
     producer = models.CharField(choices=PRODUCER_CHOICES, max_length=30)
     inventory = models.IntegerField(default=5)
+
+    def save(self, *args, **kwargs):
+        self.clean()
+        if len(self.title)>100:
+            raise ValidationError("El titulo es demasiado largo")
+        if self.title is None or self.title=="":
+            raise ValidationError("El titulo no puede estar vacio")
+        if self.price is None:
+            raise ValidationError("El precio no puede estar vacio")
+        if self.description is None or self.description=="":
+            raise ValidationError("La descripcion no puede estar vacia")
+        if self.image is None:
+            raise ValidationError("La imagen no puede estar vacia")
+        if self.price < 0:
+            raise ValidationError("El precio no puede ser negativo")
+        if self.discount_price is not None:
+            if self.discount_price < 0:
+                raise ValidationError("El descuento no puede ser negativo")
+        if self.inventory < 0:
+            raise ValidationError("El inventario no puede ser negativo")
+        categories = [x[0] for x in CATEGORY_CHOICES]
+        if self.section not in categories:
+            raise ValidationError("La categoria no es valida")
+        departments = [x[0] for x in DEPARTMENT_CHOICES]
+        if self.department not in departments:
+            raise ValidationError("El departamento no es valido")
+        producers = [x[0] for x in PRODUCER_CHOICES]
+        if self.producer not in producers:
+            raise ValidationError("El productor no es valido")
+        val = URLValidator()
+        val(self.image)
+
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.title
