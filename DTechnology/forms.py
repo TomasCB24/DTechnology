@@ -14,5 +14,5 @@ class AddressForm(forms.Form):
     phone = PhoneNumberField().formfield(label = 'Número de teléfono', required = False)
     street_address = forms.CharField(label = 'Calle', max_length=100, required = True)
     apartment_address = forms.CharField(label = 'Dirección', max_length=100, required=True)
-    country = CountryField().formfield(label = 'País', required = False)
+    country = CountryField().formfield(label = 'País', required = True)
     address_type = forms.ChoiceField(label ='Tipo de dirección', choices=ADDRESS_CHOICES, required=True)
