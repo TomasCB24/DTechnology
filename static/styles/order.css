@@ -1,27 +1,19 @@
-/* display form in center display */
-.order-form {
-    margin: 0 auto;
-    width: 30%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background: #f3f3f3;
+.order-form > div {
+    padding-inline: 3rem;
+    padding-top: 2rem;
 }
 
-/* display inputs in column */
-.order-form input {
-    display: block;
-    margin: 5px 0;
+.total-price {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
     width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    border-bottom: 1px solid #ccc;
+    padding: 0.5rem;
 }
 
-.order-form select {
-    display: block;
-    margin: 5px 0;
-    width: 100%;
-}
-
-h1{
-    text-align: center;
-    margin-top: 0.4rem;
+.total-price :first-child {
+    margin-right: 4rem;
 }

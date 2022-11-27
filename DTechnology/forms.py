@@ -9,10 +9,10 @@ PAYMENT_METHODS = (
 
 class AddressForm(forms.Form):
     name = forms.CharField(label ='Introduce tu nombre (Opcional)', max_length=100, required = False)
-    surname = forms.CharField(label = 'Introduce tu apellido (Opcional)', max_length=100, required = False)
+    surname = forms.CharField(label = 'Introduce tus apellidos (Opcional)', max_length=100, required = False)
     email = forms.EmailField(label = 'Introduce tu email')
     phone = PhoneNumberField().formfield(label = 'Introduce un número de telefono (Opcional)', required = False)
-    street_address = forms.CharField(max_length=100, required = True)
-    apartment_address = forms.CharField(max_length=100, required=True)
-    country = CountryField().formfield()
+    street_address = forms.CharField(label = 'Calle', max_length=100, required = True)
+    apartment_address = forms.CharField(label = 'Dirección', max_length=100, required=True)
+    country = CountryField().formfield(label = 'País', required = True)
     payment = forms.ChoiceField(label ='Introduce tu tipo de pago', choices=PAYMENT_METHODS, required=True)

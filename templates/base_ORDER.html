@@ -1,11 +1,12 @@
 {% extends "base.html" %}
 
+{% load crispy_forms_filters %}
+{% load crispy_forms_tags %}
+
 {% block title %}Pedido DTechnology{% endblock %}
 
 {% block head %}
     {% load static %}
-    <link rel="stylesheet" type="text/css" href="{% static 'styles/home.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'styles/index.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'styles/order.css' %}">
 
 {% endblock %}
@@ -20,16 +21,19 @@
 </ul>
 {% endif %}
 
-<h1>Introduce tus datos</h1>
+<h1 class="heading">Introduce tus datos</h1>
 
+<form class="order-form row d-flex justify-content-around" action="/order/" method="post">
+    <div class="form-inputs col-4 d-flex justify-content-around flex-column">
+        {% csrf_token %}
+        {{form|crispy}}
 
-<form class="card order-form" action="/order/" method="post">
-    {% csrf_token %}
-    <div class="form-inputs">
-        {{ form }}
+        Los campos marcados con * son obligatorios
     </div>
     
-    <div class="form-submit">       
+    <div class="form-submit col-4 d-flex align-items-end flex-column">
+        <div class="total-price"><span>Total:</span> <span>{{ total_price }} €</span></div>
+
         <button type="submit" class="btn btn-success">Procesar el pago</button>
     </div>
 </form>

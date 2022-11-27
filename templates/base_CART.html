@@ -4,8 +4,6 @@
 
 {% block head %}
     {% load static %}
-    <link rel="stylesheet" type="text/css" href="{% static 'styles/home.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'styles/index.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'styles/cart.css' %}">
 {% endblock %}
 
@@ -19,8 +17,8 @@
 </ul>
 {% endif %}
 
-<h1>Carrito</h1>
-<hr class="line">
+<h1 class="heading">Carrito</h1>
+{% comment %} <hr class="line"> {% endcomment %}
 
 <div class="products-list">
     <table class="tftable">
@@ -60,8 +58,8 @@
         {% endfor %}
     </table>
 
-    <div class="total-price">
-        <h3>Total: {{ total_price }} €</h3>
+    <div class="cart-footer">
+        <div class="total-price"><span>Total:</span> <span>{{ total_price }} €</span></div>
         
 
         <a href="{% url 'order' %}" class="btn btn-success">Realizar pedido</a>
