@@ -10,8 +10,8 @@ import stripe
 from Marketplace.models import Order, OrderProduct
 
 
-class HomePageView(TemplateView):
-    template_name = 'payments/testing_STRIPE.html'
+# class HomePageView(TemplateView):
+#     template_name = 'payments/testing_STRIPE.html'
 
 @csrf_exempt
 def stripe_config(request):
@@ -28,11 +28,7 @@ def create_checkout_session(request):
     
     try:
       product_orders = OrderProduct.objects.filter(session_id=request.session['nonuser'])
-      #we create a order with all the products in the cart
       
-
-
-      #we add each product to the checkout session
       line_items = []
       for product_order in product_orders:
         price = product_order.get_final_price() / product_order.quantity
@@ -82,5 +78,9 @@ def SuccessView(request):
 
 def CancelledView(request):
     template_name = 'payments/cancelled.html'
+    order_id = request.session['order_id']
+    order = Order.objects.get(ref_id=int(order_id))
+    order.delete()
+    
     return render(request , template_name)
 

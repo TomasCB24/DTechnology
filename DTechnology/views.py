@@ -183,7 +183,7 @@ def order(request):
             if payment == 'Contrareembolso':
                 return redirect('success')
             
-            return render(request, 'payments/testing_STRIPE.html', {'order': order, })
+            return render(request, 'payments/redirect_STRIPE.html', {'order': order})
 
         
     else:

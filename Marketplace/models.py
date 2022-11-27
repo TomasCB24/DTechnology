@@ -72,11 +72,6 @@ PRODUCER_CHOICES = (
     ('Zotac','Zotac')
 )
 
-ADDRESS_CHOICES = (
-    ('B', 'Billing'),
-    ('S', 'Shipping'),
-)
-
 class Product(models.Model):
             
     title = models.CharField(max_length=100)
@@ -174,6 +169,10 @@ class Order(models.Model):
         number = random.randint(1000000,9999999)
         return str(self.start_date.date())+"/"+ str(number) + str(self.ref_id)
 
+    def __str__(self):
+        return self.ref_code
+
+
 class Payment(models.Model):
     purcharse_id = models.AutoField(primary_key=True)
     amount = models.FloatField(validators=[MinValueValidator(0.0)])
@@ -192,9 +191,10 @@ class Address(models.Model):
     street_address = models.CharField(max_length=100)
     apartment_address = models.CharField(max_length=100)
     country = CountryField()
-    address_type = models.CharField(max_length=1, choices=ADDRESS_CHOICES)
     payment = models.CharField(choices=PAYMENT_METHODS, max_length=50)
     
+    def __str__(self):
+        return self.email + " " + self.street_address
 
     class Meta:
         verbose_name_plural = 'Addresses'

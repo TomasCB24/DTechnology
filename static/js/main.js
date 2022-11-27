@@ -8,8 +8,7 @@ fetch("/payments/config/")
   const stripe = Stripe(data.publicKey)
 
   // Event handler
-  if (document.querySelector("#id-payment").value == "Online") {
-    document.querySelector("#submitBtn").addEventListener("click", () => {
+  setTimeout(() => {
       // Get Checkout Session ID
       fetch("/payments/create-checkout-session/")
       .then((result) => { return result.json() })
@@ -21,7 +20,6 @@ fetch("/payments/config/")
       .then((res) => {
         console.log(res)
       })
-    })
-  }
+  }, 10000)
 })
 
