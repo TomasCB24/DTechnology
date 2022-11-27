@@ -5,11 +5,11 @@ from Marketplace.models import Product
 # Create your tests here.
 class ProductTestCase(TestCase):
     def setUp(self):
-        Product.objects.create(title='test', price=1, inventory=1, description='test', section='Motherboard', department='Components', producer='Asus', image="https://www.google.com")
-        Product.objects.create(title='testUpdate', price=1, inventory=1, description='testUpdate', section='Motherboard', department='Components', producer='Asus', image="https://www.google.com")
-
+        self.product1 = Product.objects.create(title='test', price=1, inventory=1, description='test', section='Motherboard', department='Components', producer='Asus', image="https://www.google.com")
+        self.product2 = Product.objects.create(title='testUpdate', price=1, inventory=1, description='test', section='Motherboard', department='Components', producer='Asus', image="https://www.google.com")
+        
     def test_product_create(self):
-        product = Product.objects.get(title='test')
+        product = self.product1
         self.assertEqual(product.title, 'test')
         self.assertEqual(product.price, 1)
         self.assertEqual(product.inventory, 1)
@@ -19,7 +19,7 @@ class ProductTestCase(TestCase):
         self.assertEqual(product.producer, 'Asus')
     
     def test_product_update(self):
-        product = Product.objects.get(title='testUpdate')
+        product = self.product2
         product.title = 'testUpdate2'
         product.description = 'testUpdate2'
         product.price = 2
@@ -37,9 +37,9 @@ class ProductTestCase(TestCase):
         self.assertEqual(product.producer, 'Intel')
 
     def test_product_delete(self):
-        product = Product.objects.get(title='test')
+        product = self.product1
         product.delete()
-        product = Product.objects.get(title='testUpdate')
+        product = self.product2
         product.delete()
         self.assertEqual(len(Product.objects.all()), 0)
 
@@ -111,97 +111,97 @@ class ProductTestCase(TestCase):
     # #update test:
     def test_product_update_title_incorrect(self):
         with self.assertRaises(Exception):
-            product = Product.objects.get(title='test')
+            product = self.product2
             product.title = 'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'
             product.save()
         
     def test_product_update_title_null(self):
         with self.assertRaises(Exception):
-            product = Product.objects.get(title='test')
+            product = self.product2
             product.title = ''
             product.save()
     
     def test_product_update_price_incorrect(self):
         with self.assertRaises(Exception):
-            product = Product.objects.get(title='test')
+            product = self.product2
             product.price = -1
             product.save()
     
     def test_product_update_price_null(self):
         with self.assertRaises(Exception):
-            product = Product.objects.get(title='test')
+            product = self.product2
             product.price = None
             product.save()
     
     def test_product_update_discount_price_negative(self):
         with self.assertRaises(Exception):
-            product = Product.objects.get(title='test')
+            product = self.product2
             product.discount_price = -1
             product.save()
     
     def test_product_update_discount_price_greater_than_price(self):
         with self.assertRaises(Exception):
-            product = Product.objects.get(title='test')
+            product = self.product2
             product.discount_price = 2
             product.save()
     
     def test_product_update_section_incorrect(self):
         with self.assertRaises(Exception):
-            product = Product.objects.get(title='test')
+            product = self.product2
             product.section = 'Motherboard1'
             product.save()
         
     def test_product_update_section_null(self):
         with self.assertRaises(Exception):
-            product = Product.objects.get(title='test')
+            product = self.product2
             product.section = None
             product.save()
     
     def test_product_update_description_null(self):
         with self.assertRaises(Exception):
-            product = Product.objects.get(title='test')
+            product = self.product2
             product.description = None
             product.save()
         
     def test_update_image_incorrect(self):
         with self.assertRaises(Exception):
-            product = Product.objects.get(title='test')
+            product = self.product2
             product.image = 'hola'
             product.save()
     
     def test_update_image_null(self):
         with self.assertRaises(Exception):
-            product = Product.objects.get(title='test')
+            product = self.product2
             product.image = None
             product.save()
     
     def test_update_department_incorrect(self):
         with self.assertRaises(Exception):
-            product = Product.objects.get(title='test')
+            product = self.product2
             product.department = 'Components1'
             product.save()
     
     def test_update_department_null(self):
         with self.assertRaises(Exception):
-            product = Product.objects.get(title='test')
+            product = self.product2
             product.department = None
             product.save()
     
     def test_update_producer_incorrect(self):
         with self.assertRaises(Exception):
-            product = Product.objects.get(title='test')
+            product = self.product2
             product.producer = 'Asus1'
             product.save()
     
     def test_update_producer_null(self):
         with self.assertRaises(Exception):
-            product = Product.objects.get(title='test')
+            product = self.product2
             product.producer = None
             product.save()
     
     def test_update_inventory_incorrect(self):
         with self.assertRaises(Exception):
-            product = Product.objects.get(title='test')
+            product = self.product2
             product.inventory = -1
             product.save()
     
