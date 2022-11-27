@@ -10,9 +10,6 @@ import stripe
 from Marketplace.models import Order, OrderProduct
 
 
-# class HomePageView(TemplateView):
-#     template_name = 'payments/testing_STRIPE.html'
-
 @csrf_exempt
 def stripe_config(request):
     if request.method == 'GET':
@@ -56,7 +53,7 @@ def create_checkout_session(request):
     except Exception as e:
       return JsonResponse({'error': str(e)})
 
-def SuccessView(request):
+def success_view(request):
     template_name = 'payments/success.html'
     order_id = request.session['order_id']
     order = Order.objects.get(ref_id=int(order_id))
@@ -76,7 +73,7 @@ def SuccessView(request):
     return render(request , template_name)
 
 
-def CancelledView(request):
+def cancelled_view(request):
     template_name = 'payments/cancelled.html'
     order_id = request.session['order_id']
     order = Order.objects.get(ref_id=int(order_id))
