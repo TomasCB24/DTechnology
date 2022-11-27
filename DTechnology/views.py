@@ -5,12 +5,11 @@ from django.views.generic import ListView
 from django.views.decorators.csrf import csrf_exempt
 from django.db.models import Q
 from django.contrib import messages
+from .forms import AddressForm
+from django.http import HttpResponseRedirect
+from django_countries import countries
 
 from Marketplace.models import Product, CATEGORY_CHOICES, DEPARTMENT_CHOICES, PRODUCER_CHOICES
-
-# view for testing components
-def index(request):
-    return render(request, 'base_INDEX.html')
 
 def get_cart_counter(request):
     if 'nonuser' in request.session:
@@ -111,8 +110,7 @@ def home(request):
             'cart_counter': get_cart_counter(request)
             }
         )
-        
-    
+
 def add_to_cart(request,product_id, quantity):
 
     try:
@@ -122,8 +120,6 @@ def add_to_cart(request,product_id, quantity):
         order_product.add_products(quantity)
     except:
         OrderProduct.objects.create(product=product, quantity=quantity, session_id = request.session['nonuser'])
-
-
 
 def get_products(category, department, producer, search):
     
@@ -158,3 +154,31 @@ def get_products(category, department, producer, search):
     return listOfList
 
 
+def order(request):
+    
+    product_orders = OrderProduct.objects.filter(session_id=request.session['nonuser'])
+    # get the total price of the order
+    total_price = 0
+    for product_order in product_orders:
+        total_price += product_order.get_final_price()
+   
+    if request.method == 'POST':
+        form = AddressForm(request.POST)
+                
+        if form.is_valid():
+            email = request.POST.get("email")
+            address = request.POST.get("street_address")
+            if Address.objects.filter(email = email,street_address = address).count() == 0:
+                Address.objects.create(**form.cleaned_data)
+            
+            return HttpResponseRedirect('/')
+        
+    else:
+        
+        form = AddressForm()
+
+    return render(request, 'base_ORDER.html', 
+                            {'form': form,
+                            'total_price': total_price,
+                            'cart_counter': get_cart_counter(request)
+                            })

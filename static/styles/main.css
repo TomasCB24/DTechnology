@@ -6,26 +6,33 @@
     --clr-black: hsl(0, 0%, 5%);
     
     /* Primary */
-    /* TODO */
+    --bs-primary: var(--bs-indigo);
     
     /* Secondary */
     /* TODO */
 
     /* Typography */
-    --ff-primary: 'Times New Roman', serif;
-    --ff-secondary: 'Times New Roman', serif;
+    --ff-primary: Arial, Helvetica, sans-serif;
+    --ff-secondary: Arial, Helvetica, sans-serif;
 }
 
 /* GENERAL RULES */
 
-
-
 body {
   background-color: var(--clr-white);
+  font-family: var(--ff-primary);
 }
 
-.text-strike{
-    text-decoration: line-through;
+/* Bootstrap Primary Button */
+.btn-outline-primary{
+  --bs-btn-color: var(--bs-indigo) !important;
+  --bs-btn-border-color: var(--bs-indigo) !important;
+  --bs-btn-hover-bg: var(--bs-indigo) !important;
+  --bs-btn-hover-border-color: var(--bs-indigo) !important;
+  --bs-btn-active-bg: var(--bs-indigo) !important;
+  --bs-btn-active-border-color: var(--bs-indigo) !important;
+  --bs-btn-disabled-color: var(--bs-indigo) !important;
+  --bs-btn-disabled-border-color: var(--bs-indigo) !important;
 }
 
 /* MODERN HTML5 RESET https://piccalil.li/blog/a-modern-css-reset/ */
@@ -87,24 +94,6 @@ button,
 textarea,
 select {
   font: inherit;
-}
-
-#cart-btn {
-  margin: 0 1rem;
-}
-
-.cart-counter {
-  position: absolute;
-  width: 25px;
-  top: 0.3rem;
-  right: 1rem;
-  background-color: #ee0f0f;
-  border: 1px solid black;
-  border-radius: 50%;
-  color: rgb(255, 255, 255);
-  padding: 0.25rem 0.5rem;
-  font-size: 0.75rem;
-  font-weight: 700;
 }
 
 /* Remove all animations, transitions and smooth scroll for people that prefer not to see them */

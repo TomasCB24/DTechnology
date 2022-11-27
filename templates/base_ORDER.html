@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% load crispy_forms_filters %}
+{% load crispy_forms_tags %}
+
+{% block title %}Pedido DTechnology{% endblock %}
+
+{% block head %}
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/order.css' %}">
+{% endblock %}
+
+{% block content %}
+
+{% if messages %}
+<ul class="messages alert alert-warning" role="alert">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+<h1 class="heading">Introduce tus datos</h1>
+
+<form class="order-form row d-flex justify-content-around" action="/order/" method="post">
+    <div class="form-inputs col-4 d-flex justify-content-around flex-column">
+        {% csrf_token %}
+        {{form|crispy}}
+
+        Los campos marcados con * son obligatorios
+    </div>
+    
+    <div class="form-submit col-4 d-flex align-items-end flex-column">
+        <div class="total-price"><span>Total:</span> <span>{{ total_price }} €</span></div>
+
+        <input class="btn btn-success" id="button-purcharse" type="submit" value="Pagar">
+    </div>
+</form>
+
+
+{% endblock %}
