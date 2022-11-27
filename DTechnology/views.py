@@ -1,3 +1,4 @@
+from datetime import datetime
 from django.shortcuts import render, redirect
 from Marketplace.models import *
 from django.shortcuts import render
@@ -171,10 +172,25 @@ def order(request):
             if Address.objects.filter(email = email,street_address = address).count() == 0:
                 Address.objects.create(**form.cleaned_data)
             
-            return HttpResponseRedirect('/')
+            product_orders = OrderProduct.objects.filter(session_id=request.session['nonuser'])
+
+            shipping = Address.objects.get(email = email,street_address = address)
+            order = Order.objects.create(shipping_address = shipping, billing_address = shipping)
+            order.products.set(product_orders)
+            order.save()
+
+            request.session['order_id'] = order.ref_id
+
+            payment = request.POST.get("payment")
+            if payment == 'Contrareembolso':
+                return redirect('success')
+            
+            return render(request, 'payments/redirect_STRIPE.html', {'order': order})
+
         
     else:
         
+
         form = AddressForm()
 
     return render(request, 'base_ORDER.html', 

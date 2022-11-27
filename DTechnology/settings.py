@@ -12,6 +12,9 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 from pathlib import Path
 
+STRIPE_PUBLISHABLE_KEY = 'pk_test_51M8LpKK3qmhIiRFcG1qbmP5Pd8WNs0niZ7LblS1xz8hBfgkSV7gNtED5HQYMRlBn9hJ0XmeaYiprHgtL6cG5ImKE00YNjGAdzG'
+STRIPE_SECRET_KEY = 'sk_test_51M8LpKK3qmhIiRFcfZtlA7SUqtIqHvXunqH2K1frzrG0IJRiPxxXtc1Zngt1tm1jyqMKAAUozERVS8D85qkJIrxC00JPuxlXrK'
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 

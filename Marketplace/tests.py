@@ -10,8 +10,8 @@ from Marketplace.models import Product
 class AddressTestCase(TestCase):
 
     def setUp(self):
-        Address.objects.create(name="Jesús",surname="Luque", email="jluque@gmail.com", phone="678985456", street_address="Avda. Reina Mercedes - 51", apartment_address="1º A", country="ES", address_type="B")
-        Address.objects.create(name="Marcos",surname="Torrecilla", email="marcost@gmail.com", phone="654875695", street_address="Avda. Reina Mercedes - 27", apartment_address="6º B", country="ES", address_type="S")
+        Address.objects.create(name="Jesús",surname="Luque", email="jluque@gmail.com", phone="678985456", street_address="Avda. Reina Mercedes - 51", apartment_address="1º A", country="ES", payment="Contrareembolso")
+        Address.objects.create(name="Marcos",surname="Torrecilla", email="marcost@gmail.com", phone="654875695", street_address="Avda. Reina Mercedes - 27", apartment_address="6º B", country="ES", payment="Online")
 
     def test_address_create(self):
         address = Address.objects.get(email = "jluque@gmail.com")
@@ -23,7 +23,7 @@ class AddressTestCase(TestCase):
         self.assertEqual(address.street_address,"Avda. Reina Mercedes - 51")
         self.assertEqual(address.apartment_address,"1º A")
         self.assertEqual(address.country,"ES")
-        self.assertEqual(address.address_type,"B")
+        self.assertEqual(address.payment,"Contrareembolso")
 
     def test_address_delete(self):
         address = Address.objects.get(email = "jluque@gmail.com")
@@ -39,7 +39,7 @@ class AddressTestCase(TestCase):
         address.street_address = "Calle Prueba - 1"
         address.apartment_address = "2º C"
         address.country = "FR"
-        address.address_type = "S"
+        address.payment = "Online"
         address.save()
         new_address = Address.objects.get(email = "prueba@gmail.com")
         self.assertIsNotNone(new_address)
@@ -50,67 +50,48 @@ class AddressTestCase(TestCase):
         self.assertEqual(new_address.street_address,"Calle Prueba - 1")
         self.assertEqual(new_address.apartment_address,"2º C")
         self.assertEqual(new_address.country,"FR")
-        self.assertEqual(new_address.address_type,"S")
+        self.assertEqual(new_address.payment,"Online")
 
     #Create tests
 
-    def test_address_create_email_duplicated(self):
-        with self.assertRaises(Exception):
-            Address.objects.create(name="José", surname="Luque", email="jluque@gmail.com", phone="672299956", street_address="Avda. Reina Mercedes - 59", apartment_address="5º D", country="ES", address_type="S")
-
-    def test_address_create_phone_duplicated(self):
-        with self.assertRaises(Exception):
-            Address.objects.create(name="José", surname="Luque", email="joseluque@gmail.com", phone="654875695", street_address="Avda. Reina Mercedes - 59", apartment_address="5º D", country="ES", address_type="S")
-
     def test_address_create_name_incorrect(self):
         with self.assertRaises(Exception):
-            Address.objects.create(name="Nombrenombrenombrenombrenombrenombrenombrenombrenombrenombrenombrenombrenombrenombrenombrenombrenombr", surname="Luque", email="joseluque@gmail.com", phone="672299956", street_address="Avda. Reina Mercedes - 59", apartment_address="5º D", country="ES", address_type="S")
+            Address.objects.create(name="Nombrenombrenombrenombrenombrenombrenombrenombrenombrenombrenombrenombrenombrenombrenombrenombrenombr", surname="Luque", email="joseluque@gmail.com", phone="672299956", street_address="Avda. Reina Mercedes - 59", apartment_address="5º D", country="ES", payment="Online")
 
     def test_address_create_surname_incorrect(self):
         with self.assertRaises(Exception):
-            Address.objects.create(name="José", surname="Apellidoapellidoapellidoapellidoapellidoapellidoapellidoapellidoapellidoapellidoapellidoapellidoapell", email="joseluque@gmail.com", phone="672299956", street_address="Avda. Reina Mercedes - 59", apartment_address="5º D", country="ES", address_type="S")
+            Address.objects.create(name="José", surname="Apellidoapellidoapellidoapellidoapellidoapellidoapellidoapellidoapellidoapellidoapellidoapellidoapell", email="joseluque@gmail.com", phone="672299956", street_address="Avda. Reina Mercedes - 59", apartment_address="5º D", country="ES", payment="Online")
 
     def test_address_create_street_address_incorrect(self):
         with self.assertRaises(Exception):
-            Address.objects.create(name="José", surname="Luque", email="joseluque@gmail.com", phone="672299956", street_address="Direccióndireccióndireccióndireccióndireccióndireccióndireccióndireccióndireccióndireccióndireccióndi", apartment_address="5º D", country="ES", address_type="S")
+            Address.objects.create(name="José", surname="Luque", email="joseluque@gmail.com", phone="672299956", street_address="Direccióndireccióndireccióndireccióndireccióndireccióndireccióndireccióndireccióndireccióndireccióndi", apartment_address="5º D", country="ES", payment="Online")
 
     def test_address_create_apartment_address_incorrect(self):
         with self.assertRaises(Exception):
-            Address.objects.create(name="José", surname="Luque", email="joseluque@gmail.com", phone="672299956", street_address="Avda. Reina Merceder - 59", apartment_address="Direccióndireccióndireccióndireccióndireccióndireccióndireccióndireccióndireccióndireccióndireccióndi", country="ES", address_type="S")
+            Address.objects.create(name="José", surname="Luque", email="joseluque@gmail.com", phone="672299956", street_address="Avda. Reina Merceder - 59", apartment_address="Direccióndireccióndireccióndireccióndireccióndireccióndireccióndireccióndireccióndireccióndireccióndi", country="ES", payment="Online")
 
     def test_address_create_email_incorrect(self):
         with self.assertRaises(Exception):
-            Address.objects.create(name="José", surname="Luque", email="joseluquegmail.com", phone="672299956", street_address="Avda. Reina Mercedes - 59", apartment_address="5º D", country="ES", address_type="S")
+            Address.objects.create(name="José", surname="Luque", email="joseluquegmail.com", phone="672299956", street_address="Avda. Reina Mercedes - 59", apartment_address="5º D", country="ES", payment="Online")
 
     def test_address_create_phone_blank(self):
         with self.assertRaises(Exception):
-            Address.objects.create(name="José", surname="Luque", email="joseluque@gmail.com", phone="", street_address="Avda. Reina Mercedes - 59", apartment_address="5º D", country="ES", address_type="S")
+            Address.objects.create(name="José", surname="Luque", email="joseluque@gmail.com", phone="", street_address="Avda. Reina Mercedes - 59", apartment_address="5º D", country="ES", payment="Online")
 
     def test_address_create_phone_incorrect(self):
         with self.assertRaises(Exception):
-            Address.objects.create(name="José", surname="Luque", email="joseluque@gmail.com", phone="6722999956", street_address="Avda. Reina Mercedes - 59", apartment_address="5º D", country="ES", address_type="")
+            Address.objects.create(name="José", surname="Luque", email="joseluque@gmail.com", phone="6722999956", street_address="Avda. Reina Mercedes - 59", apartment_address="5º D", country="ES", payment="Online")
 
-    def test_address_create_address_type_blank(self):
+    def test_address_create_payment_blank(self):
         with self.assertRaises(Exception):
-            Address.objects.create(name="José", surname="Luque", email="joseluque@gmail.com", phone="672299956", street_address="Avda. Reina Mercedes - 59", apartment_address="5º D", country="España", address_type="Shipping")
+            Address.objects.create(name="José", surname="Luque", email="joseluque@gmail.com", phone="672299956", street_address="Avda. Reina Mercedes - 59", apartment_address="5º D", country="España", payment="")
 
-    def test_address_create_address_type_incorrect(self):
+    def test_address_create_payment_incorrect(self):
         with self.assertRaises(Exception):
-            Address.objects.create(name="José", surname="Luque", email="joseluque@gmail.com", phone="672299956", street_address="Avda. Reina Mercedes - 59", apartment_address="5º D", country="España", address_type="Shipping")
+            Address.objects.create(name="José", surname="Luque", email="joseluque@gmail.com", phone="672299956", street_address="Avda. Reina Mercedes - 59", apartment_address="5º D", country="España", payment="Tarjeta")
 
     #Update tests
-
-    def test_address_update_email_duplicated(self):
-        with self.assertRaises(Exception):
-            address = Address.objects.get(email = "jluque@gmail.com")
-            address.email = "marcost@gmail.com"
-            address.save()
     
-    def test_address_update_phone_duplicated(self):
-        with self.assertRaises(Exception):
-            address = Address.objects.get(email = "jluque@gmail.com")
-            address.phone = "654875695"
-            address.save()
 
     def test_address_update_name_incorrect(self):
         with self.assertRaises(Exception):
@@ -157,13 +138,13 @@ class AddressTestCase(TestCase):
     def test_address_update_address_type_blank(self):
         with self.assertRaises(Exception):
             address = Address.objects.get(email = "jluque@gmail.com")
-            address.address_type = ""
+            address.payment = ""
             address.save()
     
     def test_address_update_address_type_incorrect(self):
         with self.assertRaises(Exception):
             address = Address.objects.get(email = "jluque@gmail.com")
-            address.address_type = "Shipping"
+            address.payment = "Shipping"
             address.save()
 
 class PaymentTestCase(TestCase):

@@ -8,6 +8,7 @@
 {% block head %}
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'styles/order.css' %}">
+
 {% endblock %}
 
 {% block content %}
@@ -33,7 +34,7 @@
     <div class="form-submit col-4 d-flex align-items-end flex-column">
         <div class="total-price"><span>Total:</span> <span>{{ total_price }} €</span></div>
 
-        <input class="btn btn-success" id="button-purcharse" type="submit" value="Pagar">
+        <button type="submit" class="btn btn-success">Procesar el pago</button>
     </div>
 </form>
 

@@ -63,6 +63,7 @@
                     </div>
                     {% endif %} {% endcomment %}
                     <form method="post" action="{% url 'home' %}" class="row">
+                        {% csrf_token %}
 
                         <div class="card-select col-md-4">
                             <div class="form-outline">

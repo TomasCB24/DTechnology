@@ -18,6 +18,11 @@ from django.core.validators import URLValidator
 
 
 # Create your models here.
+PAYMENT_METHODS = (
+    ('Contrareembolso', 'Contrareembolso'),
+    ('Online', 'Online'),
+)
+
 
 CATEGORY_CHOICES = (
     ('Motherboard','Motherboard'),
@@ -69,11 +74,6 @@ PRODUCER_CHOICES = (
     ('Intel','Intel'),
     ('AMD','AMD'),
     ('Zotac','Zotac')
-)
-
-ADDRESS_CHOICES = (
-    ('B', 'Billing'),
-    ('S', 'Shipping'),
 )
 
 class Product(models.Model):
@@ -184,7 +184,7 @@ class Order(models.Model):
     ref_id = models.AutoField(primary_key=True)
     products = models.ManyToManyField(OrderProduct)
     start_date = models.DateTimeField(auto_now_add=True)
-    ordered_date = models.DateTimeField()
+    ordered_date = models.DateTimeField(blank=True, null=True)
     ordered = models.BooleanField(default=False)
     shipping_address = models.ForeignKey(
         'Address', related_name='shipping_address', on_delete=models.SET_NULL, blank=True, null=True)
@@ -206,6 +206,10 @@ class Order(models.Model):
         number = random.randint(1000000,9999999)
         return str(self.start_date.date())+"/"+ str(number) + str(self.ref_id)
 
+    def __str__(self):
+        return self.ref_code
+
+
 class Payment(models.Model):
     purcharse_id = models.AutoField(primary_key=True)
     amount = models.FloatField(validators=[MinValueValidator(0.0)])
@@ -226,11 +230,11 @@ class Address(models.Model):
     name = models.CharField(max_length=100, blank=True, null = True)
     surname = models.CharField(max_length=100, blank=True, null = True)
     email = models.EmailField()
-    phone = PhoneNumberField(unique = True, null = True, blank = True)
+    phone = PhoneNumberField( null = True, blank = True)
     street_address = models.CharField(max_length=100)
     apartment_address = models.CharField(max_length=100)
     country = CountryField()
-    address_type = models.CharField(max_length=1, choices=ADDRESS_CHOICES)
+    payment = models.CharField(choices=PAYMENT_METHODS, max_length=50)
 
     def save(self, *args, **kwargs):
         val1 = EmailValidator()
@@ -242,13 +246,16 @@ class Address(models.Model):
         val3(self.surname)
         val3(self.street_address)
         val3(self.apartment_address)
-        val4 = MaxLengthValidator(1)
-        val4(self.address_type)
+        val4 = MaxLengthValidator(50)
+        val4(self.payment)
 
-        if self.address_type != 'B' and self.address_type != 'S':
-            raise ValidationError("El tipo de dirección no es válido, debe ser B o S")
+        if self.payment != 'Contrareembolso' and self.payment != 'Online':
+            raise ValidationError("El tipo de pago no es válido, debe ser Contrareembolso u Online")
 
         super(Address, self).save(*args, **kwargs)
+        
+    def __str__(self):
+        return self.email + " " + self.street_address
 
     class Meta:
         verbose_name_plural = 'Addresses'
