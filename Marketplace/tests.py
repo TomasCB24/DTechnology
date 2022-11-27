@@ -7,10 +7,11 @@ from datetime import datetime, timezone
 class OrderTestCase(TestCase):
 
     def setUp(self):
-        
-        product_1 = Product.objects.create(title="Producto 1", price=100, section="Mouses", description="Descripción 1", image="https://cdn-icons-png.flaticon.com/512/1554/1554591.png", department="Components", producer="Asus", inventory=10)
-        product_2 = Product.objects.create(title="Producto 2", price=100, section="Mouses", description="Descripción 2", image="https://cdn-icons-png.flaticon.com/512/1554/1554591.png", department="Components", producer="Asus", inventory=10)
-        product_3 = Product.objects.create(title="Producto 3", price=100, section="Mouses", description="Descripción 3", image="https://cdn-icons-png.flaticon.com/512/1554/1554591.png", department="Components", producer="Asus", inventory=10)
+
+        PRODUCT_IMAGE = "https://cdn-icons-png.flaticon.com/512/1554/1554591.png"
+        product_1 = Product.objects.create(title="Producto 1", price=100, section="Mouses", description="Descripción 1", image=PRODUCT_IMAGE, department="Components", producer="Asus", inventory=10)
+        product_2 = Product.objects.create(title="Producto 2", price=100, section="Mouses", description="Descripción 2", image=PRODUCT_IMAGE, department="Components", producer="Asus", inventory=10)
+        product_3 = Product.objects.create(title="Producto 3", price=100, section="Mouses", description="Descripción 3", image=PRODUCT_IMAGE, department="Components", producer="Asus", inventory=10)
 
         order_p_1 = OrderProduct.objects.create(session_id="123", product=product_1, quantity=1)
         order_p_2 = OrderProduct.objects.create(session_id="123", product=product_2, quantity=2)
@@ -50,7 +51,6 @@ class OrderTestCase(TestCase):
 
         product_1 = Product.objects.get(id=1)
         product_2 = Product.objects.get(id=2)
-        product_3 = Product.objects.get(id=3)
 
         product_1.price = 200
         product_2.price = 200
