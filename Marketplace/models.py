@@ -205,7 +205,13 @@ class Order(models.Model):
 class Payment(models.Model):
     purcharse_id = models.AutoField(primary_key=True)
     amount = models.FloatField(validators=[MinValueValidator(0.0)])
-    timestamp = models.DateTimeField(auto_now_add=True)   
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    def save(self, *args, **kwargs):
+        if self.amount < 0:
+            raise ValidationError("El pago no puede ser negativo")
+        super().save(*args, **kwargs)
+
     
     @property
     def stripe_charge_id(self):
