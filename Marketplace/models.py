@@ -154,7 +154,6 @@ class OrderProduct(models.Model):
         if len(self.session_id)>100:
             raise ValueError('El id de la sesión no puede tener más de 100 caracteres')
         if hasattr(self, 'product') is False:
-            print("He entrado")
             raise ValueError('El producto no puede ser nulo')
         super().save(*args, **kwargs)
       
