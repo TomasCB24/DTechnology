@@ -1,3 +1,6 @@
 Django==4.1.2
 django-phonenumber-field[phonenumberslite]
 django-countries
+stripe
+crispy-bootstrap5
+python-decouple

@@ -7,13 +7,22 @@ from django.core.validators import (
     MaxValueValidator,
     MinValueValidator,
     ValidationError,
+    EmailValidator,
+    MaxLengthValidator,
+    RegexValidator,
 )
 from django.core.exceptions import ValidationError
 from django.db.models.signals import pre_save
 import random
+from django.core.validators import URLValidator
 
 
 # Create your models here.
+PAYMENT_METHODS = (
+    ('Contrareembolso', 'Contrareembolso'),
+    ('Online', 'Online'),
+)
+
 
 CATEGORY_CHOICES = (
     ('Motherboard','Motherboard'),
@@ -67,11 +76,6 @@ PRODUCER_CHOICES = (
     ('Zotac','Zotac')
 )
 
-ADDRESS_CHOICES = (
-    ('B', 'Billing'),
-    ('S', 'Shipping'),
-)
-
 class Product(models.Model):
             
     title = models.CharField(max_length=100)
@@ -83,6 +87,39 @@ class Product(models.Model):
     department = models.CharField(choices=DEPARTMENT_CHOICES, max_length=30)
     producer = models.CharField(choices=PRODUCER_CHOICES, max_length=30)
     inventory = models.IntegerField(default=5)
+
+    def save(self, *args, **kwargs):
+        self.clean()
+        if len(self.title)>100:
+            raise ValidationError("El titulo es demasiado largo")
+        if self.title is None or self.title=="":
+            raise ValidationError("El titulo no puede estar vacio")
+        if self.price is None:
+            raise ValidationError("El precio no puede estar vacio")
+        if self.description is None or self.description=="":
+            raise ValidationError("La descripcion no puede estar vacia")
+        if self.image is None:
+            raise ValidationError("La imagen no puede estar vacia")
+        if self.price < 0:
+            raise ValidationError("El precio no puede ser negativo")
+        if self.discount_price is not None:
+            if self.discount_price < 0:
+                raise ValidationError("El descuento no puede ser negativo")
+        if self.inventory < 0:
+            raise ValidationError("El inventario no puede ser negativo")
+        categories = [x[0] for x in CATEGORY_CHOICES]
+        if self.section not in categories:
+            raise ValidationError("La categoria no es valida")
+        departments = [x[0] for x in DEPARTMENT_CHOICES]
+        if self.department not in departments:
+            raise ValidationError("El departamento no es valido")
+        producers = [x[0] for x in PRODUCER_CHOICES]
+        if self.producer not in producers:
+            raise ValidationError("El productor no es valido")
+        val = URLValidator()
+        val(self.image)
+
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.title
@@ -141,13 +178,28 @@ class OrderProduct(models.Model):
     def add_products(self, quantity):
         self.quantity += quantity
         self.save()
+    
+    def save(self, *args, **kwargs):
+        if self.quantity is None:
+            raise ValueError('La cantidad no puede estar vacía')
+        if self.quantity <= 0:
+            raise ValueError('La cantidad no puede ser negativa')
+        if self.session_id is None:
+            raise ValueError('El id de la sesión no puede estar vacío')
+        if self.session_id == '':
+            raise ValueError('El id de la sesión no puede estar vacío')
+        if len(self.session_id)>100:
+            raise ValueError('El id de la sesión no puede tener más de 100 caracteres')
+        if hasattr(self, 'product') is False:
+            raise ValueError('El producto no puede ser nulo')
+        super().save(*args, **kwargs)
       
 class Order(models.Model):       
     
     ref_id = models.AutoField(primary_key=True)
     products = models.ManyToManyField(OrderProduct)
     start_date = models.DateTimeField(auto_now_add=True)
-    ordered_date = models.DateTimeField()
+    ordered_date = models.DateTimeField(blank=True, null=True)
     ordered = models.BooleanField(default=False)
     shipping_address = models.ForeignKey(
         'Address', related_name='shipping_address', on_delete=models.SET_NULL, blank=True, null=True)
@@ -168,26 +220,60 @@ class Order(models.Model):
     def ref_code(self):
         number = random.randint(1000000,9999999)
         return str(self.start_date.date())+"/"+ str(number) + str(self.ref_id)
+
+    def __str__(self):
+        return self.ref_code
+
+
 class Payment(models.Model):
     purcharse_id = models.AutoField(primary_key=True)
     amount = models.FloatField(validators=[MinValueValidator(0.0)])
-    timestamp = models.DateTimeField(auto_now_add=True)   
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    def save(self, *args, **kwargs):
+        if self.amount < 0:
+            raise ValidationError("El pago no puede ser negativo")
+        super().save(*args, **kwargs)
+
     
     @property
     def stripe_charge_id(self):
         number = random.randint(1000000,9999999)
         return str(self.timestamp.time())+"/"+ str(number) + str(self.purcharse_id)
+
 class Address(models.Model):
     name = models.CharField(max_length=100, blank=True, null = True)
     surname = models.CharField(max_length=100, blank=True, null = True)
-    email = models.EmailField(primary_key=True)
-    phone = PhoneNumberField(unique = True, null = True, blank = False)
+    email = models.EmailField()
+    phone = PhoneNumberField( null = True, blank = True)
     street_address = models.CharField(max_length=100)
     apartment_address = models.CharField(max_length=100)
-    country = CountryField(multiple=False)
-    address_type = models.CharField(max_length=1, choices=ADDRESS_CHOICES)
-    
+    country = CountryField()
+    payment = models.CharField(choices=PAYMENT_METHODS, max_length=50)
+
+    def save(self, *args, **kwargs):
+        val1 = EmailValidator()
+        val1(self.email)
+        # TODO: validar el número de teléfono sólo en caso de no ser nulo o vacío
+        # val2 = RegexValidator(regex='^(\+34|0034|34)?[ -]*(6|7)[ -]*([0-9][ -]*){8}$')
+        # val2(self.phone)
+        val3 = MaxLengthValidator(100)
+        val3(self.name)
+        val3(self.surname)
+        val3(self.street_address)
+        val3(self.apartment_address)
+        val4 = MaxLengthValidator(50)
+        val4(self.payment)
+
+        if self.payment != 'Contrareembolso' and self.payment != 'Online':
+            raise ValidationError("El tipo de pago no es válido, debe ser Contrareembolso u Online")
+
+        super(Address, self).save(*args, **kwargs)
+        
+    def __str__(self):
+        return self.email + " " + self.street_address
 
     class Meta:
         verbose_name_plural = 'Addresses'
+        unique_together = (('email', 'street_address'),)  
 
