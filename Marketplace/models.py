@@ -178,6 +178,21 @@ class OrderProduct(models.Model):
     def add_products(self, quantity):
         self.quantity += quantity
         self.save()
+    
+    def save(self, *args, **kwargs):
+        if self.quantity is None:
+            raise ValueError('La cantidad no puede estar vacía')
+        if self.quantity <= 0:
+            raise ValueError('La cantidad no puede ser negativa')
+        if self.session_id is None:
+            raise ValueError('El id de la sesión no puede estar vacío')
+        if self.session_id == '':
+            raise ValueError('El id de la sesión no puede estar vacío')
+        if len(self.session_id)>100:
+            raise ValueError('El id de la sesión no puede tener más de 100 caracteres')
+        if hasattr(self, 'product') is False:
+            raise ValueError('El producto no puede ser nulo')
+        super().save(*args, **kwargs)
       
 class Order(models.Model):       
     
