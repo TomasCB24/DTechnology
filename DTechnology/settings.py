@@ -12,6 +12,9 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 from pathlib import Path
 
+STRIPE_PUBLISHABLE_KEY = 'pk_test_51M8LpKK3qmhIiRFcG1qbmP5Pd8WNs0niZ7LblS1xz8hBfgkSV7gNtED5HQYMRlBn9hJ0XmeaYiprHgtL6cG5ImKE00YNjGAdzG'
+STRIPE_SECRET_KEY = 'sk_test_51M8LpKK3qmhIiRFcfZtlA7SUqtIqHvXunqH2K1frzrG0IJRiPxxXtc1Zngt1tm1jyqMKAAUozERVS8D85qkJIrxC00JPuxlXrK'
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -39,6 +42,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_countries',
     'phonenumber_field',
+    'crispy_forms',
+    'crispy_bootstrap5',
     'Marketplace.apps.MarketplaceConfig'
 ]
 
@@ -133,3 +138,8 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Django-crispy-forms
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+
+CRISPY_TEMPLATE_PACK = "bootstrap5"
