@@ -11,7 +11,7 @@ on:
 env:
   STRIPE_PUBLISHABLE_KEY: ${{ secrets.STRIPE_PUBLISHABLE_KEY }}
   STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
-  SECRET_KEY: ${{ secrets.SECRET_KEY }}
+  SECRET_KEY: ${{ secrets.DJANGO_SECRET_KEY }}
 
 jobs:
   build:
