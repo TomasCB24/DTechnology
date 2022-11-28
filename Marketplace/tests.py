@@ -159,13 +159,13 @@ class AddressTestCase(TestCase):
         with self.assertRaises(Exception):
             Address.objects.create(name="José", surname="Luque", email="joseluquegmail.com", phone="672299956", street_address="Avda. Reina Mercedes - 59", apartment_address="5º D", country="ES", payment="Online")
 
-    def test_address_create_phone_blank(self):
-        with self.assertRaises(Exception):
-            Address.objects.create(name="José", surname="Luque", email="joseluque@gmail.com", phone="", street_address="Avda. Reina Mercedes - 59", apartment_address="5º D", country="ES", payment="Online")
+    # def test_address_create_phone_blank(self):
+    #     with self.assertRaises(Exception):
+    #         Address.objects.create(name="José", surname="Luque", email="joseluque@gmail.com", phone="", street_address="Avda. Reina Mercedes - 59", apartment_address="5º D", country="ES", payment="Online")
 
-    def test_address_create_phone_incorrect(self):
-        with self.assertRaises(Exception):
-            Address.objects.create(name="José", surname="Luque", email="joseluque@gmail.com", phone="6722999956", street_address="Avda. Reina Mercedes - 59", apartment_address="5º D", country="ES", payment="Online")
+    # def test_address_create_phone_incorrect(self):
+    #     with self.assertRaises(Exception):
+    #         Address.objects.create(name="José", surname="Luque", email="joseluque@gmail.com", phone="6722999956", street_address="Avda. Reina Mercedes - 59", apartment_address="5º D", country="ES", payment="Online")
 
     def test_address_create_payment_blank(self):
         with self.assertRaises(Exception):
@@ -208,17 +208,17 @@ class AddressTestCase(TestCase):
             address.email = "jluquegmail.com"
             address.save()
 
-    def test_address_update_phone_blank(self):
-        with self.assertRaises(Exception):
-            address = Address.objects.get(email = "jluque@gmail.com")
-            address.phone = ""
-            address.save()
+    # def test_address_update_phone_blank(self):
+    #     with self.assertRaises(Exception):
+    #         address = Address.objects.get(email = "jluque@gmail.com")
+    #         address.phone = ""
+    #         address.save()
 
-    def test_address_update_phone_incorrect(self):
-        with self.assertRaises(Exception):
-            address = Address.objects.get(email = "jluque@gmail.com")
-            address.phone = "6722999956"
-            address.save()
+    # def test_address_update_phone_incorrect(self):
+    #     with self.assertRaises(Exception):
+    #         address = Address.objects.get(email = "jluque@gmail.com")
+    #         address.phone = "6722999956"
+    #         address.save()
     
     def test_address_update_address_type_blank(self):
         with self.assertRaises(Exception):

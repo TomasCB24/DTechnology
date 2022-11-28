@@ -11,9 +11,10 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
+from decouple import config
 
-STRIPE_PUBLISHABLE_KEY = 'pk_test_51M8LpKK3qmhIiRFcG1qbmP5Pd8WNs0niZ7LblS1xz8hBfgkSV7gNtED5HQYMRlBn9hJ0XmeaYiprHgtL6cG5ImKE00YNjGAdzG'
-STRIPE_SECRET_KEY = 'sk_test_51M8LpKK3qmhIiRFcfZtlA7SUqtIqHvXunqH2K1frzrG0IJRiPxxXtc1Zngt1tm1jyqMKAAUozERVS8D85qkJIrxC00JPuxlXrK'
+STRIPE_PUBLISHABLE_KEY = config('STRIPE_PUBLISHABLE_KEY')
+STRIPE_SECRET_KEY = config('STRIPE_SECRET_KEY')
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -23,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-4aco$p=4wp43ff0rq%7+r*q6ctodoe-$dpsh57)l5(+qv04^kd'
+SECRET_KEY = config('DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True

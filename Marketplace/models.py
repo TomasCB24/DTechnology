@@ -254,8 +254,9 @@ class Address(models.Model):
     def save(self, *args, **kwargs):
         val1 = EmailValidator()
         val1(self.email)
-        val2 = RegexValidator(regex='^(\+34|0034|34)?[ -]*(6|7)[ -]*([0-9][ -]*){8}$')
-        val2(self.phone)
+        # TODO: validar el número de teléfono sólo en caso de no ser nulo o vacío
+        # val2 = RegexValidator(regex='^(\+34|0034|34)?[ -]*(6|7)[ -]*([0-9][ -]*){8}$')
+        # val2(self.phone)
         val3 = MaxLengthValidator(100)
         val3(self.name)
         val3(self.surname)
