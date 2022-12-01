@@ -1,0 +1,29 @@
+.container{
+    margin-top: 5%
+}
+
+.price{
+    font-size: 1.5em;
+    font-weight: bold;
+    text-align: center;
+}
+
+.submit{
+    background-color: blueviolet;
+    color: white;
+}
+
+.description{
+    height: 100%;
+    width: 100%;
+    font-size: 1.3em;
+    
+}
+
+.data p{
+    color: gray;
+    border-bottom: 1px;
+    border-bottom-style: solid;
+    border-bottom-color: lightslategray;
+    font-weight: 600; 
+}

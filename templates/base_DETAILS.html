@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+
+{% block title %}Detalle del producto{% endblock %}
+
+{% block head %}
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/details.css' %}">
+{% endblock %}
+
+{% block content %}
+
+{% if messages %}
+    <ul class="messages alert alert-warning" role="alert">
+        {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
+<div class = "container">
+    <div class ="row">
+        <div class = "col-md-4">    
+            
+            <div class = "container-image">
+                <img class="img-product" src={{product.image}} alt = "product">
+            </div>
+
+            <div class="container">
+                <div class="row">
+                    {% if product.discount_price %}
+                        <div class="col-md-6 price">
+                            <div class="price card-text text-muted text-strike">{{product.price}}€</div>
+                        </div>
+                        <div class="col-md-6 price">
+                            <div class="discount-price price card-text text-danger">{{product.discount_price}}€</div>
+                        </div>
+                    {% else %}
+                        <div class="col-md-12 price">
+                            <div class="price card-text text-muted">{{product.price}}€</div>
+                        </div>
+                    {% endif %}
+                </div>
+
+            </div>
+        </div>
+
+        <div class = "col-md-8">
+            <div class ="container">
+                {% if product.get_stock > 0 %}
+                <form method="post" action="{% url 'details' product.id %}" class="row">
+                    {% csrf_token %}
+                    <h3 class="col-md-7">{{product.title}}</h3>
+                    <div class="col-md-2 card-select d-flex justify-content-end">
+                        <div class="form-outline">
+                            <input type="number" name="quantity" class="form-control" value="1" min="1" max="100"/>
+                            <input type="hidden" name="product_id" value={{product.id}}>
+                        </div>
+                    </div>
+                    
+                    
+                    <div class="col-md-3 d-flex justify-content-end mb-1">
+                        <button type="submit" class="btn btn-outline-primary align-right submit" name="add_to_cart">Añadir al carrito</button>
+                    </div>
+                
+                    
+                </form><!--form-->
+                {% endif%}
+            <div>
+            {% if product.get_stock > 0 %}
+            <div class="d-flex justify-content-center mb-2 btn btn-info">
+                {{ product.get_stock }} unidades disponibles
+            </div>
+            {% else %}
+            <div class="d-flex justify-content- mb-2 btn btn-danger">
+                Agotado
+            </div>
+            {% endif %} 
+            
+            <div class="row description">
+                <div class="col-md-12">
+                    <p class="card-text">{{product.description}}</p>
+                </div>
+            </div>
+            
+        </div>
+         <!-- card -->
+    </div>    
+</div>
+
+<div class = "container">
+    <div class = "row">
+        <div class = "col-md-4">
+        </div>
+        <div class="col-md-3 data">
+            <p>Fabricante&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;{{product.producer}}</p>
+            <p>Departamento&emsp;&emsp;&emsp;&emsp; {{product.department}}</p>
+            <p>Categoría&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&ensp;{{product.section}}</p>
+        </div>
+    </div>
+</div>
+    
+
+
+{% endblock %}

@@ -198,3 +198,30 @@ def order(request):
                             'total_price': total_price,
                             'cart_counter': get_cart_counter(request)
                             })
+
+def detail(request,id):
+    product = Product.objects.get(id=id)
+    
+    if request.method == 'POST':
+            
+        if 'add_to_cart' in request.POST:
+            quantity = int(request.POST.get('quantity'))
+            product_id = request.POST.get('product_id')
+
+            product = Product.objects.get(id=product_id)
+
+            order_products = OrderProduct.objects.filter(product=product)
+
+            cart_quantity = 0
+            for order_product in order_products:
+                cart_quantity += order_product.quantity
+            
+            if((product.inventory - cart_quantity) >= quantity):
+                add_to_cart(request,product_id, quantity)
+            else:
+                messages.warning(request, 'No hay suficientes ' + product.title + ' en el inventario')
+    
+    return render(request, 'base_DETAILS.html', 
+                            {'product': product,
+                            'cart_counter': get_cart_counter(request)
+                            })
