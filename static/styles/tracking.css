@@ -1,0 +1,35 @@
+.heading{
+    margin-bottom: 3rem;
+    font-size: 2.5rem;
+}
+
+
+.form-control{
+    margin-left: 7rem;
+    margin-right: 3rem;
+    max-width: 15rem;
+}
+
+.btn{
+    background-color: var(--bs-indigo);
+    margin-right: 2rem;
+}
+
+.container{
+    margin: auto;
+}
+
+.col-md-3{
+    margin: auto;
+}
+
+.no-current-status{
+    opacity: 0.4;
+}
+
+.card-img-top{
+    width: 100%;
+    height: 15vw;
+    object-fit: cover;
+}
+

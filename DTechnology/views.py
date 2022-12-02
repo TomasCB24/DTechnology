@@ -198,3 +198,6 @@ def order(request):
                             'total_price': total_price,
                             'cart_counter': get_cart_counter(request)
                             })
+
+def tracking(request):
+    return render(request, 'base_TRACKING.html')

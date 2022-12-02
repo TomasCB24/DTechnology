@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block title %}Página principal DTechnology{% endblock %}
+
+{% block head %}
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/tracking.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<h1 class="heading">Seguimiento</h1>
+<form method="post" action="{% url 'home' %}" class="search-form d-flex ">
+    {% csrf_token %}
+    <input class="form-control selects-shop" type="text" placeholder="Buscar pedido" aria-label="Buscar" name="search-order">
+    <button class="btn btn-success btn-filter" type="submit" name="filter">Buscar</button>
+</form>
+<div class="container pt-5">
+    <div class="catalog-row row">
+        <div class="col-md-3">
+            <div class="card card-producto no-current-status">
+                <img class="card-img-top" src="../../static/images/confirmado.png">
+                <div class="card-body">
+                    <h3 class="card-title">Confirmado</h3>
+                </div>
+            </div>
+        </div>
+            
+        <div class="col-md-3">
+            <div class="card card-producto">
+                <img class="card-img-top" src="../../static/images/en_camino.png">
+                <div class="card-body">
+                    <h3 class="card-title">En camino</h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card card-producto no-current-status">
+                <img class="card-img-top" src="../../static/images/entregado.png">
+                <div class="card-body">
+                    <h3 class="card-title">Entregado</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
