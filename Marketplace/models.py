@@ -145,6 +145,11 @@ class Product(models.Model):
 
     def get_price(self):
         return self.price
+
+    def get_actual_price(self):
+        if self.discount_price is not None:
+            return self.discount_price
+        return self.price
     
     def clean(self):
         if self.discount_price is not None:
@@ -276,4 +281,7 @@ class Address(models.Model):
     class Meta:
         verbose_name_plural = 'Addresses'
         unique_together = (('email', 'street_address'),)  
+
+    def get_address(self):
+        return f"{self.street_address}, {self.apartment_address}, {self.country}"
 

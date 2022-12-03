@@ -169,11 +169,26 @@ def order(request):
         if form.is_valid():
             email = request.POST.get("email")
             address = request.POST.get("street_address")
-            if Address.objects.filter(email = email,street_address = address).count() == 0:
-                Address.objects.create(**form.cleaned_data)
+            pay = request.POST.get("payment")
+            name = request.POST.get("name")
+            surname = request.POST.get("surname")
+            phone = request.POST.get("phone")
             
-            product_orders = OrderProduct.objects.filter(session_id=request.session['nonuser'])
-
+            
+            if Address.objects.filter(email = email,street_address = address).count() == 0:
+                #create address by form
+                adr = Address(**form.cleaned_data)
+                adr.save()
+            else:
+                shipping = Address.objects.get(email = email,street_address = address)
+                shipping.payment = pay
+                shipping.name = name
+                shipping.surname = surname
+                shipping.phone = phone
+                shipping.save()
+                
+            product_orders = OrderProduct.objects.filter(session_id=request.session['nonuser'])      
+            
             shipping = Address.objects.get(email = email,street_address = address)
             order = Order.objects.create(shipping_address = shipping, billing_address = shipping)
             order.products.set(product_orders)
