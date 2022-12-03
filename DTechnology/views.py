@@ -219,28 +219,20 @@ def tracking(request):
         order_code = request.POST.get('search-order')
 
         try:
-            print(Order.objects.all())
             order = [x for x in Order.objects.all() if x.ref_code == order_code][0]
-            print("Pedido",order)
-            print(order.ordered_date)
-            ordered2 = order.ordered
-            print(ordered2)
-            being_delivered2 = order.being_delivered
-            print(being_delivered2)
-            delivered2 = order.received
-            print(delivered2)
-
-            print(ordered2, being_delivered2, delivered2)
+            ordered = order.ordered
+            being_delivered = order.being_delivered
+            delivered = order.received
 
             is_delivered = False
             is_being_delivered = False
             is_ordered = False
             
-            if delivered2:
+            if delivered:
                 is_delivered = True
-            elif being_delivered2:
+            elif being_delivered:
                 is_being_delivered = True
-            elif ordered2:
+            elif ordered:
                 is_ordered = True
 
             return render(request, 'base_TRACKING.html', 

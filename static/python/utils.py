@@ -12,7 +12,7 @@ def send_email(order, product_orders):
     subject = "[noreply] Pedido de DTechnology confirmado"
 
     separator = "----------------------------------------\n"
-    ref = "Referencia del pedido: " + str(order.ref_id) + "\n" 
+    ref = "Referencia del pedido: " + str(order.ref_code) + "\n" 
     date = "Fecha del pedido: " + parse_date(str(order.ordered_date)) + "\n"
     address = "Dirección de envío: " + order.shipping_address.get_address() + "\n"
     type_payment = "Tipo de pago: " + str(order.shipping_address.payment) + "\n"
@@ -44,7 +44,6 @@ def send_email(order, product_orders):
         smtp.sendmail(BUSSINESS_EMAIL, to, msg.as_string())
 
 def parse_date(datetime):
-    print(datetime)
     date = datetime.split(" ")[0]
     time = datetime.split(" ")[1].split(".")[0]
 
