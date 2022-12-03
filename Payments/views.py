@@ -9,6 +9,7 @@ import stripe
 
 from Marketplace.models import Order, OrderProduct
 
+from static.python.utils import send_email
 
 @csrf_exempt
 def stripe_config(request):
@@ -54,13 +55,19 @@ def create_checkout_session(request):
       return JsonResponse({'error': str(e)})
 
 def success_view(request):
+
     template_name = 'payments/success.html'
     order_id = request.session['order_id']
     order = Order.objects.get(ref_id=int(order_id))
+
     order.ordered = True
     order.ordered_date = datetime.now()
     order.save()
     product_orders = OrderProduct.objects.filter(session_id=request.session['nonuser'])
+    
+    #Send email to customer
+    send_email(order, product_orders)
+    
     for product_order in product_orders:
       quantity = product_order.quantity
       product = product_order.product
@@ -69,6 +76,7 @@ def success_view(request):
 
     #delete the order id from the session
     del request.session['order_id']
+
     return render(request , template_name)
 
 
