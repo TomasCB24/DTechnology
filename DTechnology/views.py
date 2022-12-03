@@ -200,4 +200,41 @@ def order(request):
                             })
 
 def tracking(request):
+    if request.method == 'POST':
+        order_code = request.POST.get('search-order')
+
+        try:
+            print(Order.objects.all())
+            order = [x for x in Order.objects.all() if x.ref_code == order_code][0]
+            print("Pedido",order)
+            print(order.ordered_date)
+            ordered2 = order.ordered
+            print(ordered2)
+            being_delivered2 = order.being_delivered
+            print(being_delivered2)
+            delivered2 = order.received
+            print(delivered2)
+
+            print(ordered2, being_delivered2, delivered2)
+
+            is_delivered = False
+            is_being_delivered = False
+            is_ordered = False
+            
+            if delivered2:
+                is_delivered = True
+            elif being_delivered2:
+                is_being_delivered = True
+            elif ordered2:
+                is_ordered = True
+
+            return render(request, 'base_TRACKING.html', 
+                            {'is_ordered': is_ordered,
+                            'is_being_delivered': is_being_delivered,
+                            'is_delivered': is_delivered,
+                            'cart_counter': get_cart_counter(request)
+                            })
+        except:
+            messages.warning(request, 'No se ha encontrado el pedido')
+            return redirect('tracking')
     return render(request, 'base_TRACKING.html')

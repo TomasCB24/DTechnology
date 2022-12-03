@@ -210,6 +210,8 @@ class Order(models.Model):
     being_delivered = models.BooleanField(default=False)
     received = models.BooleanField(default=False)
 
+    random_id =models.IntegerField(default=random.randint(1000000,9999999))
+
     def get_total(self):
         total = 0
         for order_product in self.products.all():
@@ -218,8 +220,7 @@ class Order(models.Model):
     
     @property
     def ref_code(self):
-        number = random.randint(1000000,9999999)
-        return str(self.start_date.date())+"/"+ str(number) + str(self.ref_id)
+        return str(self.start_date.date())+"/"+ str(self.random_id) + str(self.ref_id)
 
     def __str__(self):
         return self.ref_code

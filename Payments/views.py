@@ -66,7 +66,6 @@ def success_view(request):
       product = product_order.product
       product.inventory -= quantity
       product.save()
-      product_order.delete()
 
     #delete the order id from the session
     del request.session['order_id']
