@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block title %}Contacto y datos de empresa{% endblock %}
+
+{% block head %}
+    {% load static %}
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/contact.css' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+{% endblock %}
+
+{% block content %}
+
+    <div class="page-row-padding page-center page-margin-top">
+        
+        <div class="page-third">
+            <div class="page-card page-container">
+                <h2 class="page-text">Datos de la empresa</h2><br>
+                
+                <p><strong>Direccion: </strong>Avda. Reina Mercedes s/n</p>
+                <p><strong>Código postal: </strong>41012 Sevilla</p>
+                <p><strong>Telefono: </strong>954 55 55 55</p>
+                <p><strong>Email: </strong>DTechnology@gmail.com</p>
+                <p><strong>Twitter: </strong>@DTechnology</p>
+                <p><strong>Facebook: </strong>DTechnology</p>
+                <p><strong>Instagram: </strong>@DTechnology</p>
+            </div>
+        </div>
+
+        <div class="page-third">
+            <div class="page-card page-container">
+                <h2 class="page-text">Sobre nosotros</h2><br>
+                <p><strong>La tienda más centrada en el cliente del mundo</strong></p>
+                <p>DTechnology es una de las 100 mayores empresas de España. La compañía, con sede en Sevilla, 
+                    es un líder global en el comercio electrónico. Con un progreso significativo en la oferta, en los sitios web y en la red internacional 
+                    de distribución y servicio al cliente. En la actualidad, DTechnology ofrece gran variedad de componentes de ordenador, siempre con la mejor calidad del mercado.
+                    Tenemos una presencia directa en Estados Unidos, Reino Unido, Alemania, Francia, Italia, España, Japón, Canadá y China, 
+                    pero además podemos servir a los clientes en la mayoría de los países del mundo.</p>
+                <p><strong>Innovación tecnológica</strong></p>    
+                <p>La innovación tecnológica es la base para la expansión de DTechnology y permite a los 
+                    clientes tener un precio más bajo que el resto de competidores. 
+                <p><strong>Y solo estamos empezando</strong></p>
+                <p>La evolución de la página web de DTechnology está determinada por nuestro deseo de innovar constantemente, que siempre ha formado parte del ADN de nuestra compañía. 
+                    Nuestro objetivo es ofrecer a los clientes una experiencia de compra única, 
+                    que les permita encontrar todo lo que necesitan en un solo lugar, 
+                    y que les permita comprar de forma rápida y sencilla. Y no pararemos hasta perfeccionar ese objetivo.</p>
+            </div>
+        </div>
+
+        <div class="page-third">
+            <div class="page-card page-container">
+                <h2 class="page-text">Atencion al cliente</h2><br>
+                <p><strong>Email de contacto: </strong>DTechnology.atencionalcliente@gmail.com</p>
+                <p><strong>Telefono de contacto: </strong>900 978 787</p>
+                <p><strong>Horario (Lunes a Viernes): </strong>De 9:00 a 14:00 y de 16:00 a 20:00</p>
+                <p><strong>Horario (Sabados): </strong>De 9:00 a 14:00</p>
+                <p>También puedes contactar con nosotros a traves de nuestras redes sociales, te responderemos en la menor brevedad posible.</p>
+                
+                
+            </div>
+        </div>
+
+       
+    </div>
+
+
+{% endblock %}

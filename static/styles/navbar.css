@@ -12,3 +12,12 @@
     max-height: 40px;
     margin-right: 5px;
 }
+
+.nav-link{
+    color: white;
+    
+}
+
+.nav-link:hover{
+    color: white;
+}

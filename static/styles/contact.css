@@ -1,0 +1,60 @@
+.content{
+    overflow: visible!important;
+}
+
+.page-container:after,
+.page-container:before{
+    content:"";
+    display:table;
+    clear:both
+}
+.page-container{
+    padding:0.01em 16px
+}
+
+.page-center{
+    text-align:center!important;
+}
+
+.page-padding{
+    padding:8px 16px!important
+}
+
+.page-row-padding:after,
+
+.page-row-padding:before{
+    content:"";
+    display:table;
+    clear:both
+}
+
+.page-row-padding,.page-row-padding>.page-third{
+    padding:0 8px
+}
+
+.page-third{
+    width:33.33333%;
+    float:left;
+}
+
+.page-card{
+    box-shadow:0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12)
+}
+
+.page-margin-bottom{
+    margin-bottom:16px!important
+}
+
+.page-margin-top{
+    margin-top:16px!important
+}
+
+.page-text{
+    margin-top: 15px; size: 15px;
+}
+
+.image{
+    display:block;
+    margin:auto;
+    margin-bottom: 40px;
+}

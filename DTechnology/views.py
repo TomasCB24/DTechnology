@@ -239,3 +239,6 @@ def detail(request,id):
                             {'product': pro,
                             'cart_counter': get_cart_counter(request)
                             })
+
+def contact(request):
+    return render(request, 'base_CONTACT.html', {'cart_counter': get_cart_counter(request)})
