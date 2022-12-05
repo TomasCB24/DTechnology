@@ -244,4 +244,4 @@ def tracking(request):
         except:
             messages.warning(request, 'No se ha encontrado el pedido')
             return redirect('tracking')
-    return render(request, 'base_TRACKING.html')
+    return render(request, 'base_TRACKING.html', {'cart_counter': get_cart_counter(request)})

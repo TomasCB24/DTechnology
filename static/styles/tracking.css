@@ -10,9 +10,13 @@
     max-width: 15rem;
 }
 
-.btn{
+.btn-filter{
     background-color: var(--bs-indigo);
     margin-right: 2rem;
+}
+
+.btn-filter:hover{
+    background-color: var(--bs-indigo);
 }
 
 .container{

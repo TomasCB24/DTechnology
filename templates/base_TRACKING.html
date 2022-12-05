@@ -20,7 +20,7 @@
 <h1 class="heading">Seguimiento</h1>
 <form method="post" action="{% url 'tracking' %}" class="search-form d-flex ">
     {% csrf_token %}
-    <input class="form-control selects-shop" type="text" placeholder="Buscar pedido" aria-label="Buscar" name="search-order">
+    <input class="form-control selects-shop" type="text" placeholder="Referencia del pedido" aria-label="Buscar" name="search-order">
     <button class="btn btn-success btn-filter" type="submit">Buscar</button>
 </form>
 <div class="container pt-5">
