@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+
+{% block title %}Página principal DTechnology{% endblock %}
+
+{% block head %}
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/tracking.css' %}">
+{% endblock %}
+
+{% block content %}
+
+{% if messages %}
+<ul class="messages alert alert-warning" role="alert">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+<h1 class="heading">Seguimiento</h1>
+<form method="post" action="{% url 'tracking' %}" class="search-form d-flex ">
+    {% csrf_token %}
+    <input class="form-control selects-shop" type="text" placeholder="Referencia del pedido" aria-label="Buscar" name="search-order">
+    <button class="btn btn-success btn-filter" type="submit">Buscar</button>
+</form>
+<div class="container pt-5">
+    <div class="catalog-row row">
+        <div class="col-md-3">
+            {% if is_ordered %}
+            <div class="card card-producto">
+            {% else %}
+            <div class="card card-producto no-current-status">
+            {% endif %}
+                <img class="card-img-top" src="../../static/images/confirmado.png">
+                <div class="card-body">
+                    <h3 class="card-title">Confirmado</h3>
+                </div>
+            </div>
+        </div>
+            
+        <div class="col-md-3">
+            {% if is_being_delivered %}
+            <div class="card card-producto">
+            {% else %}
+            <div class="card card-producto no-current-status">
+            {% endif %}
+                <img class="card-img-top" src="../../static/images/en_camino.png">
+                <div class="card-body">
+                    <h3 class="card-title">En camino</h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            {% if is_delivered %}
+            <div class="card card-producto">
+            {% else %}
+            <div class="card card-producto no-current-status">
+            {% endif %}
+                <img class="card-img-top" src="../../static/images/entregado.png">
+                <div class="card-body">
+                    <h3 class="card-title">Entregado</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
