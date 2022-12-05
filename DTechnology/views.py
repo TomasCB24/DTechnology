@@ -245,3 +245,29 @@ def tracking(request):
             messages.warning(request, 'No se ha encontrado el pedido')
             return redirect('tracking')
     return render(request, 'base_TRACKING.html', {'cart_counter': get_cart_counter(request)})
+
+def detail(request,id):
+    pro = Product.objects.get(id=id)
+    
+    if request.method == 'POST' and 'add_to_cart' in request.POST:
+        
+        quan= int(request.POST.get('quantity'))
+        pro_id = request.POST.get('product_id')
+
+        pro = Product.objects.get(id=pro_id)
+
+        order_products = OrderProduct.objects.filter(product=pro)
+
+        cart_quan = 0
+        for ord_pro in order_products:
+            cart_quan += ord_pro.quantity
+        
+        if((pro.inventory - cart_quan) >= quan):
+            add_to_cart(request,pro_id, quan)
+        else:
+            messages.warning(request, 'No hay suficientes ' + pro.title + ' en el inventario')
+    
+    return render(request, 'base_DETAILS.html', 
+                            {'product': pro,
+                            'cart_counter': get_cart_counter(request)
+                            })
