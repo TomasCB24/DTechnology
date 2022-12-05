@@ -9,15 +9,18 @@
     clear:both
 }
 .page-container{
-    padding:0.01em 16px
+    padding:0.01em 0.9rem;
 }
 
 .page-center{
     text-align:center!important;
+    display: flex;
+    word-wrap: break-word;
+   
 }
 
 .page-padding{
-    padding:8px 16px!important
+    padding:0.35rem 0.9rem!important
 }
 
 .page-row-padding:after,
@@ -29,7 +32,7 @@
 }
 
 .page-row-padding,.page-row-padding>.page-third{
-    padding:0 8px
+    padding:0 0.35rem;
 }
 
 .page-third{
@@ -38,23 +41,17 @@
 }
 
 .page-card{
-    box-shadow:0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12)
+    box-shadow:0 0.2rem 0.4rem 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12)
 }
 
 .page-margin-bottom{
-    margin-bottom:16px!important
+    margin-bottom:0.9rem!important
 }
 
 .page-margin-top{
-    margin-top:16px!important
+    margin-top:0.9rem!important
 }
 
 .page-text{
-    margin-top: 15px; size: 15px;
-}
-
-.image{
-    display:block;
-    margin:auto;
-    margin-bottom: 40px;
+    margin-top: 0.85rem; size: 0.85rem;
 }
