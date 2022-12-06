@@ -19,11 +19,12 @@ from DTechnology.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', index, name='index'),
     path("cart/", cart, name='cart'),
     path('cart/reduce/<int:id>/', reduce_product_quantity, name='reduce_quantity'),
     path('cart/increase/<int:id>/', increase_product_quantity, name='increase_quantity'),
     path('cart/delete/<int:id>/', delete_product, name='delete_product' ),
-    path('', home, name='home'),
+    path('catalogue/', home, name='home'),
     path('order/', order, name='order'),    
     path('payments/', include('Payments.urls'), name='stripe'),
     path('details/<int:id>/', detail, name='details'),
