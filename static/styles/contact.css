@@ -16,7 +16,7 @@
     text-align:center!important;
     display: flex;
     word-wrap: break-word;
-   
+
 }
 
 .page-padding{
@@ -36,7 +36,7 @@
 }
 
 .page-third{
-    width:33.33333%;
+    width:400px;
     float:left;
 }
 
@@ -54,4 +54,13 @@
 
 .page-text{
     margin-top: 0.85rem; size: 0.85rem;
+}
+
+#contact-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+    row-gap: 2rem;
+
 }
