@@ -12,12 +12,14 @@ from Marketplace.models import Order, OrderProduct
 from static.python.utils import send_email
 
 @csrf_protect
+@require_http_methods(["GET"])
 def stripe_config(request):
     if request.method == 'GET':
         stripe_config = {'publicKey': settings.STRIPE_PUBLISHABLE_KEY}
         return JsonResponse(stripe_config, safe=False)
 
 @csrf_protect
+@require_http_methods(["GET"])
 def create_checkout_session(request):
   if request.method == 'GET':
     domain_url = 'http://localhost:8000/payments/'
@@ -53,6 +55,7 @@ def create_checkout_session(request):
     except Exception as e:
       return JsonResponse({'error': str(e)})
 
+@require_http_methods(["GET"])
 def success_view(request):
 
     template_name = 'payments/success.html'
@@ -79,7 +82,7 @@ def success_view(request):
 
     return render(request , template_name)
 
-
+@require_http_methods(["GET"])
 def cancelled_view(request):
     template_name = 'payments/cancelled.html'
     order_id = request.session['order_id']
