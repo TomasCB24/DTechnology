@@ -271,3 +271,6 @@ def detail(request,id):
                             {'product': pro,
                             'cart_counter': get_cart_counter(request)
                             })
+
+def return_policy(request):
+    return render(request, 'base_RETURN_POLICY.html')

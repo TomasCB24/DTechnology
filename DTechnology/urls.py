@@ -28,6 +28,7 @@ urlpatterns = [
     path('payments/', include('Payments.urls'), name='stripe'),
     path('tracking/', tracking, name="tracking"),
     path('details/<int:id>/', detail, name='details'),
+    path('policy/return', return_policy, name='return_policy'),
 
 
 ]
