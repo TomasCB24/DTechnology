@@ -83,15 +83,21 @@ PRODUCER_CHOICES = (
 )
 
 def validate_image_quality(value):
-    MIN_HEIGHT = 500
-    MIN_WIDTH = 500
-    response = requests.get(value)
-    picture  = Image.open(BytesIO(response.content))
-    width, height = picture.size
-    if width < MIN_WIDTH or height < MIN_HEIGHT:
-        raise ValidationError("La imagen no cumple con el requisito de calidad. Debe ser mayor que " + str(MIN_WIDTH) + " de ancho x " + str(MIN_HEIGHT) + " de alto y la actual es de " + str(width) + " de ancho x "+str(height)+" de alto.")
-    else:
-        return value
+    MIN_HEIGHT = 720
+    MIN_WIDTH = 720
+    try:
+        response = requests.get(value, timeout=10)
+        try:
+            picture  = Image.open(BytesIO(response.content))
+            width, height = picture.size
+            if width < MIN_WIDTH or height < MIN_HEIGHT:
+                raise ValidationError("La imagen no cumple con el requisito de calidad. Debe ser mayor que " + str(MIN_WIDTH) + " de ancho x " + str(MIN_HEIGHT) + " de alto y la actual es de " + str(width) + " de ancho x "+str(height)+" de alto.")
+            else:
+                return value
+        except OSError:
+            raise ValidationError("La URL proporcionada no es una imagen válida. Intente de nuevo proporcionando una URL válida diferente.")
+    except requests.exceptions.Timeout:
+        raise ValidationError("No se ha podido acceder a la imagen en el tiempo requerido. Intente de nuevo proporcionando una URL válida diferente.")
 
 class Product(models.Model):
             
@@ -166,8 +172,7 @@ class Product(models.Model):
         return self.price
     
     def clean(self):
-        if self.discount_price is not None:
-            if self.discount_price > self.price:
+        if self.discount_price is not None and self.discount_price > self.price:
                 raise ValidationError("El descuento tiene que ser menor que el precio original")
 class OrderProduct(models.Model):
     session_id = models.CharField(max_length=100, blank=True, null=True)
