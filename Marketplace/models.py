@@ -139,6 +139,9 @@ class Product(models.Model):
         if self.producer not in producers:
             raise ValidationError("El productor no es valido")
 
+        val = URLValidator()
+        val(self.image)
+
         super().save(*args, **kwargs)
 
     def __str__(self):
