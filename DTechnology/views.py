@@ -64,7 +64,6 @@ def delete_product(request, id):
     product.delete()
     return redirect('cart')
 
-@csrf_exempt
 def home(request):
 
     if 'nonuser' not in request.session or request.session['nonuser'] == '':

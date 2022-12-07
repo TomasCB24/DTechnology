@@ -3,7 +3,7 @@ from django.shortcuts import render
 
 from django.conf import settings 
 from django.http.response import JsonResponse, HttpResponse
-from django.views.decorators.csrf import csrf_exempt 
+from django.views.decorators.csrf import csrf_protect
 from django.views.generic.base import TemplateView
 import stripe
 
@@ -11,14 +11,13 @@ from Marketplace.models import Order, OrderProduct
 
 from static.python.utils import send_email
 
-@csrf_exempt
+@csrf_protect
 def stripe_config(request):
     if request.method == 'GET':
         stripe_config = {'publicKey': settings.STRIPE_PUBLISHABLE_KEY}
         return JsonResponse(stripe_config, safe=False)
 
-
-@csrf_exempt
+@csrf_protect
 def create_checkout_session(request):
   if request.method == 'GET':
     domain_url = 'http://localhost:8000/payments/'
