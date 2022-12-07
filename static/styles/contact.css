@@ -1,0 +1,66 @@
+.content{
+    overflow: visible!important;
+}
+
+.page-container:after,
+.page-container:before{
+    content:"";
+    display:table;
+    clear:both
+}
+.page-container{
+    padding:0.01em 0.9rem;
+}
+
+.page-center{
+    text-align:center!important;
+    display: flex;
+    word-wrap: break-word;
+
+}
+
+.page-padding{
+    padding:0.35rem 0.9rem!important
+}
+
+.page-row-padding:after,
+
+.page-row-padding:before{
+    content:"";
+    display:table;
+    clear:both
+}
+
+.page-row-padding,.page-row-padding>.page-third{
+    padding:0 0.35rem;
+}
+
+.page-third{
+    width:400px;
+    float:left;
+}
+
+.page-card{
+    box-shadow:0 0.2rem 0.4rem 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12)
+}
+
+.page-margin-bottom{
+    margin-bottom:0.9rem!important
+}
+
+.page-margin-top{
+    margin-top:0.9rem!important
+}
+
+.page-text{
+    margin-top: 0.85rem; size: 0.85rem;
+}
+
+#contact-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+    row-gap: 2rem;
+
+}
