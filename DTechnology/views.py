@@ -272,7 +272,12 @@ def detail(request,id):
                             'cart_counter': get_cart_counter(request)
                             })
 
-
 def contact(request):
     return render(request, 'base_CONTACT.html', {'cart_counter': get_cart_counter(request)})
+
+def terms(request):
+    return render(request, 'base_TERMS.html', {'cart_counter': get_cart_counter(request)})
+
+def privacy(request):
+    return render(request, 'base_PRIVACY.html', {'cart_counter': get_cart_counter(request)})
 

@@ -29,6 +29,6 @@ urlpatterns = [
     path('tracking/', tracking, name="tracking"),
     path('details/<int:id>/', detail, name='details'),
     path('contact', contact, name = 'contact'),
-
-
+    path('terms', terms, name = 'terms'),
+    path('privacy', privacy, name = 'privacy'),
 ]
