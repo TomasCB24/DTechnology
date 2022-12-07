@@ -26,7 +26,9 @@ urlpatterns = [
     path('', home, name='home'),
     path('order/', order, name='order'),    
     path('payments/', include('Payments.urls'), name='stripe'),
+    path('tracking/', tracking, name="tracking"),
     path('details/<int:id>/', detail, name='details'),
     path('contact', contact, name = 'contact'),
+
 
 ]

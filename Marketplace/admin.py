@@ -11,7 +11,9 @@ make_refund_accepted.short_description = 'Update orders to refund granted'
 
 
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ['ordered',
+    list_display = ['ref_id',
+                    'ref_code',
+                    'ordered',
                     'being_delivered',
                     'received',
                     'shipping_address',
@@ -19,6 +21,7 @@ class OrderAdmin(admin.ModelAdmin):
                     'payment',
                     ]
     list_display_links = [
+        'ref_code',
         'shipping_address',
         'billing_address',
         'payment',

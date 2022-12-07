@@ -214,6 +214,38 @@ def order(request):
                             'cart_counter': get_cart_counter(request)
                             })
 
+def tracking(request):
+    if request.method == 'POST':
+        order_code = request.POST.get('search-order')
+
+        try:
+            order = [x for x in Order.objects.all() if x.ref_code == order_code][0]
+            ordered = order.ordered
+            being_delivered = order.being_delivered
+            delivered = order.received
+
+            is_delivered = False
+            is_being_delivered = False
+            is_ordered = False
+            
+            if delivered:
+                is_delivered = True
+            elif being_delivered:
+                is_being_delivered = True
+            elif ordered:
+                is_ordered = True
+
+            return render(request, 'base_TRACKING.html', 
+                            {'is_ordered': is_ordered,
+                            'is_being_delivered': is_being_delivered,
+                            'is_delivered': is_delivered,
+                            'cart_counter': get_cart_counter(request)
+                            })
+        except:
+            messages.warning(request, 'No se ha encontrado el pedido')
+            return redirect('tracking')
+    return render(request, 'base_TRACKING.html', {'cart_counter': get_cart_counter(request)})
+
 def detail(request,id):
     pro = Product.objects.get(id=id)
     
@@ -240,5 +272,7 @@ def detail(request,id):
                             'cart_counter': get_cart_counter(request)
                             })
 
+
 def contact(request):
     return render(request, 'base_CONTACT.html', {'cart_counter': get_cart_counter(request)})
+
