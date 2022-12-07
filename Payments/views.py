@@ -4,6 +4,7 @@ from django.shortcuts import render
 from django.conf import settings 
 from django.http.response import JsonResponse, HttpResponse
 from django.views.decorators.csrf import csrf_protect
+from django.views.decorators.http import require_http_methods
 from django.views.generic.base import TemplateView
 import stripe
 
