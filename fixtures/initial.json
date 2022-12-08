@@ -110,5 +110,99 @@
         "department": "Peripherals",
         "producer": "New Skill"
     }
+},
+{
+    "model": "Marketplace.product",
+    "pk": 9,
+    "fields": {
+        "title": "Trust GXT 860 Thura Teclado Semi-Mecánico LED RGB",
+        "price": 119.0,
+        "section": "Keyboards",
+        "description": "Teclado mecánico con elegante cuerpo de aluminio cepillado. Dispone de diferentes modos de iluminación.",
+        "image": "https://thumb.pccomponentes.com/w-530-530/articles/13/136376/16006183.jpg",
+        "department": "Peripherals",
+        "producer": "New Skill"
+    }
+},
+{
+    "model": "Marketplace.product",
+    "pk": 10,
+    "fields": {
+        "title": "Nintendo Switch",
+        "price": 349.0,
+        "section": "Consoles",
+        "description": "Consola Nintendo Switch (modelo OLED), Pantalla de 7 Pulgadas, Con Estación de Acoplamiento Joy-Con Blanca",
+        "image": "https://m.media-amazon.com/images/I/711+zZY-eQL._AC_SL1500_.jpg",
+        "department": "Consoles and Videogames",
+        "producer": "Nintendo"
+    }
+},
+{
+    "model": "Marketplace.product",
+    "pk": 11,
+    "fields": {
+        "title": "Unidad de Disco óptico (Negro, Bandeja, DVD-RW, USB 3.0) ",
+        "price": 42.12,
+        "discount_price": 40.0,
+        "section": "DVD/CD Recorder",
+        "description": "Unidad de disco óptimo de color negro, con tecnología USB 3.0 perfecta para uso personal",
+        "image": "https://www.hp.com/es-es/shop/Html/Merch/Images/c03955335_1750x1285.jpg",
+        "department": "Peripherals",
+        "producer": "HP"
+    }
+},
+{
+    "model": "Marketplace.product",
+    "pk": 12,
+    "fields": {
+        "title": "CPU disipador y Ventilador E97379003",
+        "price": 27.0,
+        "section": "Ventilation",
+        "description": "Ventilador de CPU original Intel para ordenadores de sobremesa de las generaciones actuales. Número de producto: E97379 003 ",
+        "image": "https://m.media-amazon.com/images/I/51m4WZI0YXL._SL1000_.jpg",
+        "department": "Components",
+        "producer": "Intel"
+    }
+},
+{
+    "model": "Marketplace.product",
+    "pk": 13,
+    "fields": {
+        "title": "Cargador para Portátil Sony VAIO PCG",
+        "price": 17.0,
+        "section": "Power Supply",
+        "description": "Entrada: 100 ~ 240V 50 / 60Hz; Salida: 19,5V 4,7A 90W MAX; Es adecuado para 19,5V 3,3A 65W; Tamaño del conector: Φ6.5mm * Φ4.4mm; (debe prestar atención a si el tamaño es consistente con su tamaño original); Contenido del paquete: 1 x Cargador Acer, 1 x Cable de Alimentación, 1 x Manual de Usuario. Solo mostramos una parte de los modelos de computadoras portátiles compatibles. ",
+        "image": "https://m.media-amazon.com/images/I/71Ez66og-OS._AC_SL1500_.jpg",
+        "department": "Peripherals",
+        "producer": "Sony"
+    }
+},
+{
+    "model": "Marketplace.product",
+    "pk": 14,
+    "fields": {
+        "title": "Mando Xbox - Robot White, Color Blanco",
+        "price": 89.0,
+        "discount_price": 88.0,
+        "section": "Controls",
+        "description": "Tecnología inalámbrica de Xbox y Bluetooth: Incluye tecnología inalámbrica de Xbox y Bluetooth para poder jugar sin cables en consolas compatibles, PCs con Windows 10, teléfonos Android y táblets.",
+        "image": "https://m.media-amazon.com/images/I/41agf4-Cz6L._AC_SL1000_.jpg",
+        "department": "Consoles and Videogames",
+        "producer": "Xbox"
+    }
+},
+{
+    "model": "Marketplace.product",
+    "pk": 15,
+    "fields": {
+        "title": "Microcadena PHILIPS TAM3205",
+        "price": 89.0,
+        "discount_price": 88.0,
+        "section": "Speakers",
+        "description": "Microcadena PHILIPS TAM3205 con sonido estéreo",
+        "image": "https://www.worten.es/i/0555681814c84dfa816e6c6fa30c979dce5a4512.jpg",
+        "department": "Peripherals",
+        "producer": "Phillips"
+    }
 }
 ]

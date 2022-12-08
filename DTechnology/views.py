@@ -98,8 +98,17 @@ def home(request):
                 add_to_cart(request,product_id, quantity)
             else:
                 messages.warning(request, 'No hay suficientes ' + product.title + ' en el inventario')
-            
-    products = get_products(active_category, active_department, active_producer, search, request)
+    
+    if request.GET.get('search'):
+        search = request.GET.get('search')
+    if request.GET.get('category'):
+        active_category = request.GET.get('category')
+    if request.GET.get('department'):
+        active_department = request.GET.get('department')
+    if request.GET.get('producer'):
+        active_producer = request.GET.get('producer')
+    [products, page_obj] = get_products(active_category, active_department, active_producer, search, request, page_size=12)
+    print(products)
 
     return render(request, 'base_HOME.html', 
             {'categories': CATEGORY_CHOICES, 
@@ -109,7 +118,12 @@ def home(request):
             'active_dep': active_department, 
             'active_prod': active_producer,
             'listOfList': products,
-            'cart_counter': get_cart_counter(request)
+            'cart_counter': get_cart_counter(request),
+            'page_obj': page_obj,
+            'active_category': active_category,
+            'active_department': active_department,
+            'active_producer': active_producer,
+            'search': search,
             }
         )
 
@@ -123,7 +137,7 @@ def add_to_cart(request,product_id, quantity):
     except:
         OrderProduct.objects.create(product=product, quantity=quantity, session_id = request.session['nonuser'])
 
-def get_products(category, department, producer, search, request):
+def get_products(category, department, producer, search, request, page_size):
     
     listOfList = []
 
@@ -141,22 +155,22 @@ def get_products(category, department, producer, search, request):
                                                                             Q(department__icontains=search) | 
                                                                             Q(producer__icontains=search))   
 
-    paginator = Paginator(productos, 5) # Show 5 products per page.
+    paginator = Paginator(productos, page_size) # Show 5 products per page.
     page_number = request.GET.get('page')
     products_page = paginator.get_page(page_number)
     i=0
     listaCuatroProductos = []
-    for producto in productos:
+    for producto in products_page:
         if i == 4:
             listOfList.append(listaCuatroProductos)
             listaCuatroProductos = []
             i=0
         listaCuatroProductos.append(producto)
         i+=1
-    if len(listaCuatroProductos) <= 4:
+    if len(listaCuatroProductos) <= 4 and len(productos)!=0:
         listOfList.append(listaCuatroProductos)  
     
-    return listOfList
+    return [listOfList, products_page]
 
 
 def order(request):
