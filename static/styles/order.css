@@ -17,3 +17,17 @@
 .total-price :first-child {
     margin-right: 4rem;
 }
+
+.return-policy {
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    padding: 0.5rem;
+  }
+  
+  .return-policy :first-child {
+    margin-right: 1rem;
+  }
