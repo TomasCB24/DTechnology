@@ -29,6 +29,7 @@ urlpatterns = [
     path('tracking/', tracking, name="tracking"),
     path('details/<int:id>/', detail, name='details'),
     path('policy/return', return_policy, name='return_policy'),
+    path('contact', contact, name = 'contact'),
 
 
 ]

@@ -274,3 +274,7 @@ def detail(request,id):
 
 def return_policy(request):
     return render(request, 'base_RETURN_POLICY.html')
+
+def contact(request):
+    return render(request, 'base_CONTACT.html', {'cart_counter': get_cart_counter(request)})
+
