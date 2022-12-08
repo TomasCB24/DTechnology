@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}Página principal DTechnology{% endblock %}
+
+{% block head %}
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/index.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="index-container">
+    <h1>Bienvenido a DTechnology</h1>
+    <p>En esta página podrás encontrar los mejores productos tecnológicos del mercado, con la mejor calidad y al mejor precio.</p>
+
+    <a href="{% url 'home' %}">Entrar al catálogo</a>
+
+</div>
+
+{% endblock %}
