@@ -25,35 +25,35 @@ PAYMENT_METHODS = (
 
 
 CATEGORY_CHOICES = (
-    ('Motherboard','Motherboard'),
-    ('Processor','Processor'),
-    ('Hard Disk Drive','Hard Disk Drive'),
-    ('Solid State Drive','Solid State Drive'),
-    ('Graphic Card','Graphic Card'),
-    ('Ram Memory','Ram Memory'),
-    ('DVD/CD Recorder','DVD/CD Recorder'),
-    ('Sound Card','Sound Card'),
-    ('Computer Cases','Computer Cases'),
-    ('Ventilation','Ventilation'),
-    ('Power Supply','Power Supply'),
-    ('Mouses','Mouses'),
-    ('Keyboards', 'Keyboards'),
-    ('Speakers','Speakers'),
-    ('Headphones','Headphones'),
-    ('Gaming Chairs','Gaming Chairs'),
-    ('Webcam','Webcam'),
-    ('Printers','Printers'),
-    ('Games','Games'),
-    ('Consoles','Consoles'),
-    ('Console Accessories','Console Accessories'),
-    ('Controls','Controls')
+    ('Placa base','Placa base'),
+    ('Procesador','Procesador'),
+    ('Disco duro mecánico','Disco duro mecánico'),
+    ('Disco duro sólido','Disco duro sólido'),
+    ('Tarjeta gráfica','Tarjeta gráfica'),
+    ('Memoria ram','Memoria ram'),
+    ('Grabadora DVD/CD','Grabadora DVD'),
+    ('Tarjeta de sonido','Tarjeta de sonido'),
+    ('Torres de ordenador','Torres de ordenador'),
+    ('Ventilación','Ventilación'),
+    ('Alimentación','Alimentación'),
+    ('Ratones','Ratones'),
+    ('Teclados', 'Teclados'),
+    ('Altavoces','Altavoces'),
+    ('Auriculares','Auriculares'),
+    ('Sillas gaming','Sillas gaming'),
+    ('Cámara web','Cámara web'),
+    ('Impresoras','Impresoras'),
+    ('Juegos','Juegos'),
+    ('Consolas','Consolas'),
+    ('Accesorios de Consolas','Accesorios de Consolas'),
+    ('Controles','Controles')
     
 )
 
 DEPARTMENT_CHOICES = (
-    ('Components', 'Components'),
-    ('Peripherals','Peripherals'),
-    ('Consoles and Videogames','Consoles and Videogames')
+    ('Componentes', 'Componentes'),
+    ('Periféricos','Periféricos'),
+    ('Consolas y Videojuegos','Consolas y Videojuegos')
 )
 
 PRODUCER_CHOICES = (
