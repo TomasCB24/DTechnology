@@ -70,15 +70,15 @@ def home(request):
     if 'nonuser' not in request.session or request.session['nonuser'] == '':
         request.session['nonuser'] = str(uuid.uuid4())
     
-    active_category, active_department, active_producer = 'Any Categories', 'Any Departments', 'Any Producers'
+    active_category, active_department, active_producer = 'Cualquier Categoría', 'Cualquier Departamento', 'Cualquier Fabricante'
     search = ""
 
     if request.method == 'POST':
         search = request.POST.get("search-product", '')
         if 'filter' in request.POST:
-            category = request.POST.get('Categories', 'Any Categories')
-            department = request.POST.get('Departments', 'Any Departments')
-            producer = request.POST.get('Producers', 'Any Producers')
+            category = request.POST.get('Categoría', 'Cualquier Categoría')
+            department = request.POST.get('Departamento', 'Cualquier Departamento')
+            producer = request.POST.get('Fabricante', 'Cualquier Fabricante')
             active_category, active_department, active_producer = category, department, producer
             
         elif 'add_to_cart' in request.POST:
@@ -126,11 +126,11 @@ def get_products(category, department, producer, search):
     
     listOfList = []
 
-    if category == 'Any Categories':
+    if category == 'Cualquier Categoría':
         category = ''
-    if department == 'Any Departments':
+    if department == 'Cualquier Departamento':
         department = ''
-    if producer == 'Any Producers':
+    if producer == 'Cualquier Fabricante':
         producer = ''
     
     productos = Product.objects.filter(section__icontains=category, 
