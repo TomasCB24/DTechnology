@@ -62,6 +62,10 @@ td{
   margin-right: 4rem;
 }
 
+.costs-container {
+  margin-top: 50px;
+}
+
 .shipping-costs {
   font-size: 1rem;
   font-weight: 700;
