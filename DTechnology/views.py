@@ -9,6 +9,7 @@ from django.contrib import messages
 from .forms import AddressForm
 from django.http import HttpResponseRedirect
 from django_countries import countries
+from django.core.paginator import Paginator
 
 from Marketplace.models import Product, CATEGORY_CHOICES, DEPARTMENT_CHOICES, PRODUCER_CHOICES
 
@@ -98,7 +99,7 @@ def home(request):
             else:
                 messages.warning(request, 'No hay suficientes ' + product.title + ' en el inventario')
             
-    products = get_products(active_category, active_department, active_producer, search)
+    products = get_products(active_category, active_department, active_producer, search, request)
 
     return render(request, 'base_HOME.html', 
             {'categories': CATEGORY_CHOICES, 
@@ -122,7 +123,7 @@ def add_to_cart(request,product_id, quantity):
     except:
         OrderProduct.objects.create(product=product, quantity=quantity, session_id = request.session['nonuser'])
 
-def get_products(category, department, producer, search):
+def get_products(category, department, producer, search, request):
     
     listOfList = []
 
@@ -140,6 +141,9 @@ def get_products(category, department, producer, search):
                                                                             Q(department__icontains=search) | 
                                                                             Q(producer__icontains=search))   
 
+    paginator = Paginator(productos, 5) # Show 5 products per page.
+    page_number = request.GET.get('page')
+    products_page = paginator.get_page(page_number)
     i=0
     listaCuatroProductos = []
     for producto in productos:
