@@ -83,6 +83,6 @@ img {
   margin: auto;
 }
 .navigation li a:hover{
-  color: black;
+  color: #ffc107;
   background-color: var(--bs-indigo);
 }
