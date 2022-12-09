@@ -23,6 +23,9 @@ def get_cart_counter(request):
     else:
         return 0
 
+def index(request):
+    return render(request, 'base_INDEX.html', {'cart_counter': get_cart_counter(request)})
+
 def cart(request):
 
     product_orders = OrderProduct.objects.filter(session_id=request.session['nonuser'])
@@ -110,7 +113,7 @@ def home(request):
     [products, page_obj] = get_products(active_category, active_department, active_producer, search, request, page_size=12)
     print(products)
 
-    return render(request, 'base_HOME.html', 
+    return render(request, 'base_CATALOGUE.html', 
             {'categories': CATEGORY_CHOICES, 
             'departments': DEPARTMENT_CHOICES, 
             'producers': PRODUCER_CHOICES, 
@@ -290,6 +293,8 @@ def detail(request,id):
                             'cart_counter': get_cart_counter(request)
                             })
 
+def return_policy(request):
+    return render(request, 'base_RETURN_POLICY.html')
 
 def contact(request):
     return render(request, 'base_CONTACT.html', {'cart_counter': get_cart_counter(request)})

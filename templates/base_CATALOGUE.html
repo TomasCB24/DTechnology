@@ -31,14 +31,14 @@
             <div class="col-md-3">
 
 
-                <div class="card card-producto">
+            <div class="card card-producto">
+                <a href="{% url 'details' product.id %}">
+                    <img class="card-img-top" src={{product.image}} alt="producto {{product.title}}">
+                </a>
+                <div class="card-body">
                     <a href="{% url 'details' product.id %}">
-                        <img class="card-img-top" src={{product.image}}>
+                        <h3 class="card-title">{{product.title}}</h3>
                     </a>
-                    <div class="card-body">
-                        <a href="#">
-                            <h3 class="card-title">{{product.title}}</h3>
-                        </a>
                         <div class="row mb-4">
                             {% if product.discount_price %}
                                 <div class="col-md-6">
