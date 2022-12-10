@@ -3,7 +3,7 @@ from django_countries.fields import CountryField
 from phonenumber_field.modelfields import PhoneNumberField
 
 PAYMENT_METHODS = (
-    ('Contrareembolso', 'Contrareembolso'),
+    ('Contra reembolso', 'Contra reembolso'),
     ('Online', 'Online'),
 )
 

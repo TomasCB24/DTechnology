@@ -27,7 +27,7 @@ def create_checkout_session(request):
     stripe.api_key = settings.STRIPE_SECRET_KEY
     
     try:
-      product_orders = OrderProduct.objects.filter(session_id=request.session['nonuser'])
+      product_orders = OrderProduct.objects.filter(session_id=request.session['nonuser']).filter(ordered=False)
       
       line_items = []
       for product_order in product_orders:

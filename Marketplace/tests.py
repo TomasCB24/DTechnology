@@ -165,7 +165,7 @@ class OrderProductTestCase(TestCase):
 class AddressTestCase(TestCase):
 
     def setUp(self):
-        Address.objects.create(name="Jesús",surname="Luque", email="jluque@gmail.com", phone="678985456", street_address="Avda. Reina Mercedes - 51", apartment_address="1º A", country="ES", payment="Contrareembolso")
+        Address.objects.create(name="Jesús",surname="Luque", email="jluque@gmail.com", phone="678985456", street_address="Avda. Reina Mercedes - 51", apartment_address="1º A", country="ES", payment="Contra reembolso")
         Address.objects.create(name="Marcos",surname="Torrecilla", email="marcost@gmail.com", phone="654875695", street_address="Avda. Reina Mercedes - 27", apartment_address="6º B", country="ES", payment="Online")
 
     def test_address_create(self):
@@ -178,7 +178,7 @@ class AddressTestCase(TestCase):
         self.assertEqual(address.street_address,"Avda. Reina Mercedes - 51")
         self.assertEqual(address.apartment_address,"1º A")
         self.assertEqual(address.country,"ES")
-        self.assertEqual(address.payment,"Contrareembolso")
+        self.assertEqual(address.payment,"Contra reembolso")
 
     def test_address_delete(self):
         address = Address.objects.get(email = "jluque@gmail.com")
