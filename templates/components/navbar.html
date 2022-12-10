@@ -11,8 +11,12 @@
         </a>
       </div>
 
-      <div class="collapse navbar-collapse">
-        <ul class="navbar-nav ms-auto">
+      <button class="navbar-toggler bg-warning" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto collapse-menu">
 
           <li class="nav-item">
             <a class="nav-link" href="/tracking">
@@ -25,7 +29,7 @@
             <span class="cart-counter">{{ cart_counter }}</span>
           </li>
 
-        </ul>
+        </ul> 
         
       </div> 
 
