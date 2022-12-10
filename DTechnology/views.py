@@ -216,7 +216,7 @@ def order(request):
             request.session['order_id'] = order.ref_id
 
             payment = request.POST.get("payment")
-            if payment == 'Contrareembolso':
+            if payment == 'Contra reembolso':
                 return redirect('success')
             
             return render(request, 'payments/redirect_STRIPE.html', {'order': order})

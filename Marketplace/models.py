@@ -25,7 +25,7 @@ import urllib3
 
 # Create your models here.
 PAYMENT_METHODS = (
-    ('Contrareembolso', 'Contrareembolso'),
+    ('Contra reembolso', 'Contra reembolso'),
     ('Online', 'Online'),
 )
 
@@ -290,8 +290,8 @@ class Address(models.Model):
         val4 = MaxLengthValidator(50)
         val4(self.payment)
 
-        if self.payment != 'Contrareembolso' and self.payment != 'Online':
-            raise ValidationError("El tipo de pago no es válido, debe ser Contrareembolso u Online")
+        if self.payment != 'Contra reembolso' and self.payment != 'Online':
+            raise ValidationError("El tipo de pago no es válido, debe ser Contra reembolso u Online")
 
         super(Address, self).save(*args, **kwargs)
         
