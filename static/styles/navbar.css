@@ -20,3 +20,12 @@
 .nav-link:hover{
     color: white;
 }
+
+@media (max-width: 991px) {
+    .collapse-menu{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+    }
+}
