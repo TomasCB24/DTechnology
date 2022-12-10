@@ -15,7 +15,7 @@ from Marketplace.models import Product, CATEGORY_CHOICES, DEPARTMENT_CHOICES, PR
 
 def get_cart_counter(request):
     if 'nonuser' in request.session:
-        order_products = OrderProduct.objects.filter(session_id=request.session['nonuser'])
+        order_products = OrderProduct.objects.filter(session_id=request.session['nonuser']).filter(ordered=False)
         cart_counter = 0
         for order_product in order_products:
             cart_counter += order_product.quantity
@@ -28,7 +28,7 @@ def index(request):
 
 def cart(request):
 
-    product_orders = OrderProduct.objects.filter(session_id=request.session['nonuser'])
+    product_orders = OrderProduct.objects.filter(session_id=request.session['nonuser']).filter(ordered=False)
     # get the total price of the order
     total_price = 0
     for product_order in product_orders:
@@ -90,7 +90,7 @@ def home(request):
 
             product = Product.objects.get(id=product_id)
 
-            order_products = OrderProduct.objects.filter(product=product)
+            order_products = OrderProduct.objects.filter(product=product).filter(ordered=False)
 
             cart_quantity = 0
             for order_product in order_products:
@@ -110,7 +110,6 @@ def home(request):
     if request.GET.get('producer'):
         active_producer = request.GET.get('producer')
     [products, page_obj] = get_products(active_category, active_department, active_producer, search, request, page_size=12)
-    print(products)
 
     return render(request, 'base_CATALOGUE.html', 
             {'categories': CATEGORY_CHOICES, 
@@ -133,7 +132,7 @@ def add_to_cart(request,product_id, quantity):
 
     try:
         product = Product.objects.get(id=product_id)
-        order_product = OrderProduct.objects.get(product=product, session_id=request.session['nonuser'])
+        order_product = OrderProduct.objects.get(product=product, session_id=request.session['nonuser']).filter(ordered=False)
 
         order_product.add_products(quantity)
     except:
@@ -177,7 +176,7 @@ def get_products(category, department, producer, search, request, page_size):
 
 def order(request):
     
-    product_orders = OrderProduct.objects.filter(session_id=request.session['nonuser'])
+    product_orders = OrderProduct.objects.filter(session_id=request.session['nonuser']).filter(ordered=False)
     # get the total price of the order
     total_price = 0
     for product_order in product_orders:
@@ -207,7 +206,7 @@ def order(request):
                 shipping.phone = phone
                 shipping.save()
                 
-            product_orders = OrderProduct.objects.filter(session_id=request.session['nonuser'])      
+            product_orders = OrderProduct.objects.filter(session_id=request.session['nonuser']).filter(ordered=False)      
             
             shipping = Address.objects.get(email = email,street_address = address)
             order = Order.objects.create(shipping_address = shipping, billing_address = shipping)
