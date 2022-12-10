@@ -147,25 +147,23 @@ class Product(models.Model):
     def __str__(self):
         return self.title
 
-    def is_sold_out(self):
 
-        order_products = OrderProduct.objects.filter(product=self)
-        total_ordered = 0
-        for order_product in order_products:
-            total_ordered += order_product.quantity
-        if total_ordered >= self.inventory:
-            return True
-        return False
 
     def get_stock(self):
 
-        order_products = OrderProduct.objects.filter(product=self)
+        order_products = OrderProduct.objects.filter(product=self).filter(ordered=False)
         total_ordered = 0
         for order_product in order_products:
             total_ordered += order_product.quantity
         return self.inventory - total_ordered 
             
+    def is_sold_out(self):
 
+        stock = self.get_stock()
+        if stock <= 0:
+            return True
+        return False
+            
     def get_price(self):
         return self.price
 
@@ -181,9 +179,8 @@ class OrderProduct(models.Model):
     session_id = models.CharField(max_length=100, blank=True, null=True)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(default=1, validators=[MinValueValidator(1)])
+    ordered = models.BooleanField(default=False)
     
-    class Meta:
-        unique_together = ('session_id', 'product',)
     
     def __str__(self):
         return f"{self.quantity} of {self.product.title}"

@@ -1,13 +1,31 @@
 [
 {
+    "model": "auth.user",
+    "pk": 1,
+    "fields": {
+        "password": "pbkdf2_sha256$390000$ohweiMnoAORhlDvpjKGaxN$YsaJkIL1WkYbdiMAl50bnUvRJxTNrRBBJ4vj2H9N/Qc=",
+        "last_login": null,
+        "is_superuser": true,
+        "username": "admin",
+        "first_name": "",
+        "last_name": "",
+        "email": "",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2022-12-10T10:32:41.642Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
     "model": "Marketplace.product",
     "pk": 1,
     "fields": {
-        "title": "TUF RTX 3090 GAMING Graphic Card",
+        "title": "Tarjeta Gráfica TUF RTX 3090 GAMING",
         "price": 450.0,
         "discount_price": 432.0,
         "section": "Tarjeta gráfica",
-        "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s w",
+        "description": "Las GPU GeForce RTX™ serie 30 ofrecen el máximo rendimiento para jugadores y creadores. Con tecnología de Ampere, la arquitectura RTX de la segunda generación de NVIDIA, con nuevos núcleos RT y Tensor y multiprocesadores de streaming para los gráficos de trazado de rayos más realistas y las funciones de inteligencia artificial más innovadoras.",
         "image": "https://dlcdnwebimgs.asus.com/gain/a391e6f3-74d9-46d8-bccf-24f0e6713232/w800",
         "department": "Componentes",
         "producer": "Asus"
@@ -17,11 +35,11 @@
     "model": "Marketplace.product",
     "pk": 2,
     "fields": {
-        "title": "GYGABYTE X299 Wu8 Motherboard",
+        "title": "Placa base GYGABYTE X299 Wu8",
         "price": 125.0,
         "discount_price": 120.0,
         "section": "Placa base",
-        "description": "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discov",
+        "description": "La X299 Wu8 es una placa base de corte profesional ideal para equipos destinado tanto a ejecutar los programas más exigentes como a mantener múltiples máquinas virtuales. Es compatible con procesadores Intel Core X Series ya que tiene un socket 2066, y en sus 8 bancos de memoria soporta un máximo de 128GB de ram DDR4 a 4400MHz.",
         "image": "https://ae01.alicdn.com/kf/Hc27213c517ce4825a249ee4d75ec4b9ai/X299-WU8-desktop-computer-graphics-workstation-motherboard-supports-4-way-graphics-card-SLI.jpg_Q90.jpg_.webp",
         "department": "Componentes",
         "producer": "Gigabyte"
@@ -31,11 +49,11 @@
     "model": "Marketplace.product",
     "pk": 3,
     "fields": {
-        "title": "VIGOR GK30 GAMING KEYBOARD",
+        "title": "Teclado Gaming VIGOR GK30",
         "price": 80.0,
         "discount_price": 56.0,
         "section": "Teclados",
-        "description": "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.",
+        "description": " El MSI Vigor GK30 está equipado con switches que dan la sensación de ser mecánicos, estos ofrecen hasta 12 millones de pulsaciones. Puedes personalizar GK30 con millones de colores y hasta 10 efectos de luz pre-definidos en 6 zonas.",
         "image": "https://asset.msi.com/resize/image/global/product/product_9_20190709142918_5d24343eb0dfb.png62405b38c58fe0f07fcef2367d8a9ba1/600.png",
         "department": "Periféricos",
         "producer": "MSI"
@@ -45,7 +63,7 @@
     "model": "Marketplace.product",
     "pk": 4,
     "fields": {
-        "title": "ROG Strix Impact II Mouse",
+        "title": "Ratón ROG Strix Impact II",
         "price": 34.0,
         "discount_price": 29.0,
         "section": "Ratones",
@@ -59,7 +77,7 @@
     "model": "Marketplace.product",
     "pk": 5,
     "fields": {
-        "title": "ROG Delta GUNDAM EDITION",
+        "title": "Auriculares ROG Delta GUNDAM EDITION",
         "price": 83.0,
         "discount_price": 65.0,
         "section": "Auriculares",
@@ -73,11 +91,11 @@
     "model": "Marketplace.product",
     "pk": 6,
     "fields": {
-        "title": "CPU INTEL 4.4GHZ CORE I9-9900X BX80673I99900X",
+        "title": "Procesador CPU INTEL 4.4GHZ CORE I9-9900X",
         "price": 530.0,
         "discount_price": 499.0,
         "section": "Procesador",
-        "description": "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default mod",
+        "description": "Te presentamos lo último de Intel, los nuevos procesadores para los socket 2066, con hasta 18 núcleos y 36 hilos, la familia de procesadores Intel® Core? serie X es nuestra familia más potente. Convierte tu ordenador en un estudio: produce vídeos 4K o en 360 grados asombrosos, fotos sensacionales o una música increíble. Esta es la herramienta definitiva para los videojuegos y la realidad virtual experimenta el poder de hacerlo todo.",
         "image": "https://www.syscom.com.lb/1589/cpu-intel-44ghz-core-i9-9900x-bx80673i99900x.jpg",
         "department": "Componentes",
         "producer": "Intel"
@@ -87,11 +105,11 @@
     "model": "Marketplace.product",
     "pk": 7,
     "fields": {
-        "title": "AMD Ryzen serie 7000",
+        "title": "Procesador AMD Ryzen serie 7000",
         "price": 320.0,
         "discount_price": 299.0,
         "section": "Procesador",
-        "description": "Cuando tu PC usa el procesador de escritorio más avanzado del mundo que existe para jugadores, te puedes concentrar en lo que verdaderamente importa: ganar en el campo de batalla digital. No importa si quieres jugar los últimos lanzamientos o revivir un clásico: los procesadores AMD Ryzen de la serie 7000 te dan una potencia de juego arrasadora con los núcleos Zen 4 de alto rendimiento. Con has",
+        "description": "Cuando tu PC usa el procesador de escritorio más avanzado del mundo que existe para jugadores, te puedes concentrar en lo que verdaderamente importa: ganar en el campo de batalla digital. No importa si quieres jugar los últimos lanzamientos o revivir un clásico: los procesadores AMD Ryzen de la serie 7000 te dan una potencia de juego arrasadora con los núcleos Zen 4 de alto rendimiento.",
         "image": "https://www.amd.com/system/files/2022-04/1268900-ryzen-5800x-pib-3d-vcache-1260x709.png",
         "department": "Componentes",
         "producer": "AMD"
@@ -101,7 +119,7 @@
     "model": "Marketplace.product",
     "pk": 8,
     "fields": {
-        "title": "Thanatos - Teclado mecánico RGB",
+        "title": "Teclado mecánico RGB Thanatos",
         "price": 89.0,
         "discount_price": 88.0,
         "section": "Teclados",
@@ -115,10 +133,10 @@
     "model": "Marketplace.product",
     "pk": 9,
     "fields": {
-        "title": "Trust GXT 860 Thura Teclado Semi-Mecánico LED RGB",
+        "title": "Teclado Semi-Mecánico Trust GXT 860 Thura LED RGB",
         "price": 119.0,
         "section": "Teclados",
-        "description": "Teclado mecánico con elegante cuerpo de aluminio cepillado. Dispone de diferentes modos de iluminación.",
+        "description": "El teclado semimecánico con iluminación LED Thura GXT 860 de Trust con nueve modos de color de onda de arco iris y función de modo para juegos es un componente esencial para jugar como un profesional.Con el Thura no solo jugarás con la velocidad perfecta, sino que la comodidad está asegurada. El reposamuñecas extraíble proporciona un firme apoyo durante sesiones de juego prolongadas. El aspecto de la placa superior de genuino metal, junto con la base de goma antideslizante, es ideal para lograr victorias perfectas.",
         "image": "https://thumb.pccomponentes.com/w-530-530/articles/13/136376/16006183.jpg",
         "department": "Periféricos",
         "producer": "New Skill"
@@ -131,7 +149,7 @@
         "title": "Nintendo Switch",
         "price": 349.0,
         "section": "Consolas",
-        "description": "Consola Nintendo Switch (modelo OLED), Pantalla de 7 Pulgadas, Con Estación de Acoplamiento Joy-Con Blanca",
+        "description": "Nintendo Switch – Modelo OLED incluye una pantalla de 7 pulgadas con un marco más fino. Los colores intensos y el alto contraste de la pantalla proporcionan una experiencia de juego portátil y de sobremesa enriquecedora, y aportan mucha vida a los juegos, tanto si compites a gran velocidad sobre el asfalto como si te ves las caras con enemigos temibles.",
         "image": "https://m.media-amazon.com/images/I/711+zZY-eQL._AC_SL1500_.jpg",
         "department": "Consolas y Videojuegos",
         "producer": "Nintendo"
@@ -155,7 +173,7 @@
     "model": "Marketplace.product",
     "pk": 12,
     "fields": {
-        "title": "CPU disipador y Ventilador E97379003",
+        "title": "Disipador y Ventilador CPU E97379003",
         "price": 27.0,
         "section": "Ventilación",
         "description": "Ventilador de CPU original Intel para ordenadores de sobremesa de las generaciones actuales. Número de producto: E97379 003 ",
@@ -185,7 +203,7 @@
         "price": 89.0,
         "discount_price": 88.0,
         "section": "Controles",
-        "description": "Tecnología inalámbrica de Xbox y Bluetooth: Incluye tecnología inalámbrica de Xbox y Bluetooth para poder jugar sin cables en consolas compatibles, PCs con Windows 10, teléfonos Android y táblets.",
+        "description": "Disfruta del diseño modernizado del Mando inalámbrico Xbox: blanco robot, con superficies esculpidas y una geometría refinada para una mayor comodidad durante el juego. Mantén el objetivo con un mando de dirección híbrido y agarre texturizado en los gatillos, botones y funda trasera. Captura y comparte contenido sin problemas, como capturas de pantalla, grabaciones y más con el nuevo botón Compartir. Usa la app Accesorios de Xbox para reasignar botones y crear perfiles de mando personalizados para tus juegos favoritos. Empareja rápidamente, juega y cambia rápidamente entre dispositivos, como Xbox Series X, Xbox One, PC Windows y dispositivos Android e iOS. Conecta cualquier casco compatible en el conector para auriculares estéreo de 3,5 mm.",
         "image": "https://m.media-amazon.com/images/I/41agf4-Cz6L._AC_SL1000_.jpg",
         "department": "Consolas y Videojuegos",
         "producer": "Xbox"
@@ -199,10 +217,115 @@
         "price": 89.0,
         "discount_price": 88.0,
         "section": "Altavoces",
-        "description": "Microcadena PHILIPS TAM3205 con sonido estéreo",
-        "image": "https://www.worten.es/i/0555681814c84dfa816e6c6fa30c979dce5a4512.jpg",
+        "description": "Escucha más de cada podcast y lista de reproducción en streaming. Redescubre tu colección de CD o sintoniza la radio. Esta microcadena de aspecto clásico suena genial en habitaciones más pequeñas y puedes conectar otras fuentes a través de USB o la entrada de audio",
+        "image": "https://media.aws.alkomprar.com/ymarketingcolcomercio/Alkosto/audio/contenido/philips/840063201552/840063201552_002.png",
         "department": "Periféricos",
         "producer": "Phillips"
+    }
+},
+{
+    "model": "Marketplace.product",
+    "pk": 16,
+    "fields": {
+        "title": "Newskill Helios",
+        "price": "30.00",
+        "discount_price": "28.56",
+        "section": "Ratones",
+        "description": "Helios dispone de iluminación RGB por fases y diferentes efectos de iluminación para que dispongas de múltiples combinaciones de colores. Además, dispone de 5 perfiles configurables por el usuario mediante su software dedicado que podrás descargar a través de la web oficial. Compatible con Windows XP / Vista / win7 / Macintosh OS y unas dimensiones 122.30mm (L)",
+        "image": "https://www.newskillgaming.com/1-thickbox_default/newskill-eos-gaming-mouse-professional-rgb-16000dpi.jpg",
+        "department": "Periféricos",
+        "producer": "New Skill",
+        "inventory": 16
+    }
+},
+{
+    "model": "Marketplace.product",
+    "pk": 17,
+    "fields": {
+        "title": "Newskill Sobek 7.1 Auriculares Gaming con Cable",
+        "price": "35.00",
+        "discount_price": "32.00",
+        "section": "Auriculares",
+        "description": "Newskill Sobek 7.1 Auriculares Gaming con Cable, Sonido 7.1, Jack 3.5mm, USB, Cancelación de Ruido, Micrófono Omnidireccional Ajustable, RGB, Diadema Ajustable, PC/PS4/PS5/Mac/XBOX/Android, Negro",
+        "image": "https://www.newskillgaming.com/3238-thickbox_default/newskill-sobek-auriculares-gaming-rgb.jpg",
+        "department": "Periféricos",
+        "producer": "New Skill",
+        "inventory": 50
+    }
+},
+{
+    "model": "Marketplace.product",
+    "pk": 18,
+    "fields": {
+        "title": "Logitech G203 LIGHTSYNC Ratón Gaming",
+        "price": "30.99",
+        "discount_price": "30.00",
+        "section": "Ratones",
+        "description": "SENSOR PARA GAMERS: Seguimiento ultrapreciso gracias al sensor de 8000 DPI. Alterna entre los 5 perfiles de configuración, así como el mapeo de pantalla con el G HUB, para un rendimiento más estable\r\nLIGHTSYNC RGB: Gracias a sus 16,8 millones de colores, tendrás el arco iris al alcance de la mano. Combina patrones y juega con efectos ópticos que se adaptan a todos tus estados de ánimo.",
+        "image": "https://resource.logitech.com/content/dam/gaming/en/products/refreshed-g203/g203-black-gallery-1.png",
+        "department": "Periféricos",
+        "producer": "Lenovo",
+        "inventory": 2
+    }
+},
+{
+    "model": "Marketplace.product",
+    "pk": 19,
+    "fields": {
+        "title": "Newskill Silla Gaming Profesional Takamikura",
+        "price": "156.00",
+        "discount_price": "150.00",
+        "section": "Sillas gaming",
+        "description": "La silla para gamers Takamikura esta fabricada en piel sintética adaptable, suave y resistente con un grosor de 0.9mm para evitar roturas y sobrevivir al desgaste del paso del tiempo y el uso continuado. La silla gaming esta rellena con espuma de ultima generación, moldeada en frío con una densidad de 50Kg/m3 para mantenerte cómodo y descansado durante horas.",
+        "image": "https://www.newskillgaming.com/1144-thickbox_default/takamikura-carbon-azul-reacondicionado.jpg",
+        "department": "Periféricos",
+        "producer": "New Skill",
+        "inventory": 20
+    }
+},
+{
+    "model": "Marketplace.product",
+    "pk": 20,
+    "fields": {
+        "title": "Newskill Neith PRO Royale - Silla Gaming",
+        "price": "350.00",
+        "discount_price": "344.50",
+        "section": "Sillas gaming",
+        "description": "La silla gaming Neith Pro Royale cuenta con un exclusivo diseño que te trasladará al epicentro de tu universo favorito, donde se encuentra la acción. Dispone de un cojín cervical y lumbar de espuma viscoelástica, siendo este último de espuma Memory Foam, lo que significa que volverá a su estado original y protegerá eficazmente la espalda. El respaldo está totalmente acolchado con espuma de densida",
+        "image": "https://www.newskillgaming.com/3334-thickbox_default/newskill-neith-pro-royale-silla-gaming.jpg",
+        "department": "Periféricos",
+        "producer": "New Skill",
+        "inventory": 15
+    }
+},
+{
+    "model": "Marketplace.product",
+    "pk": 21,
+    "fields": {
+        "title": "Newskill Silla Gaming, Kitsune Zephyr",
+        "price": "190.00",
+        "discount_price": "168.99",
+        "section": "Sillas gaming",
+        "description": "La silla gaming Kitsune Zephyr ha sido confeccionada con una tela premium ultra suave desarrollada específicamente para favorecer la transpiración en largas sesiones de juego y aumentar su vida útil. Además, incluye cojines lumbares y cervicales desmontables que evitarán la sobrecarga de la musculatura en tu espalda y cuello, mejorando la experiencia de juego o trabajo durante tiempo prolongado en",
+        "image": "https://www.newskillgaming.com/1582-thickbox_default/newskill-kitsune-rgb-v2-silla-gaming.jpg",
+        "department": "Periféricos",
+        "producer": "New Skill",
+        "inventory": 18
+    }
+},
+{
+    "model": "Marketplace.product",
+    "pk": 22,
+    "fields": {
+        "title": "Impresora Multifunción HP Envy Inspire 7920e",
+        "price": "152.99",
+        "discount_price": "150.00",
+        "section": "Impresoras",
+        "description": "LA MEJOR IMPRESORA FAMILIAR; Imprime, escanea y copia en blanco & negro y en color; la velocidad de impresión es de 15 ppm en negro y 10 ppm en color.\r\nImpresión a doble cara de forma automática, Wi-Fi de doble banda con restablecimiento automático, Wi-Fi Direct, HP Smart App, USB 2.0 de alta velocidad y Apple AirPrint.",
+        "image": "https://www.onlinecanarias.com/76954-thickbox_default/hp-envy-7920e-wifi-duplex-multifuncion-inyeccion.jpg",
+        "department": "Periféricos",
+        "producer": "HP",
+        "inventory": 25
     }
 }
 ]

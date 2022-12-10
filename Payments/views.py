@@ -66,17 +66,18 @@ def success_view(request):
     order.ordered = True
     order.ordered_date = datetime.now()
     order.save()
-    product_orders = OrderProduct.objects.filter(session_id=request.session['nonuser'])
+    product_orders = OrderProduct.objects.filter(session_id=request.session['nonuser']).filter(ordered=False)
     
     #Send email to customer
     send_email(order, product_orders)
     
     for product_order in product_orders:
+      product_order.ordered = True
+      product_order.save()
       quantity = product_order.quantity
       product = product_order.product
       product.inventory -= quantity
       product.save()
-      product_order.delete()
 
     #delete the order id from the session
     del request.session['order_id']
