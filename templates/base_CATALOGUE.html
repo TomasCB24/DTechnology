@@ -12,7 +12,7 @@
 <h1 class="heading">Catálogo</h1>
 <form method="post" action="{% url 'home' %}" class="filter-form d-flex justify-content-around row">
     {% csrf_token %}
-    <input class="form-control selects-shop" type="text" placeholder="Buscar producto" aria-label="Buscar" name="search-product">
+    <input class="form-control selects-shop" type="text" placeholder="Buscar producto" aria-label="Buscar" name="search-product" value="{{ search }}">
     {% include "components/all_sections.html" with cat=categories dep=departments prod=producers act_cat=active_cat act_dep=active_dep act_prod=active_prod %}
     <button class="btn btn-success btn-filter" type="submit" name="filter">Buscar</button>
 </form>
@@ -24,10 +24,11 @@
         {% endfor %}
     </ul>
     {% endif %}
-    {% for list in listOfList %}
-    <div class="catalog-row row">
-        {% for product in list %}
-        <div class="col-md-3">
+    {% if listOfList %}
+        {% for list in listOfList %}
+        <div class="catalog-row row">
+            {% for product in list %}
+            <div class="col-md-3">
 
 
             <div class="card card-producto">
@@ -35,63 +36,82 @@
                     <img class="card-img-top" src={{product.image}} alt="producto {{product.title}}">
                 </a>
                 <div class="card-body">
-                    <a href="#">
+                    <a href="{% url 'details' product.id %}">
                         <h3 class="card-title">{{product.title}}</h3>
                     </a>
-                    <div class="row mb-4">
-                        {% if product.discount_price %}
-                            <div class="col-md-6">
-                                <div class="price card-text text-muted text-strike">{{product.price}}€</div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="discount-price price card-text text-danger">{{product.discount_price}}€</div>
-                            </div>
-                        {% else %}
-                            <div class="col-md-6">
-                                <div class="price card-text text-muted">{{product.price}}€</div>
-                            </div>
-                        {% endif %}
+                        <div class="row mb-4">
+                            {% if product.discount_price %}
+                                <div class="col-md-6">
+                                    <div class="price card-text text-muted text-strike">{{product.price}}€</div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="discount-price price card-text text-danger">{{product.discount_price}}€</div>
+                                </div>
+                            {% else %}
+                                <div class="col-md-6">
+                                    <div class="price card-text text-muted">{{product.price}}€</div>
+                                </div>
+                            {% endif %}
 
-                    </div>
-                    {% comment %} {% if product.get_stock > 0 %}
-                    <div class="d-flex justify-content-center mb-2 btn btn-info">
-                        {{ product.get_stock }} unidades disponibles
-                    </div>
-                    {% else %}
-                    <div class="invisible d-flex justify-content-center mb-2 btn btn-danger">
-                        {{ product.get_stock }} unidades disponibles
-                    </div>
-                    {% endif %} {% endcomment %}
-                    <form method="post" action="{% url 'home' %}" class="row">
-                        {% csrf_token %}
-
-                        <div class="card-select col-md-4">
-                            <div class="form-outline">
-                                <input type="number" name="quantity" class="form-control" value="1" min="1" max="100"/>
-                                <input type="hidden" name="product_id" value={{product.id}}>
-                            </div>
                         </div>
-                        {% if product.is_sold_out %}
-                        <div class="col-md-8 d-flex justify-content-end">
-                            <span class="badge badge-danger">Agotado</span>
+                        {% comment %} {% if product.get_stock > 0 %}
+                        <div class="d-flex justify-content-center mb-2 btn btn-info">
+                            {{ product.get_stock }} unidades disponibles
                         </div>
                         {% else %}
-                        <div class="col-md-8 d-flex justify-content-end">
-                            <button type="submit" class="btn btn-outline-primary align-right" name="add_to_cart">Añadir al carrito</button>
+                        <div class="invisible d-flex justify-content-center mb-2 btn btn-danger">
+                            {{ product.get_stock }} unidades disponibles
                         </div>
-                        {% endif %}
+                        {% endif %} {% endcomment %}
+                        <form method="post" action="{% url 'home' %}" class="row">
+                            {% csrf_token %}
 
-                    </form><!--form-->
-                    
-                </div>
-            </div> <!-- card -->
+                            <div class="card-select col-md-4">
+                                <div class="form-outline">
+                                    <input type="number" name="quantity" class="form-control" value="1" min="1" max="100"/>
+                                    <input type="hidden" name="product_id" value={{product.id}}>
+                                </div>
+                            </div>
+                            {% if product.is_sold_out %}
+                            <div class="col-md-8 d-flex justify-content-end">
+                                <span class="badge badge-danger">Agotado</span>
+                            </div>
+                            {% else %}
+                            <div class="col-md-8 d-flex justify-content-end">
+                                <button type="submit" class="btn btn-outline-primary align-right" name="add_to_cart">Añadir al carrito</button>
+                            </div>
+                            {% endif %}
+
+                        </form><!--form-->
+                        
+                    </div>
+                </div> <!-- card -->
 
 
-        </div> <!-- col -->
+            </div> <!-- col -->
+            {% endfor %}
+        </div> <!-- row -->
         {% endfor %}
-    </div> <!-- row -->
-    {% endfor %}
+    {% else %}
+        <div class="alert alert-warning" role="alert">
+            No se han encontrado productos para el criterio de búsqueda.
+        </div>
+    {% endif %}
 
 </div>
+<nav class="navigation">
+    <ul class="pagination">
+        {% if page_obj.has_previous %}
+            <li class="page-item"><a class="page-link" href="?page=1&search={{ search }}&category={{ active_category }}&department={{ active_department}}&producer={{ active_producer }}">1</a></li>
+            <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}&search={{ search }}&category={{ active_category }}&department={{ active_department}}&producer={{ active_producer }}">Página anterior</a></li>
+        {% endif %}
+        <li class="page-item"><a class="page-link" href="?page={{  page_obj.number }}&search={{ search }}&category={{ active_category }}&department={{ active_department}}&producer={{ active_producer }}">{{ page_obj.number }}</a></li>
+        {% if page_obj.has_next %}
+
+            <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}&search={{ search }}&category={{ active_category }}&department={{ active_department}}&producer={{ active_producer }}">Página siguiente</a></li>
+            <li class="page-item"><a class="page-link" href="?page={{ page_obj.paginator.num_pages }}&search={{ search }}&category={{ active_category }}&department={{ active_department}}&producer={{ active_producer }}">{{ page_obj.paginator.num_pages }}</a></li>
+        {% endif %}
+    </ul>
+</nav>
 
 {% endblock %}

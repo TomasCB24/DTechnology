@@ -6,10 +6,10 @@
         "title": "TUF RTX 3090 GAMING Graphic Card",
         "price": 450.0,
         "discount_price": 432.0,
-        "section": "Graphic Card",
+        "section": "Tarjeta gráfica",
         "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s w",
         "image": "https://dlcdnwebimgs.asus.com/gain/a391e6f3-74d9-46d8-bccf-24f0e6713232/w800",
-        "department": "Components",
+        "department": "Componentes",
         "producer": "Asus"
     }
 },
@@ -20,10 +20,10 @@
         "title": "GYGABYTE X299 Wu8 Motherboard",
         "price": 125.0,
         "discount_price": 120.0,
-        "section": "Motherboard",
+        "section": "Placa base",
         "description": "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discov",
         "image": "https://ae01.alicdn.com/kf/Hc27213c517ce4825a249ee4d75ec4b9ai/X299-WU8-desktop-computer-graphics-workstation-motherboard-supports-4-way-graphics-card-SLI.jpg_Q90.jpg_.webp",
-        "department": "Components",
+        "department": "Componentes",
         "producer": "Gigabyte"
     }
 },
@@ -34,10 +34,10 @@
         "title": "VIGOR GK30 GAMING KEYBOARD",
         "price": 80.0,
         "discount_price": 56.0,
-        "section": "Keyboards",
+        "section": "Teclados",
         "description": "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.",
-        "image": "https://static-geektopia.com/storage/t/i/672/67296/product_0_20190709142918_.webp",
-        "department": "Peripherals",
+        "image": "https://asset.msi.com/resize/image/global/product/product_9_20190709142918_5d24343eb0dfb.png62405b38c58fe0f07fcef2367d8a9ba1/600.png",
+        "department": "Periféricos",
         "producer": "MSI"
     }
 },
@@ -48,10 +48,10 @@
         "title": "ROG Strix Impact II Mouse",
         "price": 34.0,
         "discount_price": 29.0,
-        "section": "Mouses",
+        "section": "Ratones",
         "description": "ROG Strix Impact II: Ratón ambidiestro y ergonómico de gaming con sensor óptico de 6200 ppp, diseño ligero e iluminación Aura Sync RGB",
-        "image": "https://webshop.asus.com/media/65/86/f0/1646820606/9fb2bf7b1007b0c0ef0493a82fcd7d89.png",
-        "department": "Peripherals",
+        "image": "https://dlcdnwebimgs.asus.com/gain/C523973E-D88C-4089-8EB8-3DA80C4295E9/w717/h525",
+        "department": "Periféricos",
         "producer": "Asus"
     }
 },
@@ -62,10 +62,10 @@
         "title": "ROG Delta GUNDAM EDITION",
         "price": 83.0,
         "discount_price": 65.0,
-        "section": "Headphones",
+        "section": "Auriculares",
         "description": "ROG Delta GUNDAM EDITION son unos audífonos para juegos RGB con licencia oficial de GUNDAM con ESS Quad-DAC de alta fidelidad e iluminación RGB circular que cuenta con un conector USB-C para compatibilidad con PC, consolas y teléfonos móviles.",
-        "image": "https://images.stockx.com/images/ASUS-ROG-Delta-GUNDAM-EDITION-Gaming-Headset-90YH0332-B2UA00-Red-White-Blue.jpg?fit=fill&bg=FFFFFF&w=1200&h=857&fm=webp&auto=compress&dpr=2&trim=color&updated_at=1632506225&q=75",
-        "department": "Peripherals",
+        "image": "https://dlcdnwebimgs.asus.com/gain/59D592B0-3744-42FF-B152-A17A0E96E7B7/w717/h525",
+        "department": "Periféricos",
         "producer": "Asus"
     }
 },
@@ -76,10 +76,10 @@
         "title": "CPU INTEL 4.4GHZ CORE I9-9900X BX80673I99900X",
         "price": 530.0,
         "discount_price": 499.0,
-        "section": "Processor",
+        "section": "Procesador",
         "description": "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default mod",
         "image": "https://www.syscom.com.lb/1589/cpu-intel-44ghz-core-i9-9900x-bx80673i99900x.jpg",
-        "department": "Components",
+        "department": "Componentes",
         "producer": "Intel"
     }
 },
@@ -90,10 +90,10 @@
         "title": "AMD Ryzen serie 7000",
         "price": 320.0,
         "discount_price": 299.0,
-        "section": "Processor",
+        "section": "Procesador",
         "description": "Cuando tu PC usa el procesador de escritorio más avanzado del mundo que existe para jugadores, te puedes concentrar en lo que verdaderamente importa: ganar en el campo de batalla digital. No importa si quieres jugar los últimos lanzamientos o revivir un clásico: los procesadores AMD Ryzen de la serie 7000 te dan una potencia de juego arrasadora con los núcleos Zen 4 de alto rendimiento. Con has",
-        "image": "https://aqzrxtxcxr.cloudimg.io/www.hardwaretimes.com/wp-content/uploads/2022/03/Ryzen-7-5800X3D-BOX.png",
-        "department": "Components",
+        "image": "https://www.amd.com/system/files/2022-04/1268900-ryzen-5800x-pib-3d-vcache-1260x709.png",
+        "department": "Componentes",
         "producer": "AMD"
     }
 },
@@ -104,11 +104,105 @@
         "title": "Thanatos - Teclado mecánico RGB",
         "price": 89.0,
         "discount_price": 88.0,
-        "section": "Keyboards",
+        "section": "Teclados",
         "description": "Teclado mecánico sencillo y con un elegante cuerpo de aluminio cepillado. Disponible con tres tipos de switches diferentes (Red, Brown y Blue) y 11 modos diferentes de iluminación. Configuración al vuelo de teclas macro y perfiles de personalización RGB tecla a tecla.",
-        "image": "https://www.newskillgaming.com/737-thickbox_default/newskill-thanatos-teclado-mecanico-gaming-rgb.jpg",
-        "department": "Peripherals",
+        "image": "https://www.newskillgaming.com/737-medium_default/thanatos.jpg",
+        "department": "Periféricos",
         "producer": "New Skill"
+    }
+},
+{
+    "model": "Marketplace.product",
+    "pk": 9,
+    "fields": {
+        "title": "Trust GXT 860 Thura Teclado Semi-Mecánico LED RGB",
+        "price": 119.0,
+        "section": "Teclados",
+        "description": "Teclado mecánico con elegante cuerpo de aluminio cepillado. Dispone de diferentes modos de iluminación.",
+        "image": "https://thumb.pccomponentes.com/w-530-530/articles/13/136376/16006183.jpg",
+        "department": "Periféricos",
+        "producer": "New Skill"
+    }
+},
+{
+    "model": "Marketplace.product",
+    "pk": 10,
+    "fields": {
+        "title": "Nintendo Switch",
+        "price": 349.0,
+        "section": "Consolas",
+        "description": "Consola Nintendo Switch (modelo OLED), Pantalla de 7 Pulgadas, Con Estación de Acoplamiento Joy-Con Blanca",
+        "image": "https://m.media-amazon.com/images/I/711+zZY-eQL._AC_SL1500_.jpg",
+        "department": "Consolas y Videojuegos",
+        "producer": "Nintendo"
+    }
+},
+{
+    "model": "Marketplace.product",
+    "pk": 11,
+    "fields": {
+        "title": "Unidad de Disco óptico (Negro, Bandeja, DVD-RW, USB 3.0) ",
+        "price": 42.12,
+        "discount_price": 40.0,
+        "section": "Grabadora DVD/CD",
+        "description": "Unidad de disco óptimo de color negro, con tecnología USB 3.0 perfecta para uso personal",
+        "image": "https://www.hp.com/es-es/shop/Html/Merch/Images/c03955335_1750x1285.jpg",
+        "department": "Periféricos",
+        "producer": "HP"
+    }
+},
+{
+    "model": "Marketplace.product",
+    "pk": 12,
+    "fields": {
+        "title": "CPU disipador y Ventilador E97379003",
+        "price": 27.0,
+        "section": "Ventilación",
+        "description": "Ventilador de CPU original Intel para ordenadores de sobremesa de las generaciones actuales. Número de producto: E97379 003 ",
+        "image": "https://m.media-amazon.com/images/I/51m4WZI0YXL._SL1000_.jpg",
+        "department": "Componentes",
+        "producer": "Intel"
+    }
+},
+{
+    "model": "Marketplace.product",
+    "pk": 13,
+    "fields": {
+        "title": "Cargador para Portátil Sony VAIO PCG",
+        "price": 17.0,
+        "section": "Alimentación",
+        "description": "Entrada: 100 ~ 240V 50 / 60Hz; Salida: 19,5V 4,7A 90W MAX; Es adecuado para 19,5V 3,3A 65W; Tamaño del conector: Φ6.5mm * Φ4.4mm; (debe prestar atención a si el tamaño es consistente con su tamaño original); Contenido del paquete: 1 x Cargador Acer, 1 x Cable de Alimentación, 1 x Manual de Usuario. Solo mostramos una parte de los modelos de computadoras portátiles compatibles. ",
+        "image": "https://m.media-amazon.com/images/I/71Ez66og-OS._AC_SL1500_.jpg",
+        "department": "Periféricos",
+        "producer": "Sony"
+    }
+},
+{
+    "model": "Marketplace.product",
+    "pk": 14,
+    "fields": {
+        "title": "Mando Xbox - Robot White, Color Blanco",
+        "price": 89.0,
+        "discount_price": 88.0,
+        "section": "Controles",
+        "description": "Tecnología inalámbrica de Xbox y Bluetooth: Incluye tecnología inalámbrica de Xbox y Bluetooth para poder jugar sin cables en consolas compatibles, PCs con Windows 10, teléfonos Android y táblets.",
+        "image": "https://m.media-amazon.com/images/I/41agf4-Cz6L._AC_SL1000_.jpg",
+        "department": "Consolas y Videojuegos",
+        "producer": "Xbox"
+    }
+},
+{
+    "model": "Marketplace.product",
+    "pk": 15,
+    "fields": {
+        "title": "Microcadena PHILIPS TAM3205",
+        "price": 89.0,
+        "discount_price": 88.0,
+        "section": "Altavoces",
+        "description": "Microcadena PHILIPS TAM3205 con sonido estéreo",
+        "image": "https://www.worten.es/i/0555681814c84dfa816e6c6fa30c979dce5a4512.jpg",
+        "department": "Periféricos",
+        "producer": "Phillips"
     }
 }
 ]

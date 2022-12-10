@@ -9,9 +9,9 @@ class OrderTestCase(TestCase):
     def setUp(self):
 
         PRODUCT_IMAGE = "https://cdn-icons-png.flaticon.com/512/1554/1554591.png"
-        product_1 = Product.objects.create(title="Producto 1", price=100, section="Mouses", description="Descripción 1", image=PRODUCT_IMAGE, department="Components", producer="Asus", inventory=10)
-        product_2 = Product.objects.create(title="Producto 2", price=100, section="Mouses", description="Descripción 2", image=PRODUCT_IMAGE, department="Components", producer="Asus", inventory=10)
-        product_3 = Product.objects.create(title="Producto 3", price=100, section="Mouses", description="Descripción 3", image=PRODUCT_IMAGE, department="Components", producer="Asus", inventory=10)
+        product_1 = Product.objects.create(title="Producto 1", price=100, section="Ratones", description="Descripción 1", image=PRODUCT_IMAGE, department="Componentes", producer="Asus", inventory=10)
+        product_2 = Product.objects.create(title="Producto 2", price=100, section="Ratones", description="Descripción 2", image=PRODUCT_IMAGE, department="Componentes", producer="Asus", inventory=10)
+        product_3 = Product.objects.create(title="Producto 3", price=100, section="Ratones", description="Descripción 3", image=PRODUCT_IMAGE, department="Componentes", producer="Asus", inventory=10)
 
         order_p_1 = OrderProduct.objects.create(session_id="123", product=product_1, quantity=1)
         order_p_2 = OrderProduct.objects.create(session_id="123", product=product_2, quantity=2)
@@ -81,8 +81,8 @@ class OrderTestCase(TestCase):
 
 class OrderProductTestCase(TestCase):
     def setUp(self):
-        Product.objects.create(title="titlePrueba", description="description", price=4.89, discount_price=3, section="Motherboard", image="https://www.google.com", department="Components", producer="Nvidia", inventory=5)
-        Product.objects.create(title="titlePrueba2", description="description2", price=4.89, discount_price=3, section="Motherboard", image="https://www.google.com", department="Components", producer="Nvidia", inventory=5)
+        Product.objects.create(title="titlePrueba", description="description", price=4.89, discount_price=3, section="Placa base", image="https://www.google.com", department="Componentes", producer="Nvidia", inventory=5)
+        Product.objects.create(title="titlePrueba2", description="description2", price=4.89, discount_price=3, section="Placa base", image="https://www.google.com", department="Componentes", producer="Nvidia", inventory=5)
         product = Product.objects.get(title="titlePrueba")
         self.order_product = OrderProduct.objects.create(session_id="36794cfc-f122-401a-bfb5-47b27d772708", product=product, quantity=2)
     
@@ -326,8 +326,8 @@ class PaymentTestCase(TestCase):
 
 class ProductTestCase(TestCase):
     def setUp(self):
-        self.product1 = Product.objects.create(title='test', price=1, inventory=1, description='test', section='Motherboard', department='Components', producer='Asus', image="https://www.google.com")
-        self.product2 = Product.objects.create(title='testUpdate', price=1, inventory=1, description='test', section='Motherboard', department='Components', producer='Asus', image="https://www.google.com")
+        self.product1 = Product.objects.create(title='test', price=1, inventory=1, description='test', section='Placa base', department='Componentes', producer='Asus', image="https://www.google.com")
+        self.product2 = Product.objects.create(title='testUpdate', price=1, inventory=1, description='test', section='Placa base', department='Componentes', producer='Asus', image="https://www.google.com")
         
     def test_product_create(self):
         product = self.product1
@@ -335,8 +335,8 @@ class ProductTestCase(TestCase):
         self.assertEqual(product.price, 1)
         self.assertEqual(product.inventory, 1)
         self.assertEqual(product.description, 'test')
-        self.assertEqual(product.section, 'Motherboard')
-        self.assertEqual(product.department, 'Components')
+        self.assertEqual(product.section, 'Placa base')
+        self.assertEqual(product.department, 'Componentes')
         self.assertEqual(product.producer, 'Asus')
     
     def test_product_update(self):
@@ -345,16 +345,16 @@ class ProductTestCase(TestCase):
         product.description = 'testUpdate2'
         product.price = 2
         product.inventory = 2
-        product.section = 'Keyboards'
-        product.department = 'Components'
+        product.section = 'Teclados'
+        product.department = 'Componentes'
         product.producer = 'Intel'
         product.save()
         self.assertEqual(product.title, 'testUpdate2')
         self.assertEqual(product.price, 2)
         self.assertEqual(product.inventory, 2)
         self.assertEqual(product.description, 'testUpdate2')
-        self.assertEqual(product.section, 'Keyboards')
-        self.assertEqual(product.department, 'Components')
+        self.assertEqual(product.section, 'Teclados')
+        self.assertEqual(product.department, 'Componentes')
         self.assertEqual(product.producer, 'Intel')
 
     def test_product_delete(self):
@@ -367,64 +367,64 @@ class ProductTestCase(TestCase):
     #create test:
     def test_product_create_title_incorrect(self):
         with self.assertRaises(Exception): 
-            Product.objects.create(title='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA', price=1, inventory=1, description='test', section='Motherboard', department='Components', producer='Asus', image="https://www.google.com")
+            Product.objects.create(title='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA', price=1, inventory=1, description='test', section='Placa base', department='Componentes', producer='Asus', image="https://www.google.com")
     
     def test_product_create_title_null(self):
         with self.assertRaises(Exception):
-            Product.objects.create(price=1, inventory=1, description='test', section='Motherboard', department='Components', producer='Asus', image="https://www.google.com")
+            Product.objects.create(price=1, inventory=1, description='test', section='Placa base', department='Componentes', producer='Asus', image="https://www.google.com")
     def test_product_create_price_incorrect(self):
         with self.assertRaises(Exception):
-            Product.objects.create(title='test', price=-1, inventory=1, description='test', section='Motherboard', department='Components', producer='Asus', image="https://www.google.com")
+            Product.objects.create(title='test', price=-1, inventory=1, description='test', section='Placa base', department='Componentes', producer='Asus', image="https://www.google.com")
    
     def test_product_create_price_null(self):
         with self.assertRaises(Exception):
-            Product.objects.create(title='test', inventory=1, description='test', section='Motherboard', department='Components', producer='Asus', image="https://www.google.com")
+            Product.objects.create(title='test', inventory=1, description='test', section='Placa base', department='Componentes', producer='Asus', image="https://www.google.com")
    
     def test_product_create_discount_price_negative(self):
         with self.assertRaises(Exception):
-            Product.objects.create(title='test', price=1, discount_price=-1, inventory=1, description='test', section='Motherboard', department='Components', producer='Asus', image="https://www.google.com")
+            Product.objects.create(title='test', price=1, discount_price=-1, inventory=1, description='test', section='Placa base', department='Componentes', producer='Asus', image="https://www.google.com")
 
     def test_product_create_discount_price_greater_than_price(self):
         with self.assertRaises(Exception):
-            Product.objects.create(title='test', price=1, discount_price=2, inventory=1, description='test', section='Motherboard', department='Components', producer='Asus', image="https://www.google.com")
+            Product.objects.create(title='test', price=1, discount_price=2, inventory=1, description='test', section='Placa base', department='Componentes', producer='Asus', image="https://www.google.com")
     
     def test_product_create_section_incorrect(self):
         with self.assertRaises(Exception):
-            Product.objects.create(title='test', price=1, inventory=1, description='test', section='Motherboard1', department='Components', producer='Asus', image="https://www.google.com")
+            Product.objects.create(title='test', price=1, inventory=1, description='test', section='Placa base1', department='Componentes', producer='Asus', image="https://www.google.com")
     def test_product_create_section_null(self):
         with self.assertRaises(Exception):
-            Product.objects.create(title='test', price=1, inventory=1, description='test', department='Components', producer='Asus', image="https://www.google.com")
+            Product.objects.create(title='test', price=1, inventory=1, description='test', department='Componentes', producer='Asus', image="https://www.google.com")
     def test_product_create_description_null(self):
         with self.assertRaises(Exception):
-            Product.objects.create(title='test', price=1, inventory=1, section='Motherboard', department='Components', producer='Asus', image="https://www.google.com")
+            Product.objects.create(title='test', price=1, inventory=1, section='Placa base', department='Componentes', producer='Asus', image="https://www.google.com")
    
     def test_create_image_incorrect(self):
         with self.assertRaises(Exception):
-            Product.objects.create(title='test', price=1, inventory=1, description='test', section='Motherboard', department='Components', producer='Asus', image="hola")
+            Product.objects.create(title='test', price=1, inventory=1, description='test', section='Placa base', department='Componentes', producer='Asus', image="hola")
         
     def test_create_image_null(self):
         with self.assertRaises(Exception):
-            Product.objects.create(title='test', price=1, inventory=1, description='test', section='Motherboard', department='Components', producer='Asus')
+            Product.objects.create(title='test', price=1, inventory=1, description='test', section='Placa base', department='Componentes', producer='Asus')
     
     def test_create_department_incorrect(self):
         with self.assertRaises(Exception):
-            Product.objects.create(title='test', price=1, inventory=1, description='test', section='Motherboard', department='Components1', producer='Asus', image="https://www.google.com")
+            Product.objects.create(title='test', price=1, inventory=1, description='test', section='Placa base', department='Componentes1', producer='Asus', image="https://www.google.com")
     
     def test_create_department_null(self):
         with self.assertRaises(Exception):
-            Product.objects.create(title='test', price=1, inventory=1, description='test', section='Motherboard', producer='Asus', image="https://www.google.com")
+            Product.objects.create(title='test', price=1, inventory=1, description='test', section='Placa base', producer='Asus', image="https://www.google.com")
         
     def test_create_producer_incorrect(self):
         with self.assertRaises(Exception):
-            Product.objects.create(title='test', price=1, inventory=1, description='test', section='Motherboard', department='Components', producer='Asus1', image="https://www.google.com")
+            Product.objects.create(title='test', price=1, inventory=1, description='test', section='Placa base', department='Componentes', producer='Asus1', image="https://www.google.com")
         
     def test_create_producer_null(self):
         with self.assertRaises(Exception):
-            Product.objects.create(title='test', price=1, inventory=1, description='test', section='Motherboard', department='Components', image="https://www.google.com")
+            Product.objects.create(title='test', price=1, inventory=1, description='test', section='Placa base', department='Componentes', image="https://www.google.com")
         
     def test_create_inventory_incorrect(self):
         with self.assertRaises(Exception):
-            Product.objects.create(title='test', price=1, inventory=-1, description='test', section='Motherboard', department='Components', producer='Asus', image="https://www.google.com")
+            Product.objects.create(title='test', price=1, inventory=-1, description='test', section='Placa base', department='Componentes', producer='Asus', image="https://www.google.com")
 
 
    
@@ -469,7 +469,7 @@ class ProductTestCase(TestCase):
     def test_product_update_section_incorrect(self):
         with self.assertRaises(Exception):
             product = self.product2
-            product.section = 'Motherboard1'
+            product.section = 'Placa base1'
             product.save()
         
     def test_product_update_section_null(self):
@@ -499,7 +499,7 @@ class ProductTestCase(TestCase):
     def test_update_department_incorrect(self):
         with self.assertRaises(Exception):
             product = self.product2
-            product.department = 'Components1'
+            product.department = 'Componentes1'
             product.save()
     
     def test_update_department_null(self):

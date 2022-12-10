@@ -68,3 +68,21 @@ img {
 .btn-filter {
   max-width: 150px;
 }
+
+.navigation{
+  margin: auto;
+  display: flex;
+}
+
+.navigation li a{
+  color: white;
+  background-color: var(--bs-indigo);
+}
+
+.pagination{
+  margin: auto;
+}
+.navigation li a:hover{
+  color: #ffc107;
+  background-color: var(--bs-indigo);
+}
