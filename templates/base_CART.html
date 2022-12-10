@@ -65,8 +65,9 @@
 
     <div class="cart-footer">
         <div class="total-price"><span>Total:</span> <span>{{ total_price }} €</span></div>
-
+        {% if products %}
         <a href="{% url 'order' %}" class="btn btn-success">Realizar pedido</a>
+        {% endif %}
     </div>
 </div>
 
