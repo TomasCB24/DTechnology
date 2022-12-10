@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}Detalle del producto{% endblock %}
+{% block title %}Detalle del producto DTechnology{% endblock %}
 
 {% block head %}
     {% load static %}
@@ -52,7 +52,7 @@
                     <div class="col-md-2 card-select d-flex justify-content-end">
                         <div class="form-outline">
                             <input type="number" name="quantity" class="form-control" value="1" min="1" max="100"/>
-                            <input type="hidden" name="product_id" value={{product.id}}>
+                            <input type="hidden" name="product_id" value={{product.id}}/>
                         </div>
                     </div>
                     
@@ -64,7 +64,7 @@
                     
                 </form><!--form-->
                 {% endif%}
-            <div>
+            </div>
             {% if product.get_stock > 0 %}
             <div class="d-flex justify-content-center mb-2 btn btn-info">
                 {{ product.get_stock }} unidades disponibles
@@ -97,7 +97,5 @@
         </div>
     </div>
 </div>
-    
 
-
-{% endblock %}
+{% endblock content %}

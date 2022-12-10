@@ -10,21 +10,23 @@
           DTechnology
         </a>
       </div>
+
       <div class="collapse navbar-collapse">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="/contact">
-              Atención al cliente y datos de empresa
-        </ul>
-      </div>
+        <ul class="navbar-nav ms-auto">
+
+          <li class="nav-item">
             <a class="nav-link" href="/tracking">
               Seguimiento de pedidos
-        </ul>
-      </div>
+            </a>
+          </li>
 
-      <div class="pc-screen">
-        {% include "components/shopping_cart.html" %}
-        <span class="cart-counter">{{ cart_counter }}</span>
+          <li>
+            {% include "components/shopping_cart.html" %}
+            <span class="cart-counter">{{ cart_counter }}</span>
+          </li>
+
+        </ul>
+        
       </div> 
 
     </div>
