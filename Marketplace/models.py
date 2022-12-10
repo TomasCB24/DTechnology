@@ -2,6 +2,10 @@ import uuid
 from django.db import models
 from django_countries.fields import CountryField
 from phonenumber_field.modelfields import PhoneNumberField
+from PIL import Image
+from io import BytesIO
+from django import forms
+
 from django.core.validators import (
     DecimalValidator,
     MaxValueValidator,
@@ -15,6 +19,8 @@ from django.core.exceptions import ValidationError
 from django.db.models.signals import pre_save
 import random
 from django.core.validators import URLValidator
+import requests
+import urllib3
 
 
 # Create your models here.
@@ -25,35 +31,35 @@ PAYMENT_METHODS = (
 
 
 CATEGORY_CHOICES = (
-    ('Motherboard','Motherboard'),
-    ('Processor','Processor'),
-    ('Hard Disk Drive','Hard Disk Drive'),
-    ('Solid State Drive','Solid State Drive'),
-    ('Graphic Card','Graphic Card'),
-    ('Ram Memory','Ram Memory'),
-    ('DVD/CD Recorder','DVD/CD Recorder'),
-    ('Sound Card','Sound Card'),
-    ('Computer Cases','Computer Cases'),
-    ('Ventilation','Ventilation'),
-    ('Power Supply','Power Supply'),
-    ('Mouses','Mouses'),
-    ('Keyboards', 'Keyboards'),
-    ('Speakers','Speakers'),
-    ('Headphones','Headphones'),
-    ('Gaming Chairs','Gaming Chairs'),
-    ('Webcam','Webcam'),
-    ('Printers','Printers'),
-    ('Games','Games'),
-    ('Consoles','Consoles'),
-    ('Console Accessories','Console Accessories'),
-    ('Controls','Controls')
+    ('Placa base','Placa base'),
+    ('Procesador','Procesador'),
+    ('Disco duro mecánico','Disco duro mecánico'),
+    ('Disco duro sólido','Disco duro sólido'),
+    ('Tarjeta gráfica','Tarjeta gráfica'),
+    ('Memoria ram','Memoria ram'),
+    ('Grabadora DVD/CD','Grabadora DVD'),
+    ('Tarjeta de sonido','Tarjeta de sonido'),
+    ('Torres de ordenador','Torres de ordenador'),
+    ('Ventilación','Ventilación'),
+    ('Alimentación','Alimentación'),
+    ('Ratones','Ratones'),
+    ('Teclados', 'Teclados'),
+    ('Altavoces','Altavoces'),
+    ('Auriculares','Auriculares'),
+    ('Sillas gaming','Sillas gaming'),
+    ('Cámara web','Cámara web'),
+    ('Impresoras','Impresoras'),
+    ('Juegos','Juegos'),
+    ('Consolas','Consolas'),
+    ('Accesorios de Consolas','Accesorios de Consolas'),
+    ('Controles','Controles')
     
 )
 
 DEPARTMENT_CHOICES = (
-    ('Components', 'Components'),
-    ('Peripherals','Peripherals'),
-    ('Consoles and Videogames','Consoles and Videogames')
+    ('Componentes', 'Componentes'),
+    ('Periféricos','Periféricos'),
+    ('Consolas y Videojuegos','Consolas y Videojuegos')
 )
 
 PRODUCER_CHOICES = (
@@ -76,6 +82,23 @@ PRODUCER_CHOICES = (
     ('Zotac','Zotac')
 )
 
+def validate_image_quality(value):
+    MIN_HEIGHT = 720
+    MIN_WIDTH = 720
+    try:
+        response = requests.get(value, timeout=10)
+        try:
+            picture  = Image.open(BytesIO(response.content))
+            width, height = picture.size
+            if width < MIN_WIDTH or height < MIN_HEIGHT:
+                raise ValidationError("La imagen no cumple con el requisito de calidad. Debe ser mayor que " + str(MIN_WIDTH) + " de ancho x " + str(MIN_HEIGHT) + " de alto y la actual es de " + str(width) + " de ancho x "+str(height)+" de alto.")
+            else:
+                return value
+        except OSError:
+            raise ValidationError("La URL proporcionada no es una imagen válida. Intente de nuevo proporcionando una URL válida diferente.")
+    except requests.exceptions.Timeout:
+        raise ValidationError("No se ha podido acceder a la imagen en el tiempo requerido. Intente de nuevo proporcionando una URL válida diferente.")
+
 class Product(models.Model):
             
     title = models.CharField(max_length=100)
@@ -83,7 +106,7 @@ class Product(models.Model):
     discount_price = models.DecimalField(decimal_places=2, max_digits=20,blank=True, null=True, validators=[MinValueValidator(0.0)])
     section = models.CharField(choices=CATEGORY_CHOICES, max_length=30)
     description = models.TextField(max_length= 400)
-    image = models.URLField()
+    image = models.URLField(validators=[URLValidator(), validate_image_quality])
     department = models.CharField(choices=DEPARTMENT_CHOICES, max_length=30)
     producer = models.CharField(choices=PRODUCER_CHOICES, max_length=30)
     inventory = models.IntegerField(default=5)
@@ -102,8 +125,7 @@ class Product(models.Model):
             raise ValidationError("La imagen no puede estar vacia")
         if self.price < 0:
             raise ValidationError("El precio no puede ser negativo")
-        if self.discount_price is not None:
-            if self.discount_price < 0:
+        if self.discount_price is not None and self.discount_price < 0:
                 raise ValidationError("El descuento no puede ser negativo")
         if self.inventory < 0:
             raise ValidationError("El inventario no puede ser negativo")
@@ -116,6 +138,7 @@ class Product(models.Model):
         producers = [x[0] for x in PRODUCER_CHOICES]
         if self.producer not in producers:
             raise ValidationError("El productor no es valido")
+
         val = URLValidator()
         val(self.image)
 
@@ -152,8 +175,7 @@ class Product(models.Model):
         return self.price
     
     def clean(self):
-        if self.discount_price is not None:
-            if self.discount_price > self.price:
+        if self.discount_price is not None and self.discount_price > self.price:
                 raise ValidationError("El descuento tiene que ser menor que el precio original")
 class OrderProduct(models.Model):
     session_id = models.CharField(max_length=100, blank=True, null=True)

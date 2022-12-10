@@ -4,3 +4,4 @@ django-countries
 stripe
 crispy-bootstrap5
 python-decouple
+pillow

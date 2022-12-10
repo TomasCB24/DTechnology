@@ -9,6 +9,7 @@ from django.contrib import messages
 from .forms import AddressForm
 from django.http import HttpResponseRedirect
 from django_countries import countries
+from django.core.paginator import Paginator
 
 from Marketplace.models import Product, CATEGORY_CHOICES, DEPARTMENT_CHOICES, PRODUCER_CHOICES
 
@@ -21,6 +22,9 @@ def get_cart_counter(request):
         return cart_counter
     else:
         return 0
+
+def index(request):
+    return render(request, 'base_INDEX.html', {'cart_counter': get_cart_counter(request)})
 
 def cart(request):
 
@@ -64,21 +68,20 @@ def delete_product(request, id):
     product.delete()
     return redirect('cart')
 
-@csrf_exempt
 def home(request):
 
     if 'nonuser' not in request.session or request.session['nonuser'] == '':
         request.session['nonuser'] = str(uuid.uuid4())
     
-    active_category, active_department, active_producer = 'Any Categories', 'Any Departments', 'Any Producers'
+    active_category, active_department, active_producer = 'Cualquier Categoría', 'Cualquier Departamento', 'Cualquier Fabricante'
     search = ""
 
     if request.method == 'POST':
         search = request.POST.get("search-product", '')
         if 'filter' in request.POST:
-            category = request.POST.get('Categories', 'Any Categories')
-            department = request.POST.get('Departments', 'Any Departments')
-            producer = request.POST.get('Producers', 'Any Producers')
+            category = request.POST.get('Categoría', 'Cualquier Categoría')
+            department = request.POST.get('Departamento', 'Cualquier Departamento')
+            producer = request.POST.get('Fabricante', 'Cualquier Fabricante')
             active_category, active_department, active_producer = category, department, producer
             
         elif 'add_to_cart' in request.POST:
@@ -97,10 +100,19 @@ def home(request):
                 add_to_cart(request,product_id, quantity)
             else:
                 messages.warning(request, 'No hay suficientes ' + product.title + ' en el inventario')
-            
-    products = get_products(active_category, active_department, active_producer, search)
+    
+    if request.GET.get('search'):
+        search = request.GET.get('search')
+    if request.GET.get('category'):
+        active_category = request.GET.get('category')
+    if request.GET.get('department'):
+        active_department = request.GET.get('department')
+    if request.GET.get('producer'):
+        active_producer = request.GET.get('producer')
+    [products, page_obj] = get_products(active_category, active_department, active_producer, search, request, page_size=12)
+    print(products)
 
-    return render(request, 'base_HOME.html', 
+    return render(request, 'base_CATALOGUE.html', 
             {'categories': CATEGORY_CHOICES, 
             'departments': DEPARTMENT_CHOICES, 
             'producers': PRODUCER_CHOICES, 
@@ -108,7 +120,12 @@ def home(request):
             'active_dep': active_department, 
             'active_prod': active_producer,
             'listOfList': products,
-            'cart_counter': get_cart_counter(request)
+            'cart_counter': get_cart_counter(request),
+            'page_obj': page_obj,
+            'active_category': active_category,
+            'active_department': active_department,
+            'active_producer': active_producer,
+            'search': search,
             }
         )
 
@@ -122,15 +139,15 @@ def add_to_cart(request,product_id, quantity):
     except:
         OrderProduct.objects.create(product=product, quantity=quantity, session_id = request.session['nonuser'])
 
-def get_products(category, department, producer, search):
+def get_products(category, department, producer, search, request, page_size):
     
     listOfList = []
 
-    if category == 'Any Categories':
+    if category == 'Cualquier Categoría':
         category = ''
-    if department == 'Any Departments':
+    if department == 'Cualquier Departamento':
         department = ''
-    if producer == 'Any Producers':
+    if producer == 'Cualquier Fabricante':
         producer = ''
     
     productos = Product.objects.filter(section__icontains=category, 
@@ -140,19 +157,22 @@ def get_products(category, department, producer, search):
                                                                             Q(department__icontains=search) | 
                                                                             Q(producer__icontains=search))   
 
+    paginator = Paginator(productos, page_size) # Show 5 products per page.
+    page_number = request.GET.get('page')
+    products_page = paginator.get_page(page_number)
     i=0
     listaCuatroProductos = []
-    for producto in productos:
+    for producto in products_page:
         if i == 4:
             listOfList.append(listaCuatroProductos)
             listaCuatroProductos = []
             i=0
         listaCuatroProductos.append(producto)
         i+=1
-    if len(listaCuatroProductos) <= 4:
+    if len(listaCuatroProductos) <= 4 and len(productos)!=0:
         listOfList.append(listaCuatroProductos)  
     
-    return listOfList
+    return [listOfList, products_page]
 
 
 def order(request):
@@ -271,6 +291,9 @@ def detail(request,id):
                             {'product': pro,
                             'cart_counter': get_cart_counter(request)
                             })
+
+def return_policy(request):
+    return render(request, 'base_RETURN_POLICY.html')
 
 def contact(request):
     return render(request, 'base_CONTACT.html', {'cart_counter': get_cart_counter(request)})
