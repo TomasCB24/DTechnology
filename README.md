@@ -3,7 +3,7 @@ DTechnology es un proyecto de *ecommerce* realizado en el ámbito de la asignatu
 
 ## Pre-requisitos
 - [Python 3.11](https://www.python.org/downloads/)
-- [Docker 4.15.0](https://docs.docker.com/desktop/release-notes/)
+- [Docker Desktop 4.15.0](https://docs.docker.com/desktop/release-notes/)
 - [WSL 2](https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi)
 
 
@@ -34,7 +34,7 @@ DTechnology es un proyecto de *ecommerce* realizado en el ámbito de la asignatu
 1. Es necesario tener Docker Desktop instalado y funcionando en el sistema. En caso de encontrarse en Windows, asegúrese de haber instalado previamente WSL en su versión 2 (disponible en los pre-requisitos).
 
 2. A continuación, ejecute los siguientes comandos en una consola de comandos:
-	  ```
+	```
     docker pull tomascb/dtechnology:latest
   
     docker run -p 8000:8000 -i -t tomascb/dtechnology
