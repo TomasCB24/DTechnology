@@ -24,6 +24,9 @@ def get_cart_counter(request):
         return 0
 
 def index(request):
+    if 'nonuser' not in request.session or request.session['nonuser'] == '':
+        request.session['nonuser'] = str(uuid.uuid4())
+        
     return render(request, 'base_INDEX.html', {'cart_counter': get_cart_counter(request)})
 
 def cart(request):
@@ -69,10 +72,7 @@ def delete_product(request, id):
     return redirect('cart')
 
 def home(request):
-
-    if 'nonuser' not in request.session or request.session['nonuser'] == '':
-        request.session['nonuser'] = str(uuid.uuid4())
-    
+ 
     active_category, active_department, active_producer = 'Cualquier Categoría', 'Cualquier Departamento', 'Cualquier Fabricante'
     search = ""
 
