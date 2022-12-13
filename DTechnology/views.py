@@ -24,9 +24,6 @@ def get_cart_counter(request):
         return 0
 
 def index(request):
-    if 'nonuser' not in request.session or request.session['nonuser'] == '':
-        request.session['nonuser'] = str(uuid.uuid4())
-        
     return render(request, 'base_INDEX.html', {'cart_counter': get_cart_counter(request)})
 
 def cart(request):
@@ -72,7 +69,10 @@ def delete_product(request, id):
     return redirect('cart')
 
 def home(request):
- 
+
+    if 'nonuser' not in request.session or request.session['nonuser'] == '':
+        request.session['nonuser'] = str(uuid.uuid4())
+    
     active_category, active_department, active_producer = 'Cualquier Categoría', 'Cualquier Departamento', 'Cualquier Fabricante'
     search = ""
 
@@ -90,17 +90,20 @@ def home(request):
 
             product = Product.objects.get(id=product_id)
 
-            order_products = OrderProduct.objects.filter(product=product).filter(ordered=False)
+            order_product = OrderProduct.objects.filter(product=product).filter(ordered=False, session_id=request.session['nonuser'])
 
-            cart_quantity = 0
-            for order_product in order_products:
-                cart_quantity += order_product.quantity
-            
-            if((product.inventory - cart_quantity) >= quantity):
-                add_to_cart(request,product_id, quantity)
+            if not order_product.exists():
+                order_product = OrderProduct.objects.create(product=product, quantity=quantity, session_id=request.session['nonuser'])
+                order_product.save()
             else:
-                messages.warning(request, 'No hay suficientes ' + product.title + ' en el inventario')
-    
+                order_product = order_product[0]
+
+                if 0 < (product.inventory - order_product.quantity):
+                    order_product.quantity += 1
+                    order_product.save()
+                else:
+                    messages.warning(request, 'No hay suficientes ' + product.title + ' en el inventario')
+
     if request.GET.get('search'):
         search = request.GET.get('search')
     if request.GET.get('category'):
