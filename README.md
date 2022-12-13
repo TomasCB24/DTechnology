@@ -11,6 +11,22 @@ DTechnology es un proyecto de *ecommerce* realizado en el ámbito de la asignatu
 ## Instalación local
 1. Instale la versión especificada anteriormente de Python en su sistema operativo.
 2. Para ejecutar el proyecto en local, abra una consola de comandos y ejecute los siguientes comandos:
+	
+	Nota: Este proyecto usa variables de entorno que deben ser establecidas antes de poner en marcha el proyecto. Para ello, deberás crear un archivo .env dentro del directorio raíz con el siguiente contenido:
+	```
+	DJANGO_SECRET_KEY = 'django-insecure-_$s8&xy9@woe3wlr(pqj3r(n8q78o4j##h-f4e%@3=ms_d$!i7'
+	STRIPE_PUBLISHABLE_KEY = ''
+	STRIPE_SECRET_KEY = ''
+	EMAIL_HOST_USER = ''
+	EMAIL_HOST_PASSWORD = ''
+	```
+	
+	- La clave introducida de Django es un ejemplo, la mejor opción es generarla automáticamente, sabiendo que es una clave que se utiliza para encriptar datos sensibles en la aplicación Django y tiene al menos 50 caracteres de largo.
+	- Las variables **STRIPE_PUBLISHABLE_KEY** y **STRIPE_SECRET_KEY** son claves que proporciona la API de Stripe. Para ello, deberá crearse una cuenta previamente.
+	- En cuanto a las variables **EMAIL_HOST_USER** y **EMAIL_HOST_PASSWORD**, hacen referencia a la dirección de correo electrónico y la contraseña utilizada para enviar los correos con la referencia del pedido. 
+	
+	Una vez hecho todos estos pasos, ya puede ejecutar los siguientes:
+
     ```
     git clone https://github.com/TomasCB24/DTechnology.git
   
