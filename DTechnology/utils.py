@@ -24,12 +24,16 @@ def add_product_to_cart(request):
     order_product = OrderProduct.objects.filter(product=product).filter(ordered=False, session_id=request.session['nonuser'])
 
     if not order_product.exists():
-        order_product = OrderProduct.objects.create(product=product, quantity=quantity, session_id=request.session['nonuser'])
-        order_product.save()
+        if quantity <= product.inventory:
+            order_product = OrderProduct.objects.create(product=product, quantity=quantity, session_id=request.session['nonuser'])
+            order_product.save()
+        else:
+            messages.warning(request, 'No hay suficientes ' + product.title + ' en el inventario')
+
     else:
         order_product = order_product[0]
 
-        if 0 < (product.inventory - order_product.quantity):
+        if 0 <= (product.inventory - order_product.quantity - quantity):
             order_product.quantity += quantity
             order_product.save()
         else:
