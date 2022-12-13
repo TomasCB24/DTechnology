@@ -12,6 +12,9 @@ from DTechnology.utils import *
 from Marketplace.models import Product, CATEGORY_CHOICES, DEPARTMENT_CHOICES, PRODUCER_CHOICES
 
 def index(request):
+    if 'nonuser' not in request.session or request.session['nonuser'] == '':
+        request.session['nonuser'] = str(uuid.uuid4())
+        
     return render(request, 'base_INDEX.html', {'cart_counter': get_cart_counter(request)})
 
 def cart(request):
