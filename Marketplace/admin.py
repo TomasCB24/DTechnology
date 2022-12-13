@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Product, OrderProduct, Order, Payment, Address
+from .models import Product, OrderProduct, Order, Address
 
 
 def make_refund_accepted(modeladmin, request, queryset):
@@ -18,13 +18,11 @@ class OrderAdmin(admin.ModelAdmin):
                     'received',
                     'shipping_address',
                     'billing_address',
-                    'payment',
                     ]
     list_display_links = [
         'ref_code',
         'shipping_address',
         'billing_address',
-        'payment',
     ]
     list_filter = ['ordered',
                    'being_delivered',
@@ -49,6 +47,5 @@ class AddressAdmin(admin.ModelAdmin):
 admin.site.register(Product)
 admin.site.register(OrderProduct)
 admin.site.register(Order, OrderAdmin)
-admin.site.register(Payment)
 admin.site.register(Address, AddressAdmin)
 

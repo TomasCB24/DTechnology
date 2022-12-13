@@ -229,8 +229,7 @@ class Order(models.Model):
         'Address', related_name='shipping_address', on_delete=models.SET_NULL, blank=True, null=True)
     billing_address = models.ForeignKey(
         'Address', related_name='billing_address', on_delete=models.SET_NULL, blank=True, null=True)
-    payment = models.ForeignKey(
-        'Payment', on_delete=models.SET_NULL, blank=True, null=True)
+
     being_delivered = models.BooleanField(default=False)
     received = models.BooleanField(default=False)
 
@@ -249,22 +248,6 @@ class Order(models.Model):
     def __str__(self):
         return self.ref_code
 
-
-class Payment(models.Model):
-    purcharse_id = models.AutoField(primary_key=True)
-    amount = models.FloatField(validators=[MinValueValidator(0.0)])
-    timestamp = models.DateTimeField(auto_now_add=True)
-
-    def save(self, *args, **kwargs):
-        if self.amount < 0:
-            raise ValidationError("El pago no puede ser negativo")
-        super().save(*args, **kwargs)
-
-    
-    @property
-    def stripe_charge_id(self):
-        number = random.randint(1000000,9999999)
-        return str(self.timestamp.time())+"/"+ str(number) + str(self.purcharse_id)
 
 class Address(models.Model):
     name = models.CharField(max_length=100, blank=True, null = True)
