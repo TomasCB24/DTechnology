@@ -24,7 +24,7 @@ def add_product_to_cart(request):
     order_product = OrderProduct.objects.filter(product=product).filter(ordered=False, session_id=request.session['nonuser'])
 
     if not order_product.exists():
-        if quantity <= product.inventory:
+        if quantity <= product.get_stock():
             order_product = OrderProduct.objects.create(product=product, quantity=quantity, session_id=request.session['nonuser'])
             order_product.save()
         else:
@@ -33,7 +33,7 @@ def add_product_to_cart(request):
     else:
         order_product = order_product[0]
 
-        if 0 <= (product.inventory - order_product.quantity - quantity):
+        if 0 <= (product.get_stock() - quantity):
             order_product.quantity += quantity
             order_product.save()
         else:
@@ -61,7 +61,7 @@ def increase_product_quantity(request, id):
     orderProduct = OrderProduct.objects.get(id=id)
     product = orderProduct.product
     
-    order_products = OrderProduct.objects.filter(product=product)
+    order_products = OrderProduct.objects.filter(product=product).filter(ordered = False)
     cart_quantity = 0
     for order_product in order_products:
         cart_quantity += order_product.quantity
